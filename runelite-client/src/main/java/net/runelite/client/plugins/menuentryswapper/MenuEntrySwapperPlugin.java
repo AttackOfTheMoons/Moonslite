@@ -231,6 +231,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			configuringShiftClick = event.getMenuOption().equals(CONFIGURE) && Text.removeTags(event.getMenuTarget()).equals(MENU_TARGET);
 			refreshShiftClickCustomizationMenus();
 		}
+
 	}
 
 	@Subscribe
