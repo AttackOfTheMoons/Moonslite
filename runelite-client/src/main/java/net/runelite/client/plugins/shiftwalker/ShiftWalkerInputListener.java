@@ -1,5 +1,7 @@
 package net.runelite.client.plugins.shiftwalker;
 
+//Taken from lyzrdlite
+
 import java.awt.event.KeyEvent;
 import javax.inject.Inject;
 import net.runelite.client.input.KeyListener;

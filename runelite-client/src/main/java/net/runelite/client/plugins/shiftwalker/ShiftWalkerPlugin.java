@@ -1,5 +1,7 @@
 package net.runelite.client.plugins.shiftwalker;
 
+//Taken from lyzrdlite
+
 import com.google.inject.Provides;
 import javax.inject.Inject;
 import net.runelite.api.Client;

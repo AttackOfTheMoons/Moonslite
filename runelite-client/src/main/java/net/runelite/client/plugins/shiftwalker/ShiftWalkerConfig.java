@@ -1,5 +1,6 @@
-
 package net.runelite.client.plugins.shiftwalker;
+
+//Taken from lyzrdlite
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;

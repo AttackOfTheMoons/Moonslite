@@ -1,5 +1,7 @@
 package net.runelite.client.plugins.shiftwalker;
 
+//Taken from lyzrdlite
+
 import java.util.HashSet;
 
 public final class ShiftWalkerGroups {
