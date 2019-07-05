@@ -419,6 +419,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			{
 				swap("trade", option, target, true);
 				swap("trade-with", option, target, true);
+				swap("shop", option, target, true);
 			}
 
 			if (config.claimSlime() && target.equals("robin"))
@@ -539,6 +540,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		else if (config.swapQuick() && option.equals("open"))
 		{
 			swap("quick-open", option, target, true);
+		}
+		else if (config.swapQuick() && option.equals("climb-down"))
+		{
+			swap("quick-start", option, target, true);
 		}
 		else if (config.swapAdmire() && option.equals("admire"))
 		{

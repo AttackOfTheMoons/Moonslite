@@ -33,8 +33,7 @@ public interface DevToolsConfig
 	@ConfigItem(
 		keyName = "inspectorAlwaysOnTop",
 		name = "",
-		description = "",
-		hidden = true
+		description = ""
 	)
 	default boolean inspectorAlwaysOnTop()
 	{
