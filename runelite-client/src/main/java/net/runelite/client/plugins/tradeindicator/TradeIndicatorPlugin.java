@@ -72,7 +72,9 @@ public class TradeIndicatorPlugin extends Plugin {
         }
 
 
-        /*if ((tradeWidget != null && !tradeWidget.getText().equals("")) && (LOCAL != null && LOCAL.getName().isEmpty())) {
+        /* failed first attempt
+
+        if ((tradeWidget != null && !tradeWidget.getText().equals("")) && (LOCAL != null && LOCAL.getName().isEmpty())) {
            String tradeString = tradeWidget.getText().split(LOCAL.getName() + " has ")[1].split(" ")[0];
            int slots = tradeString.equals("no") ? 0 : Integer.parseInt(tradeString);
            if (slots == config.slotNumber()) {
