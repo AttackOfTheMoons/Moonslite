@@ -2,12 +2,11 @@ package net.runelite.client.plugins.tradeindicator;
 
 import net.runelite.api.Player;
 import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetID;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import com.google.inject.Provides;
 
-import java.awt.*;
+
 import javax.inject.Inject;
 
 
@@ -64,7 +63,16 @@ public class TradeIndicatorPlugin extends Plugin {
     public void onGameTick(GameTick tick) {
         final Player LOCAL = client.getLocalPlayer();
         Widget tradeWidget = client.getWidget(WidgetInfo.TRADING_WITH_SLOTS);
-        if ((tradeWidget != null && !tradeWidget.getText().equals("")) && (LOCAL != null && LOCAL.getName().isEmpty())) {
+        overlay.setAlert(false);
+        if (tradeWidget!=null) {
+            String text = tradeWidget.getText();
+            if (text.length() > 24 && (text.charAt(text.length() - 24) == '2' && text.charAt(text.length() - 23) == '5')) {
+                overlay.setAlert(true);
+            }
+        }
+
+
+        /*if ((tradeWidget != null && !tradeWidget.getText().equals("")) && (LOCAL != null && LOCAL.getName().isEmpty())) {
            String tradeString = tradeWidget.getText().split(LOCAL.getName() + " has ")[1].split(" ")[0];
            int slots = tradeString.equals("no") ? 0 : Integer.parseInt(tradeString);
            if (slots == config.slotNumber()) {
@@ -75,7 +83,7 @@ public class TradeIndicatorPlugin extends Plugin {
 
         } else {
             slotsAlert = false;
-        }
+        }*/
     }
 
 }

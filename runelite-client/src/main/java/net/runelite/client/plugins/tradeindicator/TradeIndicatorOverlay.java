@@ -1,6 +1,9 @@
 package net.runelite.client.plugins.tradeindicator;
 
 import net.runelite.api.Client;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
@@ -15,6 +18,8 @@ public class TradeIndicatorOverlay extends Overlay {
     private final Client client;
     private final TradeIndicatorConfig config;
 
+    private boolean alert;
+
     @Inject
     private TradeIndicatorOverlay (Client client, TradeIndicatorConfig config) {
         this.client = client;
@@ -25,12 +30,22 @@ public class TradeIndicatorOverlay extends Overlay {
     }
 
     public Dimension render(Graphics2D graphics) {
-        graphics.setColor(Color.GRAY);
-        if (TradeIndicatorPlugin.slotsAlert) {
-            graphics.setColor(Color.GREEN);
+        Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
+        for (WidgetItem items: inventory.getWidgetItems()) {
+            if (items.getId() == 5521 && alert) {
+                Rectangle bounds = items.getCanvasBounds();
+                graphics.setColor(Color.GREEN);
+                graphics.draw(bounds);
+            }
         }
-        graphics.fillRect(730,58,20,20);
+
+
+
         return null;
+    }
+
+    public void setAlert (boolean flag) {
+        alert = flag;
     }
 
 
