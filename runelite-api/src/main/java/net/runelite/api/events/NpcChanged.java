@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, TheStonedTurtle <https://github.com/TheStonedTurtle>
+ * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,46 +22,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.itemskeptondeath;
+package net.runelite.api.events;
 
-import com.google.common.collect.ImmutableMap;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import net.runelite.api.ItemID;
+import lombok.Value;
+import net.runelite.api.NPC;
+import net.runelite.api.NPCComposition;
 
 /**
- * Certain Items receive a white outline by Jagex as they are always lost on death. This is sometimes incorrectly
- * added to Items by Jagex as the item is actually kept in non-pvp areas of the game, such as the Rune Pouch.
- *
- * The white outline will be added to these items when they are lost on death.
+ * Fires after the composition of an {@link NPC} changes.
  */
-@AllArgsConstructor
-@Getter
-enum AlwaysLostItem
+@Value
+public class NpcChanged
 {
-	RUNE_POUCH(ItemID.RUNE_POUCH, true),
-	LOOTING_BAG(ItemID.LOOTING_BAG, false),
-	CLUE_BOX(ItemID.CLUE_BOX, false),
-	BRACELET_OF_ETHEREUM(ItemID.BRACELET_OF_ETHEREUM, false),
-	BRACELET_OF_ETHEREUM_UNCHARGED(ItemID.BRACELET_OF_ETHEREUM_UNCHARGED, false);
+	/**
+	 * The NPC of which the composition changed.
+	 */
+	private final NPC npc;
 
-	private final int itemID;
-	private final boolean keptOutsideOfWilderness;
-
-	private static final ImmutableMap<Integer, AlwaysLostItem> ID_MAP;
-
-	static
-	{
-		final ImmutableMap.Builder<Integer, AlwaysLostItem> map = ImmutableMap.builder();
-		for (final AlwaysLostItem p : values())
-		{
-			map.put(p.itemID, p);
-		}
-		ID_MAP = map.build();
-	}
-
-	static AlwaysLostItem getByItemID(final int itemID)
-	{
-		return ID_MAP.get(itemID);
-	}
+	/**
+	 * The old composition of the NPC
+	 */
+	private final NPCComposition old;
 }
