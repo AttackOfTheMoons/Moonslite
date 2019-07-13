@@ -27,6 +27,7 @@ public class TradeIndicatorOverlay extends Overlay {
         setLayer(OverlayLayer.ABOVE_WIDGETS);
         setPosition(OverlayPosition.DYNAMIC);
         setPriority(OverlayPriority.MED);
+        //
     }
 
     public Dimension render(Graphics2D graphics) {
