@@ -164,7 +164,15 @@ public class EasySwapPlugin extends Plugin {
             if (!shiftModifier) {
                 if (target.equalsIgnoreCase("Antidote++(4)") && option.equalsIgnoreCase("Drink")) {
                     swapper.markForSwap("Use", option, target);
+                } else if (target.equalsIgnoreCase("Anti-venom(4)") && option.equalsIgnoreCase("Drink")) {
+                    swapper.markForSwap("Use  ", option, target);
                 }
+            }
+        }
+
+        if (config.getSwapBStaves()) {
+            if (target.toLowerCase().contains("battlestaff") && option.equalsIgnoreCase("Wield")) {
+                swapper.markForSwap("Use", option, target);
             }
         }
 

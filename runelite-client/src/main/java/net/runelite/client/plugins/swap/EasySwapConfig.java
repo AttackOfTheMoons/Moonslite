@@ -123,10 +123,21 @@ public interface EasySwapConfig extends Config {
     }
 
     @ConfigItem(
+            keyName = "swapBStaves",
+            name = "Use BStaves",
+            description = "Left click option to use battlestaves",
+            position = 11
+    )
+
+    default boolean getSwapBStaves() {
+        return false;
+    }
+
+    @ConfigItem(
             keyName = "swapConCape",
             name = "Swap Construction Cape",
             description = "Sets left click to teleport to POH",
-            position = 11
+            position = 12
     )
 
     default boolean getSwapConCape() {
@@ -137,7 +148,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapCraftCape",
             name = "Swap Crafting Cape",
             description = "Left Click Teleport for Crafting Cape",
-            position = 12
+            position = 13
     )
 
     default boolean getSwapCraftCape() {
@@ -148,7 +159,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapNPCContact",
             name = "Swap NPC Contact",
             description = "Swaps NPC Contact",
-            position = 13
+            position = 14
     )
 
     default boolean getSwapNPC() {
@@ -159,7 +170,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapOfferEss",
             name = "Swap Offer Essence",
             description = "Swaps the left click option for offering pure essence in a trade",
-            position = 14
+            position = 15
     )
 
     default boolean getSwapEss() {
@@ -170,7 +181,7 @@ public interface EasySwapConfig extends Config {
             keyName = "BindingNecklaces",
             name = "Examine Binding Necklace",
             description = "Examine Binding Necklace on Left click",
-            position = 15
+            position = 16
     )
 
     default boolean getBindingNeck() {
@@ -181,7 +192,7 @@ public interface EasySwapConfig extends Config {
             keyName = "disableCraftAltar",
             name = "Disable Crafting Altar",
             description = "Prevents accidental crafting of fire runes",
-            position = 16
+            position = 17
     )
 
     default boolean disableCraftAltar(){
@@ -192,7 +203,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapEssencePounch",
             name = "Swap Essence Pouch",
             description = "Empty / Fill Pouches inside bank interface",
-            position = 17
+            position = 18
     )
 
     default boolean getSwapEssencePouch() {
@@ -203,7 +214,7 @@ public interface EasySwapConfig extends Config {
             keyName = "essenceMode",
             name = "Mode",
             description = "Mode for swapping the essence pouches",
-            position = 18
+            position = 19
     )
 
     default EssenceMode getEssenceMode() {
@@ -214,7 +225,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapEssOutsideBank",
             name = "Swap Ess Pouch Outside Bank",
             description = "Empty on left click outside of the bank",
-            position = 19
+            position = 20
     )
 
     default boolean getSwapEssOutsideBank()
@@ -226,7 +237,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapGamesNecklace",
             name = "Swap Games Necklace",
             description = "Left Click Teleport for Games Necklace",
-            position = 20
+            position = 21
     )
     default boolean getGamesNecklace() {
         return true;
@@ -236,7 +247,7 @@ public interface EasySwapConfig extends Config {
             keyName = "gamesNecklaceMode",
             name = "Mode",
             description = "Left Click Teleport Option",
-            position = 21
+            position = 22
     )
 
     default GamesNecklaceMode getGamesNecklaceMode() {
@@ -246,7 +257,7 @@ public interface EasySwapConfig extends Config {
             keyName = "sgamesNecklaceMode",
             name = "Shift Mode",
             description = "Shift + Left Click Teleport Option",
-            position = 22
+            position = 23
     )
 
     default GamesNecklaceMode getSGamesNecklaceMode() {
@@ -257,7 +268,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapDuelingRing",
             name = "Swap Dueling Ring",
             description = "Left Click Teleport for Dueling Ring",
-            position = 23
+            position = 24
     )
 
     default boolean getDuelingRing() {
@@ -268,7 +279,7 @@ public interface EasySwapConfig extends Config {
             keyName = "duelingRingMode",
             name = "Mode",
             description = "Left Click Teleport Option",
-            position = 24
+            position = 25
     )
 
     default DuelingRingMode getDuelingRingMode() {
@@ -279,7 +290,7 @@ public interface EasySwapConfig extends Config {
             keyName = "shiftduelingRingMode",
             name = "Shift Mode",
             description = "Shift + Left Click Teleport Option",
-            position = 25
+            position = 26
     )
 
     default DuelingRingMode getSDuelingRingMode() {
@@ -290,7 +301,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapGlory",
             name = "Swap Glory",
             description = "Left Click Teleport for Amulet of Glory",
-            position = 26
+            position = 27
     )
 
     default boolean getGlory() {
@@ -301,7 +312,7 @@ public interface EasySwapConfig extends Config {
             keyName = "gloryMode",
             name = "Mode",
             description = "Left Click Teleport Option",
-            position = 27
+            position = 28
     )
 
     default GloryMode getGloryMode() {
@@ -311,7 +322,7 @@ public interface EasySwapConfig extends Config {
             keyName = "sgloryMode",
             name = "Shift Mode",
             description = "Shift + Left Click Teleport Option",
-            position = 28
+            position = 29
     )
 
     default GloryMode getSGloryMode() {
