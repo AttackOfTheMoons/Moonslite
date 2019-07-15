@@ -160,6 +160,14 @@ public class EasySwapPlugin extends Plugin {
                 }
             }
         }
+        if (config.getSwapAntidote()) {
+            if (!shiftModifier) {
+                if (target.equalsIgnoreCase("Antidote++(4)") && option.equalsIgnoreCase("Drink")) {
+                    swapper.markForSwap("Use", option, target);
+                }
+            }
+        }
+
 
         if (config.getSwapConCape()) {
             if ((target.equalsIgnoreCase("Construct. cape") ||  target.equalsIgnoreCase("Construct. cape(t)")) && option.equalsIgnoreCase("Remove")) {
