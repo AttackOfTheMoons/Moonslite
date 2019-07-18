@@ -225,6 +225,13 @@ public class EasySwapPlugin extends Plugin {
             if (clanMembersArr == null) {
                 return;
             }
+            if (clanMembersArr.length == 1) {
+                for (MenuEntry m : menuEntries) {
+                    if (m.getOption().contains("Trade")) {
+                        tradeFix.add(m);
+                    }
+                }
+            }
             for (MenuEntry m : menuEntries) {
                 if (m.getOption().contains("Trade") && m.getTarget() != null && m.getTarget() != "") {
                     for (ClanMember x : clanMembersArr) {
