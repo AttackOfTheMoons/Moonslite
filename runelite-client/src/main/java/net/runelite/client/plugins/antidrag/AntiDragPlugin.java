@@ -65,6 +65,11 @@ public class AntiDragPlugin extends Plugin implements KeyListener
 	protected void startUp() throws Exception
 	{
 		keyManager.registerKeyListener(this);
+		if (config.alwaysOn()) {
+			client.setInventoryDragDelay(config.dragDelay());
+		} else {
+			client.setInventoryDragDelay(DEFAULT_DELAY);
+		}
 	}
 
 	@Override
