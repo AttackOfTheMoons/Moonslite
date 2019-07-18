@@ -45,7 +45,7 @@ public interface AntiDragConfig extends Config
 	@ConfigItem(
 			keyName = "alwaysOn",
 			name = "Always On",
-			description = "Enable Anti Drag Always",
+			description = "Enable Anti Drag Always (press shift to refresh)",
 			position = 2
 	)
 	default boolean alwaysOn()
