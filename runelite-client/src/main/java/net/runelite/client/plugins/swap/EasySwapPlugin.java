@@ -222,17 +222,14 @@ public class EasySwapPlugin extends Plugin {
             List<MenuEntry> tradeFix = new ArrayList<>();
             MenuEntry[] menuEntries = swapper.getEntries();
             final ClanMember[] clanMembersArr = client.getClanMembers();
-            if (clanMembersArr == null || clanMembersArr == new ClanMember[]{}) {
+            if (clanMembersArr == null) {
                 return;
             }
-            int i = 0;
             for (MenuEntry m : menuEntries) {
                 if (m.getOption().contains("Trade") && m.getTarget() != null && m.getTarget() != "") {
-                    String name = m.getTarget().split(">")[1].split("<")[0];
                     for (ClanMember x : clanMembersArr) {
-                        if (x.getUsername().equalsIgnoreCase(name)) {
+                        if (m.getTarget().contains(x.getUsername()))
                             tradeFix.add(m);
-                        }
                     }
                 }
             }
