@@ -80,7 +80,7 @@ enum Emoji
 	EYES("O.O"),
 	SWEAT(";;"),
 	PILE_OF_POO("~@~"),
-	Brainlet("Brainlet");
+	BRAINLET("Brainlet");
 
 	private static final Map<String, Emoji> emojiMap;
 
