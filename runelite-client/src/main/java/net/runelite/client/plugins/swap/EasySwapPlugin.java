@@ -240,6 +240,9 @@ public class EasySwapPlugin extends Plugin {
                     }
                 }
             }
+            if (tradeFix.size() == 0) {
+                return;
+            }
             swapper.setEntries(tradeFix.toArray(new MenuEntry[tradeFix.size()]));
         }
 
