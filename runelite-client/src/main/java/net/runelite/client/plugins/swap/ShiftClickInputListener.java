@@ -33,7 +33,7 @@ public class ShiftClickInputListener implements KeyListener {
     public void keyReleased(KeyEvent event) {
         if (event.getKeyCode() == KeyEvent.VK_SHIFT) {
             plugin.setShiftModifier(false);
-
+            plugin.setShiftToggle(!plugin.getShiftToggle());
         }
     }
 }

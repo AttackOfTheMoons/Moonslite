@@ -1,6 +1,7 @@
 package net.runelite.client.plugins.swap;
 
 import com.google.inject.Provides;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
@@ -22,6 +23,7 @@ import net.runelite.api.events.GameStateChanged;
 import javax.inject.Inject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static net.runelite.api.MenuAction.WALK;
@@ -47,6 +49,8 @@ public class EasySwapPlugin extends Plugin {
     private KeyManager keyManager;
     @Setter
     private boolean shiftModifier = false;
+    @Setter
+    private boolean shiftToggle = false;
     @Inject
     private Client client;
 
@@ -73,6 +77,7 @@ public class EasySwapPlugin extends Plugin {
     public void onFocusChanged(FocusChanged event) {
         if (!event.isFocused()) {
             this.shiftModifier = false;
+            this.shiftToggle = false;
         }
 
     }
@@ -213,6 +218,19 @@ public class EasySwapPlugin extends Plugin {
             }
         }
 
+        if (shiftToggle && config.tradesOnly() && option.equalsIgnoreCase("follow")) {
+            List<MenuEntry> tradeFix = new ArrayList<>();
+            MenuEntry[] menuEntries = swapper.getEntries();
+            int i = 0;
+            for (MenuEntry m : menuEntries) {
+                if (m.getOption().contains("Trade")) {
+                    tradeFix.add(m);
+                }
+            }
+            swapper.setEntries(tradeFix.toArray(new MenuEntry[] {}));
+        }
+
+
         if (config.getSwapEssencePouch()) {
             if (isEssencePouch(target)) {
                 Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
@@ -317,6 +335,10 @@ public class EasySwapPlugin extends Plugin {
         {
             this.inHouse = false;
         }
+    }
+
+    public boolean getShiftToggle() {
+        return this.shiftToggle;
     }
 
     private boolean isHouse() {

@@ -200,10 +200,21 @@ public interface EasySwapConfig extends Config {
     }
 
     @ConfigItem(
+            keyName = "tradesOnly",
+            name = "Trades Only",
+            description = "Show only trade option (toggle using shift)",
+            position = 18
+    )
+
+    default boolean tradesOnly() {
+        return false;
+    }
+
+    @ConfigItem(
             keyName = "swapEssencePounch",
             name = "Swap Essence Pouch",
             description = "Empty / Fill Pouches inside bank interface",
-            position = 18
+            position = 19
     )
 
     default boolean getSwapEssencePouch() {
@@ -214,7 +225,7 @@ public interface EasySwapConfig extends Config {
             keyName = "essenceMode",
             name = "Mode",
             description = "Mode for swapping the essence pouches",
-            position = 19
+            position = 20
     )
 
     default EssenceMode getEssenceMode() {
@@ -225,7 +236,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapEssOutsideBank",
             name = "Swap Ess Pouch Outside Bank",
             description = "Empty on left click outside of the bank",
-            position = 20
+            position = 21
     )
 
     default boolean getSwapEssOutsideBank()
@@ -237,7 +248,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapGamesNecklace",
             name = "Swap Games Necklace",
             description = "Left Click Teleport for Games Necklace",
-            position = 21
+            position = 22
     )
     default boolean getGamesNecklace() {
         return true;
@@ -247,7 +258,7 @@ public interface EasySwapConfig extends Config {
             keyName = "gamesNecklaceMode",
             name = "Mode",
             description = "Left Click Teleport Option",
-            position = 22
+            position = 23
     )
 
     default GamesNecklaceMode getGamesNecklaceMode() {
@@ -257,7 +268,7 @@ public interface EasySwapConfig extends Config {
             keyName = "sgamesNecklaceMode",
             name = "Shift Mode",
             description = "Shift + Left Click Teleport Option",
-            position = 23
+            position = 24
     )
 
     default GamesNecklaceMode getSGamesNecklaceMode() {
@@ -268,7 +279,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapDuelingRing",
             name = "Swap Dueling Ring",
             description = "Left Click Teleport for Dueling Ring",
-            position = 24
+            position = 25
     )
 
     default boolean getDuelingRing() {
@@ -279,7 +290,7 @@ public interface EasySwapConfig extends Config {
             keyName = "duelingRingMode",
             name = "Mode",
             description = "Left Click Teleport Option",
-            position = 25
+            position = 26
     )
 
     default DuelingRingMode getDuelingRingMode() {
@@ -290,7 +301,7 @@ public interface EasySwapConfig extends Config {
             keyName = "shiftduelingRingMode",
             name = "Shift Mode",
             description = "Shift + Left Click Teleport Option",
-            position = 26
+            position = 27
     )
 
     default DuelingRingMode getSDuelingRingMode() {
@@ -301,7 +312,7 @@ public interface EasySwapConfig extends Config {
             keyName = "swapGlory",
             name = "Swap Glory",
             description = "Left Click Teleport for Amulet of Glory",
-            position = 27
+            position = 28
     )
 
     default boolean getGlory() {
@@ -312,7 +323,7 @@ public interface EasySwapConfig extends Config {
             keyName = "gloryMode",
             name = "Mode",
             description = "Left Click Teleport Option",
-            position = 28
+            position = 29
     )
 
     default GloryMode getGloryMode() {
@@ -322,7 +333,7 @@ public interface EasySwapConfig extends Config {
             keyName = "sgloryMode",
             name = "Shift Mode",
             description = "Shift + Left Click Teleport Option",
-            position = 29
+            position = 30
     )
 
     default GloryMode getSGloryMode() {
