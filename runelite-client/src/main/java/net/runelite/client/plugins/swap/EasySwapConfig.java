@@ -202,7 +202,7 @@ public interface EasySwapConfig extends Config {
     @ConfigItem(
             keyName = "tradesOnly",
             name = "Trades Only",
-            description = "Show only trade option (toggle using shift)",
+            description = "Show only trade option (toggle using shift) with clan members",
             position = 18
     )
 
