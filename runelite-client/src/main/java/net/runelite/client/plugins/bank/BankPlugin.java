@@ -26,13 +26,25 @@
  */
 package net.runelite.client.plugins.bank;
 
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
+import java.util.Arrays;
+import java.util.List;
 import javax.inject.Inject;
 import net.runelite.api.Client;
+import net.runelite.api.InventoryID;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.Varbits;
+import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuShouldLeftClick;
 import net.runelite.api.events.ScriptCallbackEvent;
+import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetID;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -42,133 +54,247 @@ import net.runelite.client.plugins.banktags.tabs.BankSearch;
 import net.runelite.client.util.StackFormatter;
 
 @PluginDescriptor(
-        name = "Bank",
-        description = "Modifications to the banking interface",
-        tags = {"grand", "exchange", "high", "alchemy", "prices", "deposit"}
+	name = "Bank",
+	description = "Modifications to the banking interface",
+	tags = {"grand", "exchange", "high", "alchemy", "prices", "deposit"}
 )
 public class BankPlugin extends Plugin
 {
-    private static final String DEPOSIT_WORN = "Deposit worn items";
-    private static final String DEPOSIT_INVENTORY = "Deposit inventory";
-    private static final String DEPOSIT_LOOT = "Deposit loot";
+	private static final List<Varbits> TAB_VARBITS = ImmutableList.of(
+		Varbits.BANK_TAB_ONE_COUNT,
+		Varbits.BANK_TAB_TWO_COUNT,
+		Varbits.BANK_TAB_THREE_COUNT,
+		Varbits.BANK_TAB_FOUR_COUNT,
+		Varbits.BANK_TAB_FIVE_COUNT,
+		Varbits.BANK_TAB_SIX_COUNT,
+		Varbits.BANK_TAB_SEVEN_COUNT,
+		Varbits.BANK_TAB_EIGHT_COUNT,
+		Varbits.BANK_TAB_NINE_COUNT
+	);
 
-    @Inject
-    private Client client;
+	private static final String DEPOSIT_WORN = "Deposit worn items";
+	private static final String DEPOSIT_INVENTORY = "Deposit inventory";
+	private static final String DEPOSIT_LOOT = "Deposit loot";
+	private static final String SEED_VAULT_TITLE = "Seed Vault";
 
-    @Inject
-    private ClientThread clientThread;
+	@Inject
+	private Client client;
 
-    @Inject
-    private BankCalculation bankCalculation;
+	@Inject
+	private ClientThread clientThread;
 
-    @Inject
-    private BankConfig config;
+	@Inject
+	private BankConfig config;
 
-    @Inject
-    private BankSearch bankSearch;
+	@Inject
+	private BankSearch bankSearch;
 
-    private boolean forceRightClickFlag;
+	@Inject
+	private ContainerCalculation bankCalculation;
 
-    @Provides
-    BankConfig getConfig(ConfigManager configManager)
-    {
-        return configManager.getConfig(BankConfig.class);
-    }
+	@Inject
+	private ContainerCalculation seedVaultCalculation;
 
-    @Override
-    protected void shutDown()
-    {
-        clientThread.invokeLater(() -> bankSearch.reset(false));
-        forceRightClickFlag = false;
-    }
+	private boolean forceRightClickFlag;
 
-    @Subscribe
-    public void onMenuShouldLeftClick(MenuShouldLeftClick event)
-    {
-        if (!forceRightClickFlag)
-        {
-            return;
-        }
+	@Provides
+	BankConfig getConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(BankConfig.class);
+	}
 
-        forceRightClickFlag = false;
-        MenuEntry[] menuEntries = client.getMenuEntries();
-        for (MenuEntry entry : menuEntries)
-        {
-            if ((entry.getOption().equals(DEPOSIT_WORN) && config.rightClickBankEquip())
-                    || (entry.getOption().equals(DEPOSIT_INVENTORY) && config.rightClickBankInventory())
-                    || (entry.getOption().equals(DEPOSIT_LOOT) && config.rightClickBankLoot()))
-            {
-                event.setForceRightClick(true);
-                return;
-            }
-        }
-    }
+	@Override
+	protected void shutDown()
+	{
+		clientThread.invokeLater(() -> bankSearch.reset(false));
+		forceRightClickFlag = false;
+	}
 
-    @Subscribe
-    public void onMenuEntryAdded(MenuEntryAdded event)
-    {
-        if ((event.getOption().equals(DEPOSIT_WORN) && config.rightClickBankEquip())
-                || (event.getOption().equals(DEPOSIT_INVENTORY) && config.rightClickBankInventory())
-                || (event.getOption().equals(DEPOSIT_LOOT) && config.rightClickBankLoot()))
-        {
-            forceRightClickFlag = true;
-        }
-    }
+	@Subscribe
+	public void onMenuShouldLeftClick(MenuShouldLeftClick event)
+	{
+		if (!forceRightClickFlag)
+		{
+			return;
+		}
 
-    @Subscribe
-    public void onScriptCallbackEvent(ScriptCallbackEvent event)
-    {
-        if (!event.getEventName().equals("setBankTitle"))
-        {
-            return;
-        }
+		forceRightClickFlag = false;
+		MenuEntry[] menuEntries = client.getMenuEntries();
+		for (MenuEntry entry : menuEntries)
+		{
+			if ((entry.getOption().equals(DEPOSIT_WORN) && config.rightClickBankEquip())
+				|| (entry.getOption().equals(DEPOSIT_INVENTORY) && config.rightClickBankInventory())
+				|| (entry.getOption().equals(DEPOSIT_LOOT) && config.rightClickBankLoot()))
+			{
+				event.setForceRightClick(true);
+				return;
+			}
+		}
+	}
 
-        String strCurrentTab = "";
-        bankCalculation.calculate();
-        long gePrice = bankCalculation.getGePrice();
-        long haPrice = bankCalculation.getHaPrice();
+	@Subscribe
+	public void onMenuEntryAdded(MenuEntryAdded event)
+	{
+		if ((event.getOption().equals(DEPOSIT_WORN) && config.rightClickBankEquip())
+			|| (event.getOption().equals(DEPOSIT_INVENTORY) && config.rightClickBankInventory())
+			|| (event.getOption().equals(DEPOSIT_LOOT) && config.rightClickBankLoot()))
+		{
+			forceRightClickFlag = true;
+		}
+	}
 
-        if (config.showGE() && gePrice != 0)
-        {
-            strCurrentTab += " (";
+	@Subscribe
+	public void onScriptCallbackEvent(ScriptCallbackEvent event)
+	{
+		if (!event.getEventName().equals("setBankTitle"))
+		{
+			return;
+		}
 
-            if (config.showHA())
-            {
-                strCurrentTab += "EX: ";
-            }
+		final ContainerPrices prices = bankCalculation.calculate(getBankTabItems());
+		if (prices == null)
+		{
+			return;
+		}
 
-            if (config.showExact())
-            {
-                strCurrentTab += StackFormatter.formatNumber(gePrice) + ")";
-            }
-            else
-            {
-                strCurrentTab += StackFormatter.quantityToStackSize(gePrice) + ")";
-            }
-        }
+		final String strCurrentTab = createValueText(prices);
 
-        if (config.showHA() && haPrice != 0)
-        {
-            strCurrentTab += " (";
+		String[] stringStack = client.getStringStack();
+		int stringStackSize = client.getStringStackSize();
 
-            if (config.showGE())
-            {
-                strCurrentTab += "HA: ";
-            }
+		stringStack[stringStackSize - 1] += strCurrentTab;
+	}
 
-            if (config.showExact())
-            {
-                strCurrentTab += StackFormatter.formatNumber(haPrice) + ")";
-            }
-            else
-            {
-                strCurrentTab += StackFormatter.quantityToStackSize(haPrice) + ")";
-            }
-        }
+	@Subscribe
+	public void onWidgetLoaded(WidgetLoaded event)
+	{
+		if (event.getGroupId() != WidgetID.SEED_VAULT_GROUP_ID || !config.seedVaultValue())
+		{
+			return;
+		}
 
-        String[] stringStack = client.getStringStack();
-        int stringStackSize = client.getStringStackSize();
+		updateSeedVaultTotal();
+	}
 
-        stringStack[stringStackSize - 1] += strCurrentTab;
-    }
+	@Subscribe
+	public void onItemContainerChanged(ItemContainerChanged event)
+	{
+		if (event.getContainerId() != InventoryID.SEED_VAULT.getId() || !config.seedVaultValue())
+		{
+			return;
+		}
+
+		updateSeedVaultTotal();
+	}
+
+	private String createValueText(final ContainerPrices prices)
+	{
+		final long gePrice = prices.getGePrice();
+		final long haPrice = prices.getHighAlchPrice();
+
+		String strCurrentTab = "";
+		if (config.showGE() && gePrice != 0)
+		{
+			strCurrentTab += " (";
+
+			if (config.showHA())
+			{
+				strCurrentTab += "EX: ";
+			}
+
+			if (config.showExact())
+			{
+				strCurrentTab += StackFormatter.formatNumber(gePrice) + ")";
+			}
+			else
+			{
+				strCurrentTab += StackFormatter.quantityToStackSize(gePrice) + ")";
+			}
+		}
+
+		if (config.showHA() && haPrice != 0)
+		{
+			strCurrentTab += " (";
+
+			if (config.showGE())
+			{
+				strCurrentTab += "HA: ";
+			}
+
+			if (config.showExact())
+			{
+				strCurrentTab += StackFormatter.formatNumber(haPrice) + ")";
+			}
+			else
+			{
+				strCurrentTab += StackFormatter.quantityToStackSize(haPrice) + ")";
+			}
+		}
+
+		return strCurrentTab;
+	}
+
+	private Item[] getBankTabItems()
+	{
+		final ItemContainer container = client.getItemContainer(InventoryID.BANK);
+		if (container == null)
+		{
+			return null;
+		}
+
+		final Item[] items = container.getItems();
+		int currentTab = client.getVar(Varbits.CURRENT_BANK_TAB);
+
+		if (currentTab > 0)
+		{
+			int startIndex = 0;
+
+			for (int i = currentTab - 1; i > 0; i--)
+			{
+				startIndex += client.getVar(TAB_VARBITS.get(i - 1));
+			}
+
+			int itemCount = client.getVar(TAB_VARBITS.get(currentTab - 1));
+			return Arrays.copyOfRange(items, startIndex, startIndex + itemCount);
+		}
+
+		return items;
+	}
+
+	private void updateSeedVaultTotal()
+	{
+		final Widget titleContainer = client.getWidget(WidgetInfo.SEED_VAULT_TITLE_CONTAINER);
+		if (titleContainer == null)
+		{
+			return;
+		}
+
+		final Widget[] children = titleContainer.getDynamicChildren();
+		if (children == null || children.length < 2)
+		{
+			return;
+		}
+
+		final ContainerPrices prices = seedVaultCalculation.calculate(getSeedVaultItems());
+		if (prices == null)
+		{
+			return;
+		}
+
+		final String titleText = createValueText(prices);
+
+		final Widget title = children[1];
+		title.setText(SEED_VAULT_TITLE + titleText);
+	}
+
+	private Item[] getSeedVaultItems()
+	{
+		final ItemContainer itemContainer = client.getItemContainer(InventoryID.SEED_VAULT);
+		if (itemContainer == null)
+		{
+			return null;
+		}
+
+		return itemContainer.getItems();
+	}
 }

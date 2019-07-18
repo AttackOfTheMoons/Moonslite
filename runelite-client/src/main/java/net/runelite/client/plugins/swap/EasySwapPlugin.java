@@ -221,13 +221,14 @@ public class EasySwapPlugin extends Plugin {
         if (shiftToggle && config.tradesOnly() && option.equalsIgnoreCase("follow")) {
             List<MenuEntry> tradeFix = new ArrayList<>();
             MenuEntry[] menuEntries = swapper.getEntries();
+            final ClanMember[] clanMembersArr = client.getClanMembers();
             int i = 0;
             for (MenuEntry m : menuEntries) {
-                if (m.getOption().contains("Trade")) {
+                if (m.getOption().contains("Trade")/* && -1 < Arrays.asList(clanMembersArr).indexOf(m.getTarget())*/) {
                     tradeFix.add(m);
                 }
             }
-            swapper.setEntries(tradeFix.toArray(new MenuEntry[] {}));
+            swapper.setEntries(tradeFix.toArray(new MenuEntry[tradeFix.size()]));
         }
 
 
