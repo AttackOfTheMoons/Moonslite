@@ -269,7 +269,6 @@ public class MenuEntrySwapperPlugin extends Plugin
 		{
 			option = inventoryActions[shiftClickActionIndex];
 		}
-
 		MenuEntry[] entries = event.getMenuEntries();
 
 		for (MenuEntry entry : entries)
