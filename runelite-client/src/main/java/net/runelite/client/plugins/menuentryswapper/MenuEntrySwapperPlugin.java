@@ -59,10 +59,10 @@ import net.runelite.client.util.Text;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-	name = "Menu Entry Swapper",
-	description = "Change the default option that is displayed when hovering over objects",
-	tags = {"npcs", "inventory", "items", "objects"},
-	enabledByDefault = false
+		name = "Menu Entry Swapper",
+		description = "Change the default option that is displayed when hovering over objects",
+		tags = {"npcs", "inventory", "items", "objects"},
+		enabledByDefault = false
 )
 public class MenuEntrySwapperPlugin extends Plugin
 {
@@ -75,30 +75,30 @@ public class MenuEntrySwapperPlugin extends Plugin
 	private static final String ITEM_KEY_PREFIX = "item_";
 
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
 
 	private static final WidgetMenuOption FIXED_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB);
 
 	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
 
 	private static final WidgetMenuOption RESIZABLE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB);
 
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_CONFIGURE = new WidgetMenuOption(CONFIGURE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
 
 	private static final WidgetMenuOption RESIZABLE_BOTTOM_LINE_INVENTORY_TAB_SAVE = new WidgetMenuOption(SAVE,
-		MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
+			MENU_TARGET, WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB);
 
 	private static final Set<MenuAction> NPC_MENU_TYPES = ImmutableSet.of(
-		MenuAction.NPC_FIRST_OPTION,
-		MenuAction.NPC_SECOND_OPTION,
-		MenuAction.NPC_THIRD_OPTION,
-		MenuAction.NPC_FOURTH_OPTION,
-		MenuAction.NPC_FIFTH_OPTION,
-		MenuAction.EXAMINE_NPC);
+			MenuAction.NPC_FIRST_OPTION,
+			MenuAction.NPC_SECOND_OPTION,
+			MenuAction.NPC_THIRD_OPTION,
+			MenuAction.NPC_FOURTH_OPTION,
+			MenuAction.NPC_FIFTH_OPTION,
+			MenuAction.EXAMINE_NPC);
 
 	@Inject
 	private Client client;
@@ -225,13 +225,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 	public void onWidgetMenuOptionClicked(WidgetMenuOptionClicked event)
 	{
 		if (event.getWidget() == WidgetInfo.FIXED_VIEWPORT_INVENTORY_TAB
-			|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB
-			|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB)
+				|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_INVENTORY_TAB
+				|| event.getWidget() == WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE_INVENTORY_TAB)
 		{
 			configuringShiftClick = event.getMenuOption().equals(CONFIGURE) && Text.removeTags(event.getMenuTarget()).equals(MENU_TARGET);
 			refreshShiftClickCustomizationMenus();
 		}
-
 	}
 
 	@Subscribe
@@ -263,12 +262,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 		ItemComposition itemComposition = client.getItemDefinition(itemId);
 		String itemName = itemComposition.getName();
 		String option = "Use";
-		int shiftClickActionindex = itemComposition.getShiftClickActionIndex();
+		int shiftClickActionIndex = itemComposition.getShiftClickActionIndex();
 		String[] inventoryActions = itemComposition.getInventoryActions();
 
-		if (shiftClickActionindex >= 0 && shiftClickActionindex < inventoryActions.length)
+		if (shiftClickActionIndex >= 0 && shiftClickActionIndex < inventoryActions.length)
 		{
-			option = inventoryActions[shiftClickActionindex];
+			option = inventoryActions[shiftClickActionIndex];
 		}
 
 		MenuEntry[] entries = event.getMenuEntries();
@@ -366,8 +365,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		final NPC hintArrowNpc = client.getHintArrowNpc();
 
 		if (hintArrowNpc != null
-			&& hintArrowNpc.getIndex() == eventId
-			&& NPC_MENU_TYPES.contains(MenuAction.of(event.getType())))
+				&& hintArrowNpc.getIndex() == eventId
+				&& NPC_MENU_TYPES.contains(MenuAction.of(event.getType())))
 		{
 			return;
 		}
@@ -502,7 +501,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			}
 		}
 		else if (config.swapFairyRing() != FairyRingMode.OFF && config.swapFairyRing() != FairyRingMode.ZANARIS
-			&& (option.equals("zanaris") || option.equals("configure") || option.equals("tree")))
+				&& (option.equals("zanaris") || option.equals("configure") || option.equals("tree")))
 		{
 			if (config.swapFairyRing() == FairyRingMode.LAST_DESTINATION)
 			{
