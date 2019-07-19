@@ -119,7 +119,7 @@ public interface EasySwapConfig extends Config {
     )
 
     default boolean getSwapAntidote() {
-        return true;
+        return false;
     }
 
     @ConfigItem(

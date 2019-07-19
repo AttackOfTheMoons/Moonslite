@@ -15,7 +15,7 @@ public interface EasyBankConfig extends Config {
     )
 
     default boolean getWithdrawOne() {
-        return true;
+        return false;
     }
 
     @ConfigItem(
@@ -37,7 +37,7 @@ public interface EasyBankConfig extends Config {
     )
 
     default boolean getWithdrawFive() {
-        return true;
+        return false;
     }
 
     @ConfigItem(
@@ -59,7 +59,7 @@ public interface EasyBankConfig extends Config {
     )
 
     default boolean getWithdrawTen() {
-        return true;
+        return false;
     }
 
     @ConfigItem(
@@ -81,7 +81,7 @@ public interface EasyBankConfig extends Config {
     )
 
     default boolean getWithdrawX() {
-        return true;
+        return false;
     }
 
     @ConfigItem(
@@ -114,7 +114,7 @@ public interface EasyBankConfig extends Config {
     )
 
     default boolean getWithdrawAll() {
-        return true;
+        return false;
     }
 
     @ConfigItem(
