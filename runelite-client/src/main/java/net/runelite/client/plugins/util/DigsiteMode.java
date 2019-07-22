@@ -1,13 +1,14 @@
 package net.runelite.client.plugins.util;
 
-public enum EssenceMode
+public enum DigsiteMode
 {
-	RUNECRAFTING("Runecrafting"),
-	ESSENCE_MINING("Essence Mining");
+	DIGSITE("Digsite"),
+	FOSSIL_ISLAND("Fossil Island"),
+	LITHKREN_DUNGEON("Lithkren Dungeon");
 
 	private final String name;
 
-	EssenceMode(String name)
+	DigsiteMode(String name)
 	{
 		this.name = name;
 	}

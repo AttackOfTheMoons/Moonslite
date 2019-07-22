@@ -9,6 +9,8 @@ import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.MenuOptionClicked;
+import net.runelite.api.events.WidgetMenuOptionClicked;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
@@ -239,7 +241,15 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapCraftCape())
 		{
-			if ((target.equalsIgnoreCase("Crafting cape") || target.equalsIgnoreCase("Crafting cape(t)")) && option.equalsIgnoreCase("remove"))
+			if (config.cancelTrades() && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
+			{
+				MenuEntry[] entries = swapper.getEntries();
+				for (MenuEntry m : entries) {
+					if (m.getTarget()=="")
+						swapper.setEntries(new MenuEntry[] {m});
+				}
+			}
+			else if ((target.equalsIgnoreCase("Crafting cape") || target.equalsIgnoreCase("Crafting cape(t)")) && option.equalsIgnoreCase("remove"))
 			{
 				swapper.markForSwap("Teleport", option, target);
 			}
@@ -261,7 +271,6 @@ public class EasySwapPlugin extends Plugin
 				swapper.markForSwap("Offer-All", option, target);
 			}
 		}
-
 
 		if (config.getBindingNeck())
 		{
@@ -323,58 +332,40 @@ public class EasySwapPlugin extends Plugin
 			if (isEssencePouch(target))
 			{
 				Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
-				switch (config.getEssenceMode())
+				MenuEntry[] entries = swapper.getEntries();
+				List<MenuEntry> pouchfix = new ArrayList<>();
+				boolean empty = false;
+				for (MenuEntry m : entries)
 				{
-					case RUNECRAFTING:
-						MenuEntry[] entries = swapper.getEntries();
-						List<MenuEntry> pouchfix = new ArrayList<>();
-						int i = 0;
-						boolean empty = false;
-						for (MenuEntry m : entries)
+					if (!m.getOption().contains("Deposit"))
+					{
+						pouchfix.add(m);
+						if (m.getOption().contains("Empty"))
 						{
-							if (!m.getOption().contains("Deposit"))
-							{
-								pouchfix.add(m);
-								if (m.getOption().contains("Empty"))
-								{
-									empty = true;
-								}
-							}
+							empty = true;
 						}
-						MenuEntry[] pouchfixArr = pouchfix.toArray(new MenuEntry[0]);
+					}
+				}
+				MenuEntry[] pouchfixArr = pouchfix.toArray(new MenuEntry[0]);
 
-						if ((widgetBankTitleBar == null || widgetBankTitleBar.getText().equals("")) && config.getSwapEssOutsideBank() && !shiftModifier)
+				if ((widgetBankTitleBar == null || widgetBankTitleBar.getText().equals("")) && config.getSwapEssOutsideBank())
+				{
+					swapper.markForSwap("Empty", option, target);
+				}
+				else
+				{
+					if (pouchfixArr != null)
+					{
+						for (MenuEntry m : pouchfixArr)
 						{
-							swapper.markForSwap("Empty", option, target);
+							m.setForceLeftClick(true);
 						}
-						else
-						{
-							if (pouchfixArr != null)
-							{
-								for (MenuEntry m : pouchfixArr)
-								{
-									m.setForceLeftClick(true);
-								}
-							}
-							swapper.setEntries(pouchfixArr);
-							toolTipManager.clear();
-							toolTipManager.addFront(new Tooltip((empty == true ? "Empty " : "Fill ") + "<col=ff9040>" + StringUtils.capitalize(target)));
-							//swapper.markForSwap("Fill", option, target);
+					}
+					swapper.setEntries(pouchfixArr);
+					toolTipManager.clear();
+					toolTipManager.addFront(new Tooltip((empty == true ? "Empty " : "Fill ") + "<col=ff9040>" + StringUtils.capitalize(target)));
+					//swapper.markForSwap("Fill", option, target);
 
-						}
-						break;
-					case ESSENCE_MINING:
-						if (widgetBankTitleBar == null || widgetBankTitleBar.equals(""))
-						{
-							swapper.markForSwap("Fill", option, target);
-						}
-						else
-						{
-							swapper.markForSwap("Empty", option, target);
-						}
-						break;
-					default:
-						break;
 				}
 			}
 		}
@@ -413,7 +404,15 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getGlory())
 		{
-			if (target.toLowerCase().contains("amulet of glory") || target.toLowerCase().contains("amulet of eternal glory"))
+			if (config.cancelTrades() && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
+			{
+				MenuEntry[] entries = swapper.getEntries();
+				for (MenuEntry m : entries) {
+					if (m.getTarget()=="")
+						swapper.setEntries(new MenuEntry[] {m});
+				}
+			}
+			else if (target.toLowerCase().contains("amulet of glory") || target.toLowerCase().contains("amulet of eternal glory"))
 			{
 				if (shiftModifier)
 				{
@@ -422,6 +421,21 @@ public class EasySwapPlugin extends Plugin
 				else
 				{
 					swapper.markForSwap(config.getGloryMode().toString(), option, target);
+				}
+
+			}
+		}
+		if (config.getDigsite())
+		{
+			if (target.toLowerCase().contains("digsite pendant"))
+			{
+				if (shiftModifier)
+				{
+					swapper.markForSwap(config.getSDigsiteMode().toString(), option, target);
+				}
+				else
+				{
+					swapper.markForSwap(config.getDigsiteMode().toString(), option, target);
 				}
 
 			}
@@ -440,6 +454,14 @@ public class EasySwapPlugin extends Plugin
 	{
 		return (target.equalsIgnoreCase("Leaping trout") || target.equalsIgnoreCase("Leaping salmon") || target.equalsIgnoreCase("Leaping sturgeon"));
 	}
+
+	/*@Subscribe
+	public void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		System.out.println(event.getMenuOption());
+		System.out.println("Target: " + event.getMenuTarget());
+		System.out.println("Option: " + event.getMenuTarget());
+	}*/
 
 	@Subscribe
 	public void onGameObjectSpawned(GameObjectSpawned event)

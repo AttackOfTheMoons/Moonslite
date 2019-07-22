@@ -3,8 +3,8 @@ package net.runelite.client.plugins.easyswap;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import net.runelite.client.plugins.util.DigsiteMode;
 import net.runelite.client.plugins.util.DuelingRingMode;
-import net.runelite.client.plugins.util.EssenceMode;
 import net.runelite.client.plugins.util.GamesNecklaceMode;
 import net.runelite.client.plugins.util.GloryMode;
 
@@ -218,10 +218,22 @@ public interface EasySwapConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "cancelTrades",
+		name = "Cancel Teleport",
+		description = "Stops teleports while in trade screen",
+		position = 18
+	)
+
+	default boolean cancelTrades()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "tradesOnly",
 		name = "Trades Only",
 		description = "Show only trade option (toggle using shift) with clan members",
-		position = 18
+		position = 19
 	)
 
 	default boolean tradesOnly()
@@ -233,24 +245,12 @@ public interface EasySwapConfig extends Config
 		keyName = "swapEssencePounch",
 		name = "Swap Essence Pouch",
 		description = "Empty / Fill Pouches inside bank interface",
-		position = 19
+		position = 20
 	)
 
 	default boolean getSwapEssencePouch()
 	{
 		return false;
-	}
-
-	@ConfigItem(
-		keyName = "essenceMode",
-		name = "Mode",
-		description = "Mode for swapping the essence pouches",
-		position = 20
-	)
-
-	default EssenceMode getEssenceMode()
-	{
-		return EssenceMode.RUNECRAFTING;
 	}
 
 	@ConfigItem(
@@ -372,4 +372,34 @@ public interface EasySwapConfig extends Config
 		return GloryMode.KARAMJA;
 	}
 
+	@ConfigItem(
+		keyName = "swapDigsite",
+		name = "Swap Digsite",
+		description = "Left Click Teleport for Digsite Pendant",
+		position = 31
+	)
+	default boolean getDigsite() {
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "digsiteMode",
+		name = "Mode",
+		description = "Left Click Teleport Option",
+		position = 32
+	)
+
+	default DigsiteMode getDigsiteMode() {
+		return DigsiteMode.FOSSIL_ISLAND;
+	}
+
+	@ConfigItem(
+		keyName = "sdigsiteMode",
+		name = "Shift Mode",
+		description = "Shift + Left Click Teleport Option",
+		position = 33
+	)
+	default DigsiteMode getSDigsiteMode() {
+		return DigsiteMode.LITHKREN_DUNGEON;
+	}
 }

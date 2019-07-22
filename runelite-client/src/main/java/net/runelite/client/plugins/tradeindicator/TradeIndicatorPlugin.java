@@ -62,7 +62,7 @@ public class TradeIndicatorPlugin extends Plugin {
     @Subscribe
     public void onGameTick(GameTick tick) {
         final Player LOCAL = client.getLocalPlayer();
-        Widget tradeWidget = client.getWidget(WidgetInfo.TRADING_WITH_SLOTS);
+        Widget tradeWidget = client.getWidget(WidgetInfo.FIRST_TRADING_WITH_SLOTS);
         overlay.setAlert(false);
         if (tradeWidget!=null) {
             String text = tradeWidget.getText();
