@@ -35,13 +35,13 @@ import net.runelite.client.config.ConfigItem;
 
 public interface ZulrahConfig extends Config
 {
-    @ConfigItem(
-            keyName = "enabled",
-            name = "Enabled",
-            description = "Configures whether or not zulrah overlays are displayed"
-    )
-    default boolean enabled()
-    {
-        return true;
-    }
+	@ConfigItem(
+		keyName = "enabled",
+		name = "Enabled",
+		description = "Configures whether or not zulrah overlays are displayed"
+	)
+	default boolean enabled()
+	{
+		return true;
+	}
 }

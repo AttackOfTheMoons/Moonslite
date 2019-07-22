@@ -38,9 +38,9 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
 @PluginDescriptor(
-		name = "Anti Drag",
-		description = "Prevent dragging an item for a specified delay",
-		tags = {"antidrag", "delay", "inventory", "items"}
+	name = "Anti Drag",
+	description = "Prevent dragging an item for a specified delay",
+	tags = {"antidrag", "delay", "inventory", "items"}
 )
 public class AntiDragPlugin extends Plugin implements KeyListener
 {
@@ -65,9 +65,12 @@ public class AntiDragPlugin extends Plugin implements KeyListener
 	protected void startUp() throws Exception
 	{
 		keyManager.registerKeyListener(this);
-		if (config.alwaysOn()) {
+		if (config.alwaysOn())
+		{
 			client.setInventoryDragDelay(config.dragDelay());
-		} else {
+		}
+		else
+		{
 			client.setInventoryDragDelay(DEFAULT_DELAY);
 		}
 	}
@@ -113,10 +116,14 @@ public class AntiDragPlugin extends Plugin implements KeyListener
 	}
 
 	@Subscribe
-	public void onConfigChanged(ConfigChanged event) {
-		if (config.alwaysOn()) {
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (config.alwaysOn())
+		{
 			client.setInventoryDragDelay(config.dragDelay());
-		} else {
+		}
+		else
+		{
 			client.setInventoryDragDelay(DEFAULT_DELAY);
 		}
 	}

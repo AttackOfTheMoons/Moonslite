@@ -37,27 +37,27 @@ import net.runelite.client.ui.overlay.RenderableEntity;
 
 public class TextComponent implements RenderableEntity
 {
-    @Setter
-    private String text;
+	@Setter
+	private String text;
 
-    @Setter
-    private Point position = new Point();
+	@Setter
+	private Point position = new Point();
 
-    @Setter
-    private Color color = Color.WHITE;
+	@Setter
+	private Color color = Color.WHITE;
 
-    @Override
-    public Dimension render(Graphics2D graphics)
-    {
-        // Draw shadow
-        graphics.setColor(Color.BLACK);
-        graphics.drawString(text, position.x + 1, position.y + 1);
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		// Draw shadow
+		graphics.setColor(Color.BLACK);
+		graphics.drawString(text, position.x + 1, position.y + 1);
 
-        // Draw actual text
-        graphics.setColor(color);
-        graphics.drawString(text, position.x, position.y);
+		// Draw actual text
+		graphics.setColor(color);
+		graphics.drawString(text, position.x, position.y);
 
-        final FontMetrics fontMetrics = graphics.getFontMetrics();
-        return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
-    }
+		final FontMetrics fontMetrics = graphics.getFontMetrics();
+		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
+	}
 }

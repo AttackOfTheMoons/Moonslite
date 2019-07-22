@@ -54,184 +54,184 @@ import net.runelite.client.plugins.zulrah.phase.ZulrahPhase;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-        name = "Zulrah Helper",
-        description = "Shows tiles on where to stand during the phases and what prayer to use.",
-        tags = {"zulrah", "boss", "helper"},
-        type = PluginType.PVM,
-        enabledByDefault = false
+	name = "Zulrah Helper",
+	description = "Shows tiles on where to stand during the phases and what prayer to use.",
+	tags = {"zulrah", "boss", "helper"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 
 @Slf4j
 public class ZulrahPlugin extends Plugin
 {
-    @Getter
-    private NPC zulrah;
+	@Getter
+	private NPC zulrah;
 
-    @Inject
-    private Client client;
+	@Inject
+	private Client client;
 
-    @Inject
-    private ZulrahConfig config;
+	@Inject
+	private ZulrahConfig config;
 
-    @Inject
-    private ZulrahOverlay overlay;
+	@Inject
+	private ZulrahOverlay overlay;
 
-    @Inject
-    private OverlayManager overlayManager;
+	@Inject
+	private OverlayManager overlayManager;
 
-    @Inject
-    private ZulrahCurrentPhaseOverlay currentPhaseOverlay;
+	@Inject
+	private ZulrahCurrentPhaseOverlay currentPhaseOverlay;
 
-    @Inject
-    private ZulrahNextPhaseOverlay nextPhaseOverlay;
+	@Inject
+	private ZulrahNextPhaseOverlay nextPhaseOverlay;
 
-    @Inject
-    private ZulrahPrayerOverlay zulrahPrayerOverlay;
+	@Inject
+	private ZulrahPrayerOverlay zulrahPrayerOverlay;
 
-    @Inject
-    private ZulrahOverlay zulrahOverlay;
+	@Inject
+	private ZulrahOverlay zulrahOverlay;
 
 
-    @Provides
-    ZulrahConfig getConfig(ConfigManager configManager)
-    {
-        return configManager.getConfig(ZulrahConfig.class);
-    }
+	@Provides
+	ZulrahConfig getConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(ZulrahConfig.class);
+	}
 
-    private final ZulrahPattern[] patterns = new ZulrahPattern[]
-            {
-                    new ZulrahPatternA(),
-                    new ZulrahPatternB(),
-                    new ZulrahPatternC(),
-                    new ZulrahPatternD()
-            };
+	private final ZulrahPattern[] patterns = new ZulrahPattern[]
+		{
+			new ZulrahPatternA(),
+			new ZulrahPatternB(),
+			new ZulrahPatternC(),
+			new ZulrahPatternD()
+		};
 
-    private ZulrahInstance instance;
+	private ZulrahInstance instance;
 
-    @Override
-    protected void startUp() throws Exception
-    {
-        overlayManager.add(currentPhaseOverlay);
-        overlayManager.add(nextPhaseOverlay);
-        overlayManager.add(zulrahPrayerOverlay);
-        overlayManager.add(zulrahOverlay);
-    }
+	@Override
+	protected void startUp() throws Exception
+	{
+		overlayManager.add(currentPhaseOverlay);
+		overlayManager.add(nextPhaseOverlay);
+		overlayManager.add(zulrahPrayerOverlay);
+		overlayManager.add(zulrahOverlay);
+	}
 
-    @Override
-    protected void shutDown() throws Exception
-    {
-        overlayManager.remove(currentPhaseOverlay);
-        overlayManager.remove(nextPhaseOverlay);
-        overlayManager.remove(zulrahPrayerOverlay);
-        overlayManager.remove(zulrahOverlay);
-        zulrah = null;
-        instance = null;
-    }
+	@Override
+	protected void shutDown() throws Exception
+	{
+		overlayManager.remove(currentPhaseOverlay);
+		overlayManager.remove(nextPhaseOverlay);
+		overlayManager.remove(zulrahPrayerOverlay);
+		overlayManager.remove(zulrahOverlay);
+		zulrah = null;
+		instance = null;
+	}
 
-    @Subscribe
-    public void onGameTick(GameTick event)
-    {
-        if (!config.enabled() || client.getGameState() != GameState.LOGGED_IN)
-        {
-            return;
-        }
+	@Subscribe
+	public void onGameTick(GameTick event)
+	{
+		if (!config.enabled() || client.getGameState() != GameState.LOGGED_IN)
+		{
+			return;
+		}
 
-        if (zulrah == null)
-        {
-            if (instance != null)
-            {
-                log.debug("Zulrah encounter has ended.");
-                instance = null;
-            }
-            return;
-        }
+		if (zulrah == null)
+		{
+			if (instance != null)
+			{
+				log.debug("Zulrah encounter has ended.");
+				instance = null;
+			}
+			return;
+		}
 
-        if (instance == null)
-        {
-            instance = new ZulrahInstance(zulrah);
-            log.debug("Zulrah encounter has started.");
-        }
+		if (instance == null)
+		{
+			instance = new ZulrahInstance(zulrah);
+			log.debug("Zulrah encounter has started.");
+		}
 
-        ZulrahPhase currentPhase = ZulrahPhase.valueOf(zulrah, instance.getStartLocation());
-        if (instance.getPhase() == null)
-        {
-            instance.setPhase(currentPhase);
-        }
-        else if (!instance.getPhase().equals(currentPhase))
-        {
-            ZulrahPhase previousPhase = instance.getPhase();
-            instance.setPhase(currentPhase);
-            instance.nextStage();
+		ZulrahPhase currentPhase = ZulrahPhase.valueOf(zulrah, instance.getStartLocation());
+		if (instance.getPhase() == null)
+		{
+			instance.setPhase(currentPhase);
+		}
+		else if (!instance.getPhase().equals(currentPhase))
+		{
+			ZulrahPhase previousPhase = instance.getPhase();
+			instance.setPhase(currentPhase);
+			instance.nextStage();
 
-            log.debug("Zulrah phase has moved from {} -> {}, stage: {}", previousPhase, currentPhase, instance.getStage());
-        }
+			log.debug("Zulrah phase has moved from {} -> {}, stage: {}", previousPhase, currentPhase, instance.getStage());
+		}
 
-        ZulrahPattern pattern = instance.getPattern();
-        if (pattern == null)
-        {
-            int potential = 0;
-            ZulrahPattern potentialPattern = null;
+		ZulrahPattern pattern = instance.getPattern();
+		if (pattern == null)
+		{
+			int potential = 0;
+			ZulrahPattern potentialPattern = null;
 
-            for (ZulrahPattern p : patterns)
-            {
-                if (p.stageMatches(instance.getStage(), instance.getPhase()))
-                {
-                    potential++;
-                    potentialPattern = p;
-                }
-            }
+			for (ZulrahPattern p : patterns)
+			{
+				if (p.stageMatches(instance.getStage(), instance.getPhase()))
+				{
+					potential++;
+					potentialPattern = p;
+				}
+			}
 
-            if (potential == 1)
-            {
-                log.debug("Zulrah pattern identified: {}", potentialPattern);
+			if (potential == 1)
+			{
+				log.debug("Zulrah pattern identified: {}", potentialPattern);
 
-                instance.setPattern(potentialPattern);
-            }
-        }
-        else if (pattern.canReset(instance.getStage()) && (instance.getPhase() == null || instance.getPhase().equals(pattern.get(0))))
-        {
-            log.debug("Zulrah pattern has reset.");
+				instance.setPattern(potentialPattern);
+			}
+		}
+		else if (pattern.canReset(instance.getStage()) && (instance.getPhase() == null || instance.getPhase().equals(pattern.get(0))))
+		{
+			log.debug("Zulrah pattern has reset.");
 
-            instance.reset();
-        }
-    }
+			instance.reset();
+		}
+	}
 
-    @Subscribe
-    public void onNpcSpawned(NpcSpawned event)
-    {
-        try
-        {
-            NPC npc = event.getNpc();
-            if (npc != null && npc.getName().toLowerCase().contains("zulrah"))
-            {
-                zulrah = npc;
-            }
-        }
-        catch (Exception e)
-        {
+	@Subscribe
+	public void onNpcSpawned(NpcSpawned event)
+	{
+		try
+		{
+			NPC npc = event.getNpc();
+			if (npc != null && npc.getName().toLowerCase().contains("zulrah"))
+			{
+				zulrah = npc;
+			}
+		}
+		catch (Exception e)
+		{
 
-        }
-    }
+		}
+	}
 
-    @Subscribe
-    public void onNpcDespawned(NpcDespawned event)
-    {
-        try
-        {
-            NPC npc = event.getNpc();
-            if (npc != null && npc.getName().toLowerCase().contains("zulrah"))
-            {
-                zulrah = null;
-            }
-        }
-        catch (Exception e)
-        {
+	@Subscribe
+	public void onNpcDespawned(NpcDespawned event)
+	{
+		try
+		{
+			NPC npc = event.getNpc();
+			if (npc != null && npc.getName().toLowerCase().contains("zulrah"))
+			{
+				zulrah = null;
+			}
+		}
+		catch (Exception e)
+		{
 
-        }
-    }
+		}
+	}
 
-    public ZulrahInstance getInstance()
-    {
-        return instance;
-    }
+	public ZulrahInstance getInstance()
+	{
+		return instance;
+	}
 }

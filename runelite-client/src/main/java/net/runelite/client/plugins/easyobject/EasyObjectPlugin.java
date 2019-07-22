@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.scape;
+package net.runelite.client.plugins.easyobject;
 
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +18,15 @@ import org.apache.commons.lang3.ArrayUtils;
 import javax.inject.Inject;
 
 @PluginDescriptor(
-		name="[L] Easyscape",
-		description = "EasyScape.",
-		tags = {"EasyScape"},
-		enabledByDefault = false
+	name = "[L] EasyObject",
+	description = "EasyObject, made by LyzrdLite",
+	tags = {"EasyObject"},
+	enabledByDefault = false
 )
 
 @Slf4j
-public class EasyScapePlugin extends Plugin {
+public class EasyObjectPlugin extends Plugin
+{
 
 	private MenuEntry[] entries;
 
@@ -33,34 +34,40 @@ public class EasyScapePlugin extends Plugin {
 	private Client client;
 
 	@Inject
-	private EasyScapeConfig config;
+	private EasyObjectConfig config;
 
 	@Provides
-	EasyScapeConfig provideConfig(ConfigManager configManager) {
-		return configManager.getConfig(EasyScapeConfig.class);
+	EasyObjectConfig provideConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(EasyObjectConfig.class);
 	}
 
 	@Override
-	public void startUp() {
-		log.debug("EasyScape Started.");
+	public void startUp()
+	{
+		log.debug("EasyObject Started.");
 	}
 
 	@Override
-	public void shutDown() {
-		log.debug("EasyScape Stopped.");
+	public void shutDown()
+	{
+		log.debug("EasyObject Stopped.");
 	}
 
 	@Subscribe
-	public void onMenuEntryAdded(MenuEntryAdded event) {
+	public void onMenuEntryAdded(MenuEntryAdded event)
+	{
 
-		if (client.getGameState() != GameState.LOGGED_IN) {
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
 		Widget loginScreenOne = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN);
 		Widget loginScreenTwo = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN_MESSAGE_OF_THE_DAY);
 
-		if (loginScreenOne != null || loginScreenTwo != null) {
+		if (loginScreenOne != null || loginScreenTwo != null)
+		{
 			return;
 		}
 
@@ -68,9 +75,12 @@ public class EasyScapePlugin extends Plugin {
 
 		entries = client.getMenuEntries();
 
-		if (config.getRemoveExamine()) {
-			for (int i = entries.length - 1; i >= 0; i--) {
-				if (entries[i].getOption().equals("Examine")) {
+		if (config.getRemoveExamine())
+		{
+			for (int i = entries.length - 1; i >= 0; i--)
+			{
+				if (entries[i].getOption().equals("Examine"))
+				{
 					entries = ArrayUtils.remove(entries, i);
 					i--;
 				}
@@ -78,18 +88,26 @@ public class EasyScapePlugin extends Plugin {
 			client.setMenuEntries(entries);
 		}
 
-		if (config.getRemoveObjects() && !config.getRemovedObjects().equals("")) {
-			for (String removed : config.getRemovedObjects().split(",")) {
+		if (config.getRemoveObjects() && !config.getRemovedObjects().equals(""))
+		{
+			for (String removed : config.getRemovedObjects().split(","))
+			{
 				removed = removed.trim();
-				if (target.contains("(") && target.split(" \\(")[0].equalsIgnoreCase(removed)) {
+				if (target.contains("(") && target.split(" \\(")[0].equalsIgnoreCase(removed))
+				{
 					delete(event.getIdentifier());
-				} else if (target.contains("->")) {
+				}
+				else if (target.contains("->"))
+				{
 					String trimmed = target.split("->")[1].trim();
-					if (trimmed.length() >= removed.length() && trimmed.substring(0, removed.length()).equalsIgnoreCase(removed)) {
+					if (trimmed.length() >= removed.length() && trimmed.substring(0, removed.length()).equalsIgnoreCase(removed))
+					{
 						delete(event.getIdentifier());
 						break;
 					}
-				} else if (target.length() >= removed.length() && target.substring(0, removed.length()).equalsIgnoreCase(removed)) {
+				}
+				else if (target.length() >= removed.length() && target.substring(0, removed.length()).equalsIgnoreCase(removed))
+				{
 					delete(event.getIdentifier());
 					break;
 				}
@@ -98,9 +116,12 @@ public class EasyScapePlugin extends Plugin {
 
 	}
 
-	private void delete(int target) {
-		for (int i = entries.length - 1; i >= 0; i--) {
-			if (entries[i].getIdentifier() == target) {
+	private void delete(int target)
+	{
+		for (int i = entries.length - 1; i >= 0; i--)
+		{
+			if (entries[i].getIdentifier() == target)
+			{
 				entries = ArrayUtils.remove(entries, i);
 				i--;
 			}

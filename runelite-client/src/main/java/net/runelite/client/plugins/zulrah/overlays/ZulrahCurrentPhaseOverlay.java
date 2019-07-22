@@ -42,41 +42,41 @@ import net.runelite.client.ui.overlay.components.PanelComponent;
 
 public class ZulrahCurrentPhaseOverlay extends Overlay
 {
-    private final ZulrahPlugin plugin;
-    private final PanelComponent imagePanelComponent = new PanelComponent();
+	private final ZulrahPlugin plugin;
+	private final PanelComponent imagePanelComponent = new PanelComponent();
 
-    @Inject
-    ZulrahCurrentPhaseOverlay(ZulrahPlugin plugin)
-    {
-        setPosition(OverlayPosition.BOTTOM_RIGHT);
-        setPriority(OverlayPriority.HIGH);
-        this.plugin = plugin;
-    }
+	@Inject
+	ZulrahCurrentPhaseOverlay(ZulrahPlugin plugin)
+	{
+		setPosition(OverlayPosition.BOTTOM_RIGHT);
+		setPriority(OverlayPriority.HIGH);
+		this.plugin = plugin;
+	}
 
-    @Override
-    public Dimension render(Graphics2D graphics)
-    {
-        ZulrahInstance instance = plugin.getInstance();
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		ZulrahInstance instance = plugin.getInstance();
 
-        if (instance == null)
-        {
-            return null;
-        }
+		if (instance == null)
+		{
+			return null;
+		}
 
-        ZulrahPhase currentPhase = instance.getPhase();
-        if (currentPhase == null)
-        {
-            return null;
-        }
+		ZulrahPhase currentPhase = instance.getPhase();
+		if (currentPhase == null)
+		{
+			return null;
+		}
 
-        String pattern = instance.getPattern() != null ? instance.getPattern().toString() : "Unknown";
-        String title = currentPhase.isJad() ? "JAD PHASE" : pattern;
-        Color backgroundColor = currentPhase.getColor();
-        BufferedImage zulrahImage = ZulrahImageManager.getZulrahBufferedImage(currentPhase.getType());
-        ImagePanelComponent imagePanelComponent = new ImagePanelComponent();
-        imagePanelComponent.setTitle(title);
-        imagePanelComponent.setBackgroundColor(backgroundColor);
-        imagePanelComponent.setImage(zulrahImage);
-        return imagePanelComponent.render(graphics);
-    }
+		String pattern = instance.getPattern() != null ? instance.getPattern().toString() : "Unknown";
+		String title = currentPhase.isJad() ? "JAD PHASE" : pattern;
+		Color backgroundColor = currentPhase.getColor();
+		BufferedImage zulrahImage = ZulrahImageManager.getZulrahBufferedImage(currentPhase.getType());
+		ImagePanelComponent imagePanelComponent = new ImagePanelComponent();
+		imagePanelComponent.setTitle(title);
+		imagePanelComponent.setBackgroundColor(backgroundColor);
+		imagePanelComponent.setImage(zulrahImage);
+		return imagePanelComponent.render(graphics);
+	}
 }

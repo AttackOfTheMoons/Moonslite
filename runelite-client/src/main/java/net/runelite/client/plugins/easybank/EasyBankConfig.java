@@ -6,127 +6,139 @@ import net.runelite.client.config.ConfigItem;
 
 
 @ConfigGroup("easybank")
-public interface EasyBankConfig extends Config {
-    @ConfigItem(
-            keyName = "withdrawOne",
-            name = "Withdraw/Deposit One",
-            description = "",
-            position = 0
-    )
+public interface EasyBankConfig extends Config
+{
+	@ConfigItem(
+		keyName = "withdrawOne",
+		name = "Withdraw/Deposit One",
+		description = "",
+		position = 0
+	)
 
-    default boolean getWithdrawOne() {
-        return false;
-    }
+	default boolean getWithdrawOne()
+	{
+		return false;
+	}
 
-    @ConfigItem(
-            keyName = "withdrawOneItems",
-            name = "Items",
-            description = "",
-            position = 1
-    )
+	@ConfigItem(
+		keyName = "withdrawOneItems",
+		name = "Items",
+		description = "",
+		position = 1
+	)
 
-    default String getWithdrawOneItems() {
-        return "";
-    }
+	default String getWithdrawOneItems()
+	{
+		return "";
+	}
 
-    @ConfigItem(
-            keyName = "withdrawFive",
-            name = "Withdraw/Deposit Five",
-            description = "",
-            position = 2
-    )
+	@ConfigItem(
+		keyName = "withdrawFive",
+		name = "Withdraw/Deposit Five",
+		description = "",
+		position = 2
+	)
 
-    default boolean getWithdrawFive() {
-        return false;
-    }
+	default boolean getWithdrawFive()
+	{
+		return false;
+	}
 
-    @ConfigItem(
-            keyName = "withdrawFiveItems",
-            name = "Items",
-            description = "",
-            position = 3
-    )
+	@ConfigItem(
+		keyName = "withdrawFiveItems",
+		name = "Items",
+		description = "",
+		position = 3
+	)
 
-    default String getWithdrawFiveItems() {
-        return "";
-    }
+	default String getWithdrawFiveItems()
+	{
+		return "";
+	}
 
-    @ConfigItem(
-            keyName = "withdrawTen",
-            name = "Withdraw/Deposit Ten",
-            description = "",
-            position = 4
-    )
+	@ConfigItem(
+		keyName = "withdrawTen",
+		name = "Withdraw/Deposit Ten",
+		description = "",
+		position = 4
+	)
 
-    default boolean getWithdrawTen() {
-        return false;
-    }
+	default boolean getWithdrawTen()
+	{
+		return false;
+	}
 
-    @ConfigItem(
-            keyName = "withdrawTenItems",
-            name = "Items",
-            description = "",
-            position = 5
-    )
+	@ConfigItem(
+		keyName = "withdrawTenItems",
+		name = "Items",
+		description = "",
+		position = 5
+	)
 
-    default String getWithdrawTenItems() {
-        return "";
-    }
+	default String getWithdrawTenItems()
+	{
+		return "";
+	}
 
-    @ConfigItem(
-            keyName = "withdrawX",
-            name = "Withdraw/Deposit X",
-            description = "",
-            position = 6
-    )
+	@ConfigItem(
+		keyName = "withdrawX",
+		name = "Withdraw/Deposit X",
+		description = "",
+		position = 6
+	)
 
-    default boolean getWithdrawX() {
-        return false;
-    }
+	default boolean getWithdrawX()
+	{
+		return false;
+	}
 
-    @ConfigItem(
-            keyName = "withdrawXAmount",
-            name = "Amount",
-            description = "",
-            position = 7
-    )
+	@ConfigItem(
+		keyName = "withdrawXAmount",
+		name = "Amount",
+		description = "",
+		position = 7
+	)
 
-    default String getWithdrawXAmount() {
-        return "";
-    }
+	default String getWithdrawXAmount()
+	{
+		return "";
+	}
 
-    @ConfigItem(
-            keyName = "withdrawXItems",
-            name = "Items",
-            description = "",
-            position = 8
-    )
+	@ConfigItem(
+		keyName = "withdrawXItems",
+		name = "Items",
+		description = "",
+		position = 8
+	)
 
-    default String getWithdrawXItems() {
-        return "";
-    }
+	default String getWithdrawXItems()
+	{
+		return "";
+	}
 
-    @ConfigItem(
-            keyName = "withdrawAll",
-            name = "Withdraw/Deposit All",
-            description = "",
-            position = 9
-    )
+	@ConfigItem(
+		keyName = "withdrawAll",
+		name = "Withdraw/Deposit All",
+		description = "",
+		position = 9
+	)
 
-    default boolean getWithdrawAll() {
-        return false;
-    }
+	default boolean getWithdrawAll()
+	{
+		return false;
+	}
 
-    @ConfigItem(
-            keyName = "withdrawAllItems",
-            name = "Items",
-            description = "",
-            position = 10
-    )
+	@ConfigItem(
+		keyName = "withdrawAllItems",
+		name = "Items",
+		description = "",
+		position = 10
+	)
 
-    default String getWithdrawAllItems() {
-        return "";
-    }
+	default String getWithdrawAllItems()
+	{
+		return "";
+	}
 
 
 }

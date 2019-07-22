@@ -1,17 +1,20 @@
 package net.runelite.client.plugins.util;
 
-public enum EssenceMode {
-    RUNECRAFTING("Runecrafting"),
-    ESSENCE_MINING("Essence Mining");
+public enum EssenceMode
+{
+	RUNECRAFTING("Runecrafting"),
+	ESSENCE_MINING("Essence Mining");
 
-    private final String name;
+	private final String name;
 
-    EssenceMode(String name) {
-        this.name = name;
-    }
+	EssenceMode(String name)
+	{
+		this.name = name;
+	}
 
-    @Override
-    public String toString() {
-        return name;
-    }
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }

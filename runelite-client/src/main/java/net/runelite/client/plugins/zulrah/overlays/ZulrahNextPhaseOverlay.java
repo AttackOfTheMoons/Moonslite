@@ -41,38 +41,38 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 
 public class ZulrahNextPhaseOverlay extends Overlay
 {
-    private final ZulrahPlugin plugin;
+	private final ZulrahPlugin plugin;
 
-    @Inject
-    ZulrahNextPhaseOverlay(ZulrahPlugin plugin)
-    {
-        setPosition(OverlayPosition.BOTTOM_RIGHT);
-        setPriority(OverlayPriority.HIGH);
-        this.plugin = plugin;
-    }
+	@Inject
+	ZulrahNextPhaseOverlay(ZulrahPlugin plugin)
+	{
+		setPosition(OverlayPosition.BOTTOM_RIGHT);
+		setPriority(OverlayPriority.HIGH);
+		this.plugin = plugin;
+	}
 
-    @Override
-    public Dimension render(Graphics2D graphics)
-    {
-        ZulrahInstance instance = plugin.getInstance();
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		ZulrahInstance instance = plugin.getInstance();
 
-        if (instance == null)
-        {
-            return null;
-        }
+		if (instance == null)
+		{
+			return null;
+		}
 
-        ZulrahPhase nextPhase = instance.getNextPhase();
-        if (nextPhase == null)
-        {
-            return null;
-        }
+		ZulrahPhase nextPhase = instance.getNextPhase();
+		if (nextPhase == null)
+		{
+			return null;
+		}
 
-        Color backgroundColor = nextPhase.getColor();
-        BufferedImage zulrahImage = ZulrahImageManager.getSmallZulrahBufferedImage(nextPhase.getType());
-        ImagePanelComponent imagePanelComponent = new ImagePanelComponent();
-        imagePanelComponent.setTitle("Next");
-        imagePanelComponent.setBackgroundColor(backgroundColor);
-        imagePanelComponent.setImage(zulrahImage);
-        return imagePanelComponent.render(graphics);
-    }
+		Color backgroundColor = nextPhase.getColor();
+		BufferedImage zulrahImage = ZulrahImageManager.getSmallZulrahBufferedImage(nextPhase.getType());
+		ImagePanelComponent imagePanelComponent = new ImagePanelComponent();
+		imagePanelComponent.setTitle("Next");
+		imagePanelComponent.setBackgroundColor(backgroundColor);
+		imagePanelComponent.setImage(zulrahImage);
+		return imagePanelComponent.render(graphics);
+	}
 }

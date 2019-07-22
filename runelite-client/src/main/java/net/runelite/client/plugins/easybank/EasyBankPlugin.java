@@ -19,116 +19,139 @@ import javax.inject.Inject;
 
 
 @PluginDescriptor(
-        name = "[L]Easybank",
-        description = "EasyBank.",
-        tags = {"EasyBank", "easy"},
-        enabledByDefault = false
+	name = "[L]EasyBank",
+	description = "EasyBank, made by LyzrdLite",
+	tags = {"EasyBank", "easy"},
+	enabledByDefault = false
 )
 
 @Slf4j
-public class EasyBankPlugin extends Plugin {
+public class EasyBankPlugin extends Plugin
+{
 
-    private Swapper swapper = new Swapper();
-    private MenuEntry[] entries;
+	private Swapper swapper = new Swapper();
+	private MenuEntry[] entries;
 
-    @Inject
-    private Client client;
+	@Inject
+	private Client client;
 
-    @Inject
-    private EasyBankConfig config;
+	@Inject
+	private EasyBankConfig config;
 
-    @Provides
-    EasyBankConfig provideConfig(ConfigManager configManager) {
-        return configManager.getConfig(EasyBankConfig.class);
-    }
+	@Provides
+	EasyBankConfig provideConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(EasyBankConfig.class);
+	}
 
-    @Override
-    public void startUp() {
-        log.debug("EasyBank Started.");
-    }
+	@Override
+	public void startUp()
+	{
+		log.debug("EasyBank Started.");
+	}
 
-    @Override
-    public void shutDown() {
-        log.debug("EasyBank Stopped.");
-    }
+	@Override
+	public void shutDown()
+	{
+		log.debug("EasyBank Stopped.");
+	}
 
-    @Subscribe
-    public void onMenuEntryAdded(MenuEntryAdded event) {
+	@Subscribe
+	public void onMenuEntryAdded(MenuEntryAdded event)
+	{
 
-        if (client.getGameState() != GameState.LOGGED_IN) {
-            return;
-        }
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
+			return;
+		}
 
-        Widget loginScreenOne = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN);
-        Widget loginScreenTwo = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN_MESSAGE_OF_THE_DAY);
+		Widget loginScreenOne = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN);
+		Widget loginScreenTwo = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN_MESSAGE_OF_THE_DAY);
 
-        if (loginScreenOne != null || loginScreenTwo != null) {
-            return;
-        }
+		if (loginScreenOne != null || loginScreenTwo != null)
+		{
+			return;
+		}
 
-        final String option = Text.removeTags(event.getOption()).toLowerCase();
-        final String target = Text.removeTags(event.getTarget()).toLowerCase();
+		final String option = Text.removeTags(event.getOption()).toLowerCase();
+		final String target = Text.removeTags(event.getTarget()).toLowerCase();
 
-        Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
+		Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
 
-        swapper.setEntries(client.getMenuEntries());
+		swapper.setEntries(client.getMenuEntries());
 
-        if (!(widgetBankTitleBar == null) && !widgetBankTitleBar.isHidden()) {
+		if (!(widgetBankTitleBar == null) && !widgetBankTitleBar.isHidden())
+		{
 
-            if (config.getWithdrawOne()) {
-                for (String item : config.getWithdrawOneItems().split(",")) {
-                    item = item.trim();
-                    if (target.equalsIgnoreCase(item)) {
-                        swapper.markForSwap("Withdraw-1", option, target);
-                        swapper.markForSwap("Deposit-1", option, target);
-                    }
-                }
-            }
+			if (config.getWithdrawOne())
+			{
+				for (String item : config.getWithdrawOneItems().split(","))
+				{
+					item = item.trim();
+					if (target.equalsIgnoreCase(item))
+					{
+						swapper.markForSwap("Withdraw-1", option, target);
+						swapper.markForSwap("Deposit-1", option, target);
+					}
+				}
+			}
 
-            if (config.getWithdrawFive()) {
-                for (String item : config.getWithdrawFiveItems().split(",")) {
-                    item = item.trim();
-                    if (target.equalsIgnoreCase(item)) {
-                        swapper.markForSwap("Withdraw-5", option, target);
-                        swapper.markForSwap("Deposit-5", option, target);
-                    }
-                }
-            }
+			if (config.getWithdrawFive())
+			{
+				for (String item : config.getWithdrawFiveItems().split(","))
+				{
+					item = item.trim();
+					if (target.equalsIgnoreCase(item))
+					{
+						swapper.markForSwap("Withdraw-5", option, target);
+						swapper.markForSwap("Deposit-5", option, target);
+					}
+				}
+			}
 
-            if (config.getWithdrawTen()) {
-                for (String item : config.getWithdrawTenItems().split(",")) {
-                    item = item.trim();
-                    if (target.equalsIgnoreCase(item)) {
-                        swapper.markForSwap("Withdraw-10", option, target);
-                        swapper.markForSwap("Deposit-10", option, target);
-                    }
-                }
-            }
+			if (config.getWithdrawTen())
+			{
+				for (String item : config.getWithdrawTenItems().split(","))
+				{
+					item = item.trim();
+					if (target.equalsIgnoreCase(item))
+					{
+						swapper.markForSwap("Withdraw-10", option, target);
+						swapper.markForSwap("Deposit-10", option, target);
+					}
+				}
+			}
 
-            if (config.getWithdrawX()) {
-                for (String item : config.getWithdrawXItems().split(",")) {
-                    item = item.trim();
-                    if (target.equalsIgnoreCase(item)) {
-                        swapper.markForSwap("Withdraw-" + config.getWithdrawXAmount(), option, target);
-                        swapper.markForSwap("Deposit-" + config.getWithdrawXAmount(), option, target);
-                    }
-                }
-            }
+			if (config.getWithdrawX())
+			{
+				for (String item : config.getWithdrawXItems().split(","))
+				{
+					item = item.trim();
+					if (target.equalsIgnoreCase(item))
+					{
+						swapper.markForSwap("Withdraw-" + config.getWithdrawXAmount(), option, target);
+						swapper.markForSwap("Deposit-" + config.getWithdrawXAmount(), option, target);
+					}
+				}
+			}
 
-            if (config.getWithdrawAll()) {
-                for (String item : config.getWithdrawAllItems().split(",")) {
-                    item = item.trim();
-                    if (target.equalsIgnoreCase(item)) {
-                        swapper.markForSwap("Withdraw-All", option, target);
-                        swapper.markForSwap("Deposit-All", option, target);
-                    }
-                }
-            }
+			if (config.getWithdrawAll())
+			{
+				for (String item : config.getWithdrawAllItems().split(","))
+				{
+					item = item.trim();
+					if (target.equalsIgnoreCase(item))
+					{
+						swapper.markForSwap("Withdraw-All", option, target);
+						swapper.markForSwap("Deposit-All", option, target);
+					}
+				}
+			}
 
-        }
+		}
 
-        swapper.startSwap();
-        client.setMenuEntries(swapper.getEntries());
-    }
+		swapper.startSwap();
+		client.setMenuEntries(swapper.getEntries());
+	}
 
 }
