@@ -378,7 +378,8 @@ public interface EasySwapConfig extends Config
 		description = "Left Click Teleport for Digsite Pendant",
 		position = 31
 	)
-	default boolean getDigsite() {
+	default boolean getDigsite()
+	{
 		return true;
 	}
 
@@ -389,7 +390,8 @@ public interface EasySwapConfig extends Config
 		position = 32
 	)
 
-	default DigsiteMode getDigsiteMode() {
+	default DigsiteMode getDigsiteMode()
+	{
 		return DigsiteMode.FOSSIL_ISLAND;
 	}
 
@@ -399,7 +401,8 @@ public interface EasySwapConfig extends Config
 		description = "Shift + Left Click Teleport Option",
 		position = 33
 	)
-	default DigsiteMode getSDigsiteMode() {
+	default DigsiteMode getSDigsiteMode()
+	{
 		return DigsiteMode.LITHKREN_DUNGEON;
 	}
 }
