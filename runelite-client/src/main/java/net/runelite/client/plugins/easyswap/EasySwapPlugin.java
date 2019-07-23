@@ -258,6 +258,14 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
+		if (config.getSwapMythCape())
+		{
+			if (target.equalsIgnoreCase("Mythical Cape") && option.equals("Remove"))
+			{
+				swapper.markForSwap("Teleport", option, target);
+			}
+		}
+
 		if (config.getSwapNPC())
 		{
 			if (target.equalsIgnoreCase("npc contact"))
