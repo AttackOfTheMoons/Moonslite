@@ -75,7 +75,7 @@ public class EasyOptionPlugin extends Plugin
 
 		entries = client.getMenuEntries();
 
-		if (config.getRemoveExamine() && entries.length>=0)
+		if (config.getRemoveExamine() && entries.length >= 0)
 		{
 			for (int i = entries.length - 1; i >= 0; i--)
 			{

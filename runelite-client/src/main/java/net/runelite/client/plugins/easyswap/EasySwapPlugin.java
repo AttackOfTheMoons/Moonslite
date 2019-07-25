@@ -1,16 +1,12 @@
 package net.runelite.client.plugins.easyswap;
 
 import com.google.inject.Provides;
-import javax.swing.ToolTipManager;
-import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.WidgetMenuOptionClicked;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
@@ -28,13 +24,11 @@ import net.runelite.api.events.GameStateChanged;
 import javax.inject.Inject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static net.runelite.api.MenuAction.WALK;
 import static net.runelite.api.ObjectID.PORTAL_4525;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.WordUtils;
 
 @PluginDescriptor(
 	name = "EasySwap",

@@ -1,6 +1,5 @@
 package net.runelite.client.plugins.tradeindicator;
 
-import net.runelite.api.Player;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.eventbus.Subscribe;
 
