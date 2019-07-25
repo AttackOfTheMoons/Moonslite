@@ -402,7 +402,20 @@ public class EasySwapPlugin extends Plugin
 				}
 			}
 		}
-
+		if (config.getMaxCape())
+		{
+			if (target.equals("Max cape"))
+			{
+				if (shiftModifier)
+				{
+					swapper.markForSwap(config.getMaxCapeMode().toString(), option, target);
+				}
+				else
+				{
+					swapper.markForSwap(config.getSMaxCapeMode().toString(), option, target);
+				}
+			}
+		}
 		swapper.startSwap();
 		client.setMenuEntries(swapper.getEntries());
 	}

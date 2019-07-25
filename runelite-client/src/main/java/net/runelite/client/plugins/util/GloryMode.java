@@ -2,6 +2,7 @@ package net.runelite.client.plugins.util;
 
 public enum GloryMode
 {
+	REMOVE("Remove"),
 	EDGEVILLE("Edgeville"),
 	KARAMJA("Karamja"),
 	DRAYNOR_VILLAGE("Draynor Village"),

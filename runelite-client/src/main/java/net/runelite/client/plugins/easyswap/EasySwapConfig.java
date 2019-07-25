@@ -7,6 +7,7 @@ import net.runelite.client.plugins.util.DigsiteMode;
 import net.runelite.client.plugins.util.DuelingRingMode;
 import net.runelite.client.plugins.util.GamesNecklaceMode;
 import net.runelite.client.plugins.util.GloryMode;
+import net.runelite.client.plugins.util.MaxCapeMode;
 
 @ConfigGroup("easyswap")
 public interface EasySwapConfig extends Config
@@ -232,12 +233,12 @@ public interface EasySwapConfig extends Config
 	@ConfigItem(
 		keyName = "swapGamesNecklace",
 		name = "Swap Games Necklace",
-		description = "Left Click Teleport for Games Necklace",
+		description = "Swap Teleport for Games Necklace",
 		position = 18
 	)
 	default boolean getGamesNecklace()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -267,13 +268,13 @@ public interface EasySwapConfig extends Config
 	@ConfigItem(
 		keyName = "swapDuelingRing",
 		name = "Swap Dueling Ring",
-		description = "Left Click Teleport for Dueling Ring",
+		description = "Swap Teleport for Dueling Ring",
 		position = 21
 	)
 
 	default boolean getDuelingRing()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -289,7 +290,7 @@ public interface EasySwapConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "shiftduelingRingMode",
+		keyName = "sduelingRingMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Teleport Option",
 		position = 23
@@ -303,13 +304,13 @@ public interface EasySwapConfig extends Config
 	@ConfigItem(
 		keyName = "swapGlory",
 		name = "Swap Glory",
-		description = "Left Click Teleport for Amulet of Glory",
+		description = "Swap Teleport for Amulet of Glory",
 		position = 24
 	)
 
 	default boolean getGlory()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -339,12 +340,12 @@ public interface EasySwapConfig extends Config
 	@ConfigItem(
 		keyName = "swapDigsite",
 		name = "Swap Digsite",
-		description = "Left Click Teleport for Digsite Pendant",
+		description = "Swap Teleport for Digsite Pendant",
 		position = 27
 	)
 	default boolean getDigsite()
 	{
-		return true;
+		return false;
 	}
 
 	@ConfigItem(
@@ -368,5 +369,38 @@ public interface EasySwapConfig extends Config
 	default DigsiteMode getSDigsiteMode()
 	{
 		return DigsiteMode.LITHKREN_DUNGEON;
+	}
+
+	@ConfigItem(
+		keyName = "swapMaxCape",
+		name = "Swap Max Cape",
+		description = "Swaps Options for Max Cape",
+		position = 30
+	)
+	default boolean getMaxCape()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "maxCapeMode",
+		name = "Mode",
+		description = "Left Click Option for Max Cape",
+		position = 31
+	)
+	default MaxCapeMode getMaxCapeMode()
+	{
+		return MaxCapeMode.CRAFTING_GUILD;
+	}
+
+	@ConfigItem(
+		keyName = "smaxCapeMode",
+		name = "Shift Mode",
+		description = "Shift + Left Click Option for Max Cape",
+		position = 32
+	)
+	default MaxCapeMode getSMaxCapeMode()
+	{
+		return MaxCapeMode.TELE_TO_POH;
 	}
 }

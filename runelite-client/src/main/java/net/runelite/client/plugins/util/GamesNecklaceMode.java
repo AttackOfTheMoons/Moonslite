@@ -2,10 +2,12 @@ package net.runelite.client.plugins.util;
 
 public enum GamesNecklaceMode
 {
+	REMOVE("Remove"),
 	BURTHORPE("Burthorpe"),
 	BARBARIAN_OUTPOST("Barbarian Outpost"),
 	CORPOREAL_BEAST("Corporeal Beast"),
-	TEARS_OF_GUTHIX("Tears of Guthix");
+	TEARS_OF_GUTHIX("Tears of Guthix"),
+	WINTERTODT("Wintertodt Camp");
 
 	private final String name;
 

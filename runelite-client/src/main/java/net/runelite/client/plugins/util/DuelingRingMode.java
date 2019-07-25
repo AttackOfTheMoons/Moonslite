@@ -2,6 +2,7 @@ package net.runelite.client.plugins.util;
 
 public enum DuelingRingMode
 {
+	REMOVE("Remove"),
 	DUEL_ARENA("Duel Arena"),
 	CASTLE_WARS("Castle Wars"),
 	CLAN_WARS("Clan Wars");
