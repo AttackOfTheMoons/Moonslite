@@ -197,40 +197,6 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
-		if (config.getSwapFish())
-		{
-			if (!shiftModifier)
-			{
-				if (isBarbFish(target) && option.equalsIgnoreCase("Use"))
-				{
-					swapper.markForSwap("Drop", option, target);
-				}
-			}
-		}
-		if (config.getSwapAntidote())
-		{
-			if (!shiftModifier)
-			{
-				if (target.equalsIgnoreCase("Antidote++(4)") && option.equalsIgnoreCase("Drink"))
-				{
-					swapper.markForSwap("Use", option, target);
-				}
-				else if (target.equalsIgnoreCase("Anti-venom(4)") && option.equalsIgnoreCase("Drink"))
-				{
-					swapper.markForSwap("Use  ", option, target);
-				}
-			}
-		}
-
-		if (config.getSwapBStaves())
-		{
-			if (target.toLowerCase().contains("battlestaff") && option.equalsIgnoreCase("Wield"))
-			{
-				swapper.markForSwap("Use", option, target);
-			}
-		}
-
-
 		if (config.getSwapConCape())
 		{
 			if ((target.equalsIgnoreCase("Construct. cape") || target.equalsIgnoreCase("Construct. cape(t)")) && option.equalsIgnoreCase("Remove"))
@@ -246,7 +212,7 @@ public class EasySwapPlugin extends Plugin
 				MenuEntry[] entries = swapper.getEntries();
 				for (MenuEntry m : entries)
 				{
-					if (m.getTarget() == "")
+					if (m.getTarget().equals(""))
 					{
 						swapper.setEntries(new MenuEntry[]{m});
 					}
@@ -272,7 +238,6 @@ public class EasySwapPlugin extends Plugin
 			{
 				swapper.markForSwap("dark mage", option, target);
 			}
-
 		}
 
 		if (config.getSwapEss())
@@ -283,13 +248,6 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
-		if (config.getBindingNeck())
-		{
-			if (target.equalsIgnoreCase("Binding necklace") && option.equalsIgnoreCase("Wear"))
-			{
-				swapper.markForSwap("Use", option, target);
-			}
-		}
 		if (config.disableCraftAltar())
 		{
 			if (target.equalsIgnoreCase("Altar"))
@@ -408,7 +366,6 @@ public class EasySwapPlugin extends Plugin
 				{
 					swapper.markForSwap(config.getDuelingRingMode().toString(), option, target);
 				}
-
 			}
 		}
 
@@ -419,7 +376,7 @@ public class EasySwapPlugin extends Plugin
 				MenuEntry[] entries = swapper.getEntries();
 				for (MenuEntry m : entries)
 				{
-					if (m.getTarget() == "")
+					if (m.getTarget().equals(""))
 					{
 						swapper.setEntries(new MenuEntry[]{m});
 					}
@@ -435,7 +392,6 @@ public class EasySwapPlugin extends Plugin
 				{
 					swapper.markForSwap(config.getGloryMode().toString(), option, target);
 				}
-
 			}
 		}
 		if (config.getDigsite())
@@ -450,7 +406,6 @@ public class EasySwapPlugin extends Plugin
 				{
 					swapper.markForSwap(config.getDigsiteMode().toString(), option, target);
 				}
-
 			}
 		}
 
@@ -462,19 +417,6 @@ public class EasySwapPlugin extends Plugin
 	{
 		return (target.equalsIgnoreCase("Small Pouch") || target.equalsIgnoreCase("Medium Pouch") || target.equalsIgnoreCase("Large Pouch") || target.equalsIgnoreCase("Giant Pouch"));
 	}
-
-	private boolean isBarbFish(String target)
-	{
-		return (target.equalsIgnoreCase("Leaping trout") || target.equalsIgnoreCase("Leaping salmon") || target.equalsIgnoreCase("Leaping sturgeon"));
-	}
-
-	/*@Subscribe
-	public void onMenuOptionClicked(MenuOptionClicked event)
-	{
-		System.out.println(event.getMenuOption());
-		System.out.println("Target: " + event.getMenuTarget());
-		System.out.println("Option: " + event.getMenuTarget());
-	}*/
 
 	@Subscribe
 	public void onGameObjectSpawned(GameObjectSpawned event)
