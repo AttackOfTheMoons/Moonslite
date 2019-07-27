@@ -220,7 +220,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapMythCape())
 		{
-			if (target.equalsIgnoreCase("Mythical Cape") && option.equals("Remove"))
+			if (target.equalsIgnoreCase("Mythical cape") && option.equals("remove"))
 			{
 				swapper.markForSwap("Teleport", option, target);
 			}
