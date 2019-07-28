@@ -201,7 +201,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapCraftCape())
 		{
-			if (config.cancelTrades() && target.equals("crafting cape") &&(client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
+			if (config.cancelTrades() && target.equals("crafting cape") && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
 			{
 				MenuEntry[] entries = swapper.getEntries();
 				for (MenuEntry m : entries)
