@@ -60,7 +60,7 @@ import java.util.Set;
 @PluginDescriptor(
 	name = "Gauntlet",
 	description = "All-in-one plugin for the Gauntlet.",
-	tags = {"Gauntlet"},
+	tags = {"Gauntlet", "moonlite"},
 	enabledByDefault = false
 )
 

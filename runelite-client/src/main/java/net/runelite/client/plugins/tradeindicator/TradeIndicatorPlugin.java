@@ -16,7 +16,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @PluginDescriptor(
 	name = "Trade Indicator",
 	description = "Indicates trading player's inventory space",
-	tags = {"overlay", "highlight"},
+	tags = {"overlay", "highlight", "moonlite"},
 	loadWhenOutdated = true,
 	enabledByDefault = false
 )

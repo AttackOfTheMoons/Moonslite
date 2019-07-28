@@ -33,7 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 @PluginDescriptor(
 	name = "EasySwap",
 	description = "Swaps entries / running plugins",
-	tags = {"EasySwap", "easy"},
+	tags = {"EasySwap", "easy", "moonlite"},
 	enabledByDefault = false
 )
 

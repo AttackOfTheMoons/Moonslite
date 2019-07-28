@@ -20,7 +20,7 @@ import javax.inject.Inject;
 @PluginDescriptor(
 	name = "EasyOption",
 	description = "EasyOption.",
-	tags = {"Easy"},
+	tags = {"easy", "moonlite"},
 	enabledByDefault = false
 )
 

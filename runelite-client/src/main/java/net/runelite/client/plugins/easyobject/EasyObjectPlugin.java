@@ -20,7 +20,7 @@ import javax.inject.Inject;
 @PluginDescriptor(
 	name = "[L] EasyObject",
 	description = "EasyObject, made by LyzrdLite",
-	tags = {"EasyObject"},
+	tags = {"EasyObject", "moonlite"},
 	enabledByDefault = false
 )
 

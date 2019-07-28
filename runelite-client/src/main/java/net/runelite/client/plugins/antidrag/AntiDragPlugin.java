@@ -40,7 +40,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 @PluginDescriptor(
 	name = "Anti Drag",
 	description = "Prevent dragging an item for a specified delay",
-	tags = {"antidrag", "delay", "inventory", "items"}
+	tags = {"antidrag", "delay", "inventory", "items", "moonlite"}
 )
 public class AntiDragPlugin extends Plugin implements KeyListener
 {

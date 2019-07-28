@@ -21,7 +21,7 @@ import javax.inject.Inject;
 @PluginDescriptor(
 	name = "EasyDrop",
 	description = "Left click use/drop",
-	tags = {"drop", "easy"},
+	tags = {"drop", "easy", "moonlite"},
 	enabledByDefault = false
 )
 

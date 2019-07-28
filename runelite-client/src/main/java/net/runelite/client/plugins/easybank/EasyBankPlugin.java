@@ -21,7 +21,7 @@ import javax.inject.Inject;
 @PluginDescriptor(
 	name = "[L]EasyBank",
 	description = "EasyBank, made by LyzrdLite",
-	tags = {"EasyBank", "easy"},
+	tags = {"EasyBank", "easy", "moonlite"},
 	enabledByDefault = false
 )
 
