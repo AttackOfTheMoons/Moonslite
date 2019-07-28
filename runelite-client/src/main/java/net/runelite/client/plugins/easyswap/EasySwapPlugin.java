@@ -177,7 +177,7 @@ public class EasySwapPlugin extends Plugin
 			swapper.markForSwap("Clear", option, target);
 		}
 
-		if (target.toLowerCase().contains("ardougne cloak") && config.getSwapArdougneCape())
+		if (target.contains("ardougne cloak") && config.getSwapArdougneCape())
 		{
 			swapper.markForSwap("Kandarin Monastery", option, target);
 			swapper.markForSwap("Monastery Teleport", option, target);
@@ -201,7 +201,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapCraftCape())
 		{
-			if (config.cancelTrades() && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
+			if (config.cancelTrades() && target.equals("crafting cape") &&(client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
 			{
 				MenuEntry[] entries = swapper.getEntries();
 				for (MenuEntry m : entries)
@@ -334,7 +334,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getGamesNecklace())
 		{
-			if (target.toLowerCase().contains("games necklace"))
+			if (target.contains("games necklace"))
 			{
 				if (shiftModifier)
 				{
@@ -350,7 +350,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getDuelingRing())
 		{
-			if (target.toLowerCase().contains("ring of dueling"))
+			if (target.contains("ring of dueling"))
 			{
 				if (shiftModifier)
 				{
@@ -365,7 +365,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getGlory())
 		{
-			if (config.cancelTrades() && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
+			if (config.cancelTrades() && (target.contains("amulet of glory") || target.equals("amulet of eternal glory")) && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
 			{
 				MenuEntry[] entries = swapper.getEntries();
 				for (MenuEntry m : entries)
@@ -376,7 +376,7 @@ public class EasySwapPlugin extends Plugin
 					}
 				}
 			}
-			else if (target.toLowerCase().contains("amulet of glory") || target.toLowerCase().contains("amulet of eternal glory"))
+			else if (target.contains("amulet of glory") || target.equals("amulet of eternal glory"))
 			{
 				if (shiftModifier)
 				{
@@ -390,7 +390,7 @@ public class EasySwapPlugin extends Plugin
 		}
 		if (config.getDigsite())
 		{
-			if (target.toLowerCase().contains("digsite pendant"))
+			if (target.contains("digsite pendant"))
 			{
 				if (shiftModifier)
 				{
