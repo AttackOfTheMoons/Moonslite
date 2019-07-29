@@ -828,6 +828,8 @@ public class WidgetID
 	static class SeedVault
 	{
 		static final int TITLE_CONTAINER = 2;
+		static final int ITEM_CONTAINER = 15;
+		static final int ITEM_TEXT = 16;
 	}
 
 	static class FirstTradeScreen
