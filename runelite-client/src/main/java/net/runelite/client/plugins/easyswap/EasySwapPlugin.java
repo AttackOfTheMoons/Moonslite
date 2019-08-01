@@ -191,6 +191,14 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
+		if (config.getSwapPyramidPlunder())
+		{
+			if (target.equalsIgnoreCase("guardian mummy"))
+			{
+				swapper.markForSwap("Start-minigame", option, target);
+			}
+		}
+
 		if (config.getSwapConCape())
 		{
 			if ((target.equalsIgnoreCase("Construct. cape") || target.equalsIgnoreCase("Construct. cape(t)")) && option.equalsIgnoreCase("Remove"))
@@ -404,7 +412,7 @@ public class EasySwapPlugin extends Plugin
 		}
 		if (config.getMaxCape())
 		{
-			if (target.equals("Max cape"))
+			if (target.contains("max cape"))
 			{
 				if (shiftModifier)
 				{
@@ -413,6 +421,20 @@ public class EasySwapPlugin extends Plugin
 				else
 				{
 					swapper.markForSwap(config.getSMaxCapeMode().toString(), option, target);
+				}
+			}
+		}
+		if (config.getRingOfWealth())
+		{
+			if (target.contains("ring of wealth"))
+			{
+				if (shiftModifier)
+				{
+					swapper.markForSwap(config.getRingOfWealthMode().toString(), option, target);
+				}
+				else
+				{
+					swapper.markForSwap(config.getSRingOfWealthMode().toString(), option, target);
 				}
 			}
 		}

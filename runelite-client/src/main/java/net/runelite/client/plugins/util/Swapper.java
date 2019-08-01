@@ -39,6 +39,10 @@ public class Swapper
 
 	public void markForSwap(String optionA, String optionB, String target)
 	{
+		if (optionA.equalsIgnoreCase(optionB))
+		{
+			return;
+		}
 		swapping.add(new Swappable(target, optionA, optionB));
 	}
 
