@@ -193,7 +193,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapPyramidPlunder())
 		{
-			if (target.equalsIgnoreCase("guardian mummy"))
+			if (target.equalsIgnoreCase("guardian mummy") && !shiftModifier)
 			{
 				swapper.markForSwap("Start-minigame", option, target);
 			}
@@ -437,6 +437,21 @@ public class EasySwapPlugin extends Plugin
 					swapper.markForSwap(config.getSRingOfWealthMode().toString(), option, target);
 				}
 			}
+		}
+		if (config.getPharaohSceptre())
+		{
+			if (target.contains("pharaoh's sceptre"))
+			{
+				if (shiftModifier)
+				{
+					swapper.markForSwap(config.getPharaohSceptrehMode().toString(), option, target);
+				}
+				else
+				{
+					swapper.markForSwap(config.getSPharaohSceptreMode().toString(), option, target);
+				}
+			}
+
 		}
 		swapper.startSwap();
 		client.setMenuEntries(swapper.getEntries());

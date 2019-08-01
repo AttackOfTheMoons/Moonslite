@@ -9,19 +9,17 @@ import net.runelite.client.plugins.util.GamesNecklaceMode;
 import net.runelite.client.plugins.util.GloryMode;
 import net.runelite.client.plugins.util.MaxCapeMode;
 import net.runelite.client.plugins.util.WealthRingMode;
+import net.runelite.client.plugins.util.PharaohSceptreMode;
 
 @ConfigGroup("easyswap")
 public interface EasySwapConfig extends Config
 {
-
-
 	@ConfigItem(
 		keyName = "swapSmithing",
 		name = "Swap Smithing",
 		description = "Enables swapping of smith-1 and smith-all options.",
 		position = 0
 	)
-
 	default boolean getSwapSmithing()
 	{
 		return true;
@@ -33,7 +31,6 @@ public interface EasySwapConfig extends Config
 		description = "Enables swapping of tan-1 and tan-all options.",
 		position = 1
 	)
-
 	default boolean getSwapTanning()
 	{
 		return true;
@@ -45,7 +42,6 @@ public interface EasySwapConfig extends Config
 		description = "Enables swapping of Make-1 and Make-all options.",
 		position = 2
 	)
-
 	default boolean getSwapCrafting()
 	{
 		return true;
@@ -57,7 +53,6 @@ public interface EasySwapConfig extends Config
 		description = "Enables swapping of teleport and wear.",
 		position = 3
 	)
-
 	default boolean getSwapArdougneCape()
 	{
 		return true;
@@ -69,7 +64,6 @@ public interface EasySwapConfig extends Config
 		description = "Makes Buy-plank the default option on the sawmill operator.",
 		position = 4
 	)
-
 	default boolean getSwapSawmill()
 	{
 		return true;
@@ -81,7 +75,6 @@ public interface EasySwapConfig extends Config
 		description = "Makes Buy All the default option in buy planks.",
 		position = 5
 	)
-
 	default boolean getSwapSawmillPlanks()
 	{
 		return true;
@@ -93,7 +86,6 @@ public interface EasySwapConfig extends Config
 		description = "",
 		position = 6
 	)
-
 	default boolean getSwapPuro()
 	{
 		return true;
@@ -105,7 +97,6 @@ public interface EasySwapConfig extends Config
 		description = "Swaps the left click option on rock cakes from eat to guzzle",
 		position = 7
 	)
-
 	default boolean getSwapCake()
 	{
 		return true;
@@ -114,10 +105,13 @@ public interface EasySwapConfig extends Config
 	@ConfigItem(
 		keyName = "swapPyramidPlunder",
 		name = "Swap Pyramid Plunder Start",
-		description = "Start the Pyramid Plunder minigame with left click",
+		description = "Start the Pyramid Plunder minigame with left click, shift click to talk normally",
 		position = 8
 	)
-	default boolean getSwapPyramidPlunder() {return false;}
+	default boolean getSwapPyramidPlunder()
+	{
+		return false;
+	}
 
 	@ConfigItem(
 		keyName = "swapConCape",
@@ -125,7 +119,6 @@ public interface EasySwapConfig extends Config
 		description = "Sets left click to teleport to POH",
 		position = 9
 	)
-
 	default boolean getSwapConCape()
 	{
 		return true;
@@ -137,7 +130,6 @@ public interface EasySwapConfig extends Config
 		description = "Left Click Teleport for Crafting Cape",
 		position = 10
 	)
-
 	default boolean getSwapCraftCape()
 	{
 		return true;
@@ -149,7 +141,6 @@ public interface EasySwapConfig extends Config
 		description = "Left click Teleport for Mythical Cape",
 		position = 11
 	)
-
 	default boolean getSwapMythCape()
 	{
 		return false;
@@ -161,7 +152,6 @@ public interface EasySwapConfig extends Config
 		description = "Swaps NPC Contact",
 		position = 12
 	)
-
 	default boolean getSwapNPC()
 	{
 		return false;
@@ -173,7 +163,6 @@ public interface EasySwapConfig extends Config
 		description = "Swaps the left click option for offering pure essence in a trade",
 		position = 13
 	)
-
 	default boolean getSwapEss()
 	{
 		return false;
@@ -185,7 +174,6 @@ public interface EasySwapConfig extends Config
 		description = "Prevents accidental crafting of fire runes",
 		position = 14
 	)
-
 	default boolean disableCraftAltar()
 	{
 		return false;
@@ -197,7 +185,6 @@ public interface EasySwapConfig extends Config
 		description = "Stops teleports while in trade screen",
 		position = 15
 	)
-
 	default boolean cancelTrades()
 	{
 		return false;
@@ -209,7 +196,6 @@ public interface EasySwapConfig extends Config
 		description = "Show only trade option (toggle using shift) with clan members",
 		position = 16
 	)
-
 	default boolean tradesOnly()
 	{
 		return false;
@@ -221,7 +207,6 @@ public interface EasySwapConfig extends Config
 		description = "Empty / Fill Pouches inside bank interface",
 		position = 17
 	)
-
 	default boolean getSwapEssencePouch()
 	{
 		return false;
@@ -233,7 +218,6 @@ public interface EasySwapConfig extends Config
 		description = "Empty on left click outside of the bank",
 		position = 18
 	)
-
 	default boolean getSwapEssOutsideBank()
 	{
 		return true;
@@ -256,7 +240,6 @@ public interface EasySwapConfig extends Config
 		description = "Left Click Teleport Option",
 		position = 20
 	)
-
 	default GamesNecklaceMode getGamesNecklaceMode()
 	{
 		return GamesNecklaceMode.BURTHORPE;
@@ -268,7 +251,6 @@ public interface EasySwapConfig extends Config
 		description = "Shift + Left Click Teleport Option",
 		position = 21
 	)
-
 	default GamesNecklaceMode getSGamesNecklaceMode()
 	{
 		return GamesNecklaceMode.BARBARIAN_OUTPOST;
@@ -280,7 +262,6 @@ public interface EasySwapConfig extends Config
 		description = "Swap Teleport for Dueling Ring",
 		position = 22
 	)
-
 	default boolean getDuelingRing()
 	{
 		return false;
@@ -292,7 +273,6 @@ public interface EasySwapConfig extends Config
 		description = "Left Click Teleport Option",
 		position = 23
 	)
-
 	default DuelingRingMode getDuelingRingMode()
 	{
 		return DuelingRingMode.DUEL_ARENA;
@@ -304,7 +284,6 @@ public interface EasySwapConfig extends Config
 		description = "Shift + Left Click Teleport Option",
 		position = 24
 	)
-
 	default DuelingRingMode getSDuelingRingMode()
 	{
 		return DuelingRingMode.CASTLE_WARS;
@@ -316,7 +295,6 @@ public interface EasySwapConfig extends Config
 		description = "Swap Teleport for Amulet of Glory",
 		position = 25
 	)
-
 	default boolean getGlory()
 	{
 		return false;
@@ -328,7 +306,6 @@ public interface EasySwapConfig extends Config
 		description = "Left Click Teleport Option",
 		position = 26
 	)
-
 	default GloryMode getGloryMode()
 	{
 		return GloryMode.EDGEVILLE;
@@ -340,7 +317,6 @@ public interface EasySwapConfig extends Config
 		description = "Shift + Left Click Teleport Option",
 		position = 27
 	)
-
 	default GloryMode getSGloryMode()
 	{
 		return GloryMode.KARAMJA;
@@ -363,7 +339,6 @@ public interface EasySwapConfig extends Config
 		description = "Left Click Teleport Option",
 		position = 29
 	)
-
 	default DigsiteMode getDigsiteMode()
 	{
 		return DigsiteMode.FOSSIL_ISLAND;
@@ -444,5 +419,38 @@ public interface EasySwapConfig extends Config
 	default WealthRingMode getSRingOfWealthMode()
 	{
 		return WealthRingMode.REMOVE;
+	}
+
+	@ConfigItem(
+		keyName = "pharaohSceptre",
+		name = "Swap Pharaoh's Sceptre",
+		description = "Swaps Options for Pharaoh's Sceptre",
+		position = 37
+	)
+	default boolean getPharaohSceptre()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "pharaohSceptreMode",
+		name = "Mode",
+		description = "Left Click Option for Pharaoh's Sceptre",
+		position = 38
+	)
+	default PharaohSceptreMode getPharaohSceptrehMode()
+	{
+		return PharaohSceptreMode.JALSAVRAH;
+	}
+
+	@ConfigItem(
+		keyName = "spharaohSceptreMode",
+		name = "Shift Mode",
+		description = "Shift + Left Click Option for Pharaoh's Sceptre",
+		position = 39
+	)
+	default PharaohSceptreMode getSPharaohSceptreMode()
+	{
+		return PharaohSceptreMode.JALDRAOCHT;
 	}
 }
