@@ -87,7 +87,6 @@ public class EasySwapPlugin extends Plugin
 		if (!event.isFocused())
 		{
 			this.shiftModifier = false;
-			this.shiftToggle = false;
 		}
 
 	}
