@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019 Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,37 +22,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.cluescrolls.clues.item;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import net.runelite.api.Client;
+import net.runelite.api.Item;
+import net.runelite.api.ItemComposition;
 
-/**
- * An enumeration of integer local variables.
- */
-@AllArgsConstructor
-@Getter
-public enum VarClientInt
+public class MultipleOfItemRequirement implements ItemRequirement
 {
-	TOOLTIP_TIMEOUT(1),
+	private int itemId;
+	private int quantity;
 
-	/**
-	 * 0 = no tooltip displayed
-	 * 1 = tooltip displaying
-	 */
-	TOOLTIP_VISIBLE(2),
+	public MultipleOfItemRequirement(int itemId, int quantity)
+	{
+		this.itemId = itemId;
+		this.quantity = quantity;
+	}
 
-	/**
-	 * Current message layer mode
-	 * @see net.runelite.api.vars.InputType
-	 */
-	INPUT_TYPE(5),
+	@Override
+	public boolean fulfilledBy(int itemId)
+	{
+		return itemId == this.itemId && this.quantity == 1;
+	}
 
-	MEMBERSHIP_STATUS(103),
+	@Override
+	public boolean fulfilledBy(Item[] items)
+	{
+		for (Item item : items)
+		{
+			if (item.getId() == itemId && item.getQuantity() >= quantity)
+			{
+				return true;
+			}
+		}
 
-	INVENTORY_TAB(171),
+		return false;
+	}
 
-	WORLD_MAP_SEARCH_FOCUSED(190);
+	@Override
+	public String getCollectiveName(Client client)
+	{
+		ItemComposition definition = client.getItemDefinition(itemId);
 
-	private final int index;
+		if (definition == null)
+		{
+			return "N/A";
+		}
+
+		return definition.getName() + " x" + this.quantity;
+	}
 }
