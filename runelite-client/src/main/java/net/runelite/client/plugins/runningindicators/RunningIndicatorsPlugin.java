@@ -9,6 +9,7 @@ import net.runelite.api.MenuEntry;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuEntryAdded;
+import net.runelite.api.events.WidgetHiddenChanged;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -108,10 +109,19 @@ public class RunningIndicatorsPlugin extends Plugin
 	}
 
 	@Subscribe
+	public void onWidgetHiddenChanged(WidgetHiddenChanged event)
+	{
+		if (event.getWidget().getId() == 21954591)
+		{
+			tradeSent = false;
+		}
+	}
+
+	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
 		//using numbers instead of widgetid definition because its not working for some reason
-		if (tradeSent && client.getWidget(335, 9) != null)
+		if (config.getDisableSpamTrades() && (tradeSent || client.getWidget(335, 9) != null))
 		{
 			MenuEntry[] entries = client.getMenuEntries();
 			List<MenuEntry> nonTrades = new ArrayList<>();
