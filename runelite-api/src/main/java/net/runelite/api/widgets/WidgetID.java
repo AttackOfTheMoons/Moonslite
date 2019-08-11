@@ -834,10 +834,10 @@ public class WidgetID
 
 	static class FirstTradeScreen
 	{
+		static final int TRADING_WITH_INVENTORY_SLOTS = 9;
 		static final int ACCEPT = 12;
 		static final int DECLINE = 15;
 		static final int TRADING_WITH = 31;
-		static final int TRADING_WITH_INVENTORY_SLOTS = 9;
 	}
 
 	static class SecondTradeScreen
