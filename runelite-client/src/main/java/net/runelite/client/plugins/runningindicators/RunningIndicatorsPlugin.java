@@ -1,9 +1,14 @@
 package net.runelite.client.plugins.runningindicators;
 
 import com.google.inject.Provides;
+import java.util.ArrayList;
+import java.util.List;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
+import net.runelite.api.MenuEntry;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -40,6 +45,8 @@ public class RunningIndicatorsPlugin extends Plugin
 	private Client client;
 
 	private int id = -1;
+
+	private boolean tradeSent = false;
 
 	@Inject
 	RunningIndicatorsConfig config;
@@ -85,6 +92,41 @@ public class RunningIndicatorsPlugin extends Plugin
 	}
 
 	@Subscribe
+	public void onChatMessage(ChatMessage event)
+	{
+		if (config.getDisableSpamTrades())
+		{
+			if (event.getMessage().equals("Sending trade offer..."))
+			{
+				tradeSent = true;
+			}
+			else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade."))
+			{
+				tradeSent = false;
+			}
+		}
+	}
+
+	@Subscribe
+	public void onMenuEntryAdded(MenuEntryAdded event)
+	{
+		//using numbers instead of widgetid definition because its not working for some reason
+		if (tradeSent && client.getWidget(335, 9) != null)
+		{
+			MenuEntry[] entries = client.getMenuEntries();
+			List<MenuEntry> nonTrades = new ArrayList<>();
+			for (MenuEntry entry : entries)
+			{
+				if (!entry.getOption().equals("Accept trade"))
+				{
+					nonTrades.add(entry);
+				}
+			}
+			client.setMenuEntries(nonTrades.toArray(new MenuEntry[0]));
+		}
+	}
+
+	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
 		Item[] items = event.getItemContainer().getItems();
@@ -94,6 +136,7 @@ public class RunningIndicatorsPlugin extends Plugin
 		}
 		this.id = items[12].getId();
 	}
+
 
 	public boolean wearingRingOfDueling()
 	{

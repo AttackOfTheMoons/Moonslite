@@ -200,7 +200,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapConCape())
 		{
-			if ((target.equalsIgnoreCase("Construct. cape") || target.equalsIgnoreCase("Construct. cape(t)")) && option.equalsIgnoreCase("Remove"))
+			if ((target.equalsIgnoreCase("Construct. cape") || target.equalsIgnoreCase("Construct. cape(t)")) && (option.equalsIgnoreCase("remove") || (config.getTeleportInventory() && option.equals("use"))))
 			{
 				swapper.markForSwap("Tele to POH", option, target);
 			}
@@ -208,7 +208,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapCraftCape())
 		{
-			if (config.cancelTrades() && target.equals("crafting cape") && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
+			if (config.cancelTrades() && (target.equals("crafting cape") || target.equals("crafting cape(t)")) && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
 			{
 				MenuEntry[] entries = swapper.getEntries();
 				for (MenuEntry m : entries)
@@ -219,7 +219,7 @@ public class EasySwapPlugin extends Plugin
 					}
 				}
 			}
-			else if ((target.equalsIgnoreCase("Crafting cape") || target.equalsIgnoreCase("Crafting cape(t)")) && option.equalsIgnoreCase("remove"))
+			else if ((target.equalsIgnoreCase("Crafting cape") || target.equalsIgnoreCase("Crafting cape(t)")) && (option.equalsIgnoreCase("remove") || (config.getTeleportInventory() && option.equals("use"))))
 			{
 				swapper.markForSwap("Teleport", option, target);
 			}
@@ -227,7 +227,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapMythCape())
 		{
-			if (target.equalsIgnoreCase("Mythical cape") && option.equals("remove"))
+			if (target.equalsIgnoreCase("Mythical cape") && (option.equals("remove") || (config.getTeleportInventory() && option.equals("use"))))
 			{
 				swapper.markForSwap("Teleport", option, target);
 			}

@@ -51,4 +51,15 @@ public interface RunningIndicatorsConfig extends Config
 	{
 		return Color.GREEN;
 	}
+
+	@ConfigItem(
+		keyName = "disableSpamTrades",
+		name = "Disable Spam Trades",
+		description = "Stops multiple trades from being sent",
+		position = 4
+	)
+	default boolean getDisableSpamTrades()
+	{
+		return false;
+	}
 }
