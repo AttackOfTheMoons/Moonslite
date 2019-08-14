@@ -142,6 +142,7 @@ public class WidgetID
 	public static final int SEED_BOX_GROUP_ID = 128;
 	public static final int ITEMS_KEPT_ON_DEATH_GROUP_ID = 4;
 	public static final int SEED_VAULT_GROUP_ID = 631;
+	public static final int EXPLORERS_RING_ALCH_GROUP_ID = 483;
 	public static final int FIRST_TRADE_SCREEN_GROUP_ID = 335;
 	public static final int SECOND_TRADE_SCREEN_GROUP_ID = 334;
 
@@ -567,7 +568,6 @@ public class WidgetID
 			static final int ROLE_SPRITE = 11;
 			static final int ROLE = 12;
 		}
-
 		static final int CORRECT_STYLE = 3;
 		static final int CURRENT_WAVE_WIDGET = 4;
 		static final int CURRENT_WAVE = 5;
@@ -830,6 +830,11 @@ public class WidgetID
 		static final int TITLE_CONTAINER = 2;
 		static final int ITEM_CONTAINER = 15;
 		static final int ITEM_TEXT = 16;
+	}
+
+	static class ExplorersRing
+	{
+		static final int INVENTORY = 7;
 	}
 
 	static class FirstTradeScreen
