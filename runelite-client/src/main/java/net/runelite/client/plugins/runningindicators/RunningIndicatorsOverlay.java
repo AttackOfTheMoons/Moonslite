@@ -14,25 +14,24 @@ import java.awt.*;
 
 public class RunningIndicatorsOverlay extends Overlay
 {
-
-	private final Client client;
-
-	private boolean bindingAlert;
-
-	boolean wearingRingOfDueling;
+	@Inject
+	private Client client;
 
 	@Inject
-	RunningIndicatorsConfig config;
+	private RunningIndicatorsPlugin plugin;
 
 	@Inject
-	private RunningIndicatorsOverlay(Client client)
+	private RunningIndicatorsConfig config;
+
+	@Inject
+	private RunningIndicatorsOverlay(Client client, RunningIndicatorsPlugin plugin, RunningIndicatorsConfig config)
 	{
 		this.client = client;
+		this.plugin = plugin;
+		this.config = config;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.MED);
-		bindingAlert = false;
-		wearingRingOfDueling = false;
 	}
 
 	public Dimension render(Graphics2D graphics)
@@ -40,7 +39,7 @@ public class RunningIndicatorsOverlay extends Overlay
 		Widget inventory = client.getWidget(WidgetInfo.INVENTORY);
 		for (WidgetItem items : inventory.getWidgetItems())
 		{
-			if (items.getId() == ItemID.BINDING_NECKLACE && bindingAlert)
+			if (items.getId() == ItemID.BINDING_NECKLACE && plugin.getBindingAlert())
 			{
 				Rectangle bounds = items.getCanvasBounds();
 				graphics.setColor(config.getBindingColor());
@@ -54,7 +53,7 @@ public class RunningIndicatorsOverlay extends Overlay
 		{
 			for (Widget items : bank.getChildren())
 			{
-				if (items.getItemId() == ItemID.RING_OF_DUELING8 && !wearingRingOfDueling)
+				if (items.getItemId() == ItemID.RING_OF_DUELING8 && !plugin.getWearingRingOfDueling())
 				{
 					Rectangle bounds = items.getBounds();
 					graphics.setColor(config.getRingOfDuelingColor());
@@ -62,12 +61,16 @@ public class RunningIndicatorsOverlay extends Overlay
 				}
 			}
 		}
+
+		if (config.getChatBoxMarker())
+		{
+			Widget chatBox = client.getWidget(WidgetInfo.CHATBOX);
+			Rectangle bounds = chatBox.getBounds();
+			graphics.setColor(plugin.getSentTrades() ? config.getChatBoxColorSent() : config.getChatBoxColor());
+			graphics.setStroke(new BasicStroke(4));
+			graphics.draw(bounds);
+		}
+
 		return null;
 	}
-
-	public void setBindingAlert(boolean flag)
-	{
-		bindingAlert = flag;
-	}
-
 }

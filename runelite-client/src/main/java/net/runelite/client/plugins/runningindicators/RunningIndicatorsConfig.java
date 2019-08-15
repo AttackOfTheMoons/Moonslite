@@ -53,10 +53,43 @@ public interface RunningIndicatorsConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "chatBoxMarker",
+		name = "Chat Box Marker",
+		description = "Highlights the chatbox if you haven't sent a trade",
+		position = 4
+	)
+	default boolean getChatBoxMarker()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "chatBoxColorSent",
+		name = "Sent Trade Color",
+		description = "Color for the chat box marker when trade has been sent",
+		position = 5
+	)
+	default Color getChatBoxColorSent()
+	{
+		return Color.GREEN;
+	}
+
+	@ConfigItem(
+		keyName = "chatBoxColor",
+		name = "Trade Not Sent Color",
+		description = "This will be the default color",
+		position = 6
+	)
+	default Color getChatBoxColor()
+	{
+		return Color.RED;
+	}
+
+	@ConfigItem(
 		keyName = "disableSpamTrades",
 		name = "Disable Spam Trades",
 		description = "Stops multiple trades from being sent",
-		position = 4
+		position = 7
 	)
 	default boolean getDisableSpamTrades()
 	{

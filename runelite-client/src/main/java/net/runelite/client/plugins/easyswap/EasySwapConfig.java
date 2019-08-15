@@ -15,17 +15,6 @@ import net.runelite.client.plugins.util.PharaohSceptreMode;
 public interface EasySwapConfig extends Config
 {
 	@ConfigItem(
-		keyName = "swapSmithing",
-		name = "Swap Smithing",
-		description = "Enables swapping of smith-1 and smith-all options.",
-		position = 0
-	)
-	default boolean getSwapSmithing()
-	{
-		return true;
-	}
-
-	@ConfigItem(
 		keyName = "swapTanning",
 		name = "Swap Tanning",
 		description = "Enables swapping of tan-1 and tan-all options.",

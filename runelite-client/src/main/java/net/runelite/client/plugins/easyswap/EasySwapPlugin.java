@@ -129,18 +129,6 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
-		if (config.getSwapSmithing())
-		{
-			if (option.equalsIgnoreCase("Smith 1"))
-			{
-				swapper.markForSwap("Smith All", option, target);
-			}
-			else if (option.equalsIgnoreCase("Smith 1 Set"))
-			{
-				swapper.markForSwap("Smith All Sets", option, target);
-			}
-		}
-
 		if (config.getSwapTanning() && option.equalsIgnoreCase("Tan 1"))
 		{
 			swapper.markForSwap("Tan All", option, target);

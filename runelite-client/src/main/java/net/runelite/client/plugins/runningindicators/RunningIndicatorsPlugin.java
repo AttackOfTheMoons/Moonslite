@@ -49,6 +49,10 @@ public class RunningIndicatorsPlugin extends Plugin
 
 	private boolean tradeSent = false;
 
+	private boolean wearingRingOfDueling = false;
+
+	private boolean bindingAlert = false;
+
 	@Inject
 	RunningIndicatorsConfig config;
 
@@ -73,23 +77,20 @@ public class RunningIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick tick)
 	{
+		bindingAlert = false;
 		if (config.getTradeBinding())
 		{
 			Widget tradeWidget = client.getWidget(WidgetInfo.FIRST_TRADING_WITH_SLOTS);
-			overlay.setBindingAlert(false);
 			if (tradeWidget != null)
 			{
 				String text = tradeWidget.getText();
 				if (text.length() > 24 && (text.charAt(text.length() - 24) == '2' && text.charAt(text.length() - 23) == '5'))
 				{
-					overlay.setBindingAlert(true);
+					bindingAlert = true;
 				}
 			}
 		}
-		if (config.getRingOfDuelingMarker())
-		{
-			overlay.wearingRingOfDueling = wearingRingOfDueling();
-		}
+		wearingRingOfDueling();
 	}
 
 	@Subscribe
@@ -101,7 +102,7 @@ public class RunningIndicatorsPlugin extends Plugin
 			{
 				tradeSent = true;
 			}
-			else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade."))
+			else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment."))
 			{
 				tradeSent = false;
 			}
@@ -144,13 +145,38 @@ public class RunningIndicatorsPlugin extends Plugin
 		{
 			return;
 		}
+		if (items.length < 13)
+		{
+			return;
+		}
 		this.id = items[12].getId();
 	}
 
-
-	public boolean wearingRingOfDueling()
+	public boolean getSentTrades()
 	{
-		return (id == ItemID.RING_OF_DUELING8 || id == ItemID.RING_OF_DUELING7 || id == ItemID.RING_OF_DUELING6 || id == ItemID.RING_OF_DUELING5 || id == ItemID.RING_OF_DUELING4 || id == ItemID.RING_OF_DUELING3 || id == ItemID.RING_OF_DUELING2 || id == ItemID.RING_OF_DUELING1);
+		return tradeSent;
+	}
+
+	public boolean getWearingRingOfDueling()
+	{
+		return wearingRingOfDueling;
+	}
+
+	public boolean getBindingAlert()
+	{
+		return bindingAlert;
+	}
+
+	private void wearingRingOfDueling()
+	{
+		if (config.getRingOfDuelingMarker())
+		{
+			wearingRingOfDueling = (id == ItemID.RING_OF_DUELING8 || id == ItemID.RING_OF_DUELING7 || id == ItemID.RING_OF_DUELING6 || id == ItemID.RING_OF_DUELING5 || id == ItemID.RING_OF_DUELING4 || id == ItemID.RING_OF_DUELING3 || id == ItemID.RING_OF_DUELING2 || id == ItemID.RING_OF_DUELING1);
+		}
+		else
+		{
+			wearingRingOfDueling = true;
+		}
 	}
 
 }
