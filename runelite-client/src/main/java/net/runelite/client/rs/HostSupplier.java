@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,43 +22,56 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#version 330
+package net.runelite.client.rs;
 
-uniform sampler2DArray textures;
-uniform vec2 textureOffsets[64];
-uniform float brightness;
-uniform float smoothBanding;
-uniform vec4 fogColor;
+import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import net.runelite.http.api.worlds.WorldClient;
 
-in vec4 Color;
-in float fHsl;
-in vec4 fUv;
-in float fogAmount;
+@Slf4j
+class HostSupplier implements Supplier<String>
+{
+	private final Random random = new Random(System.nanoTime());
+	private Queue<String> hosts = new ArrayDeque<>();
 
-out vec4 FragColor;
+	@Override
+	public String get()
+	{
+		if (!hosts.isEmpty())
+		{
+			return hosts.poll();
+		}
 
-#include hsl_to_rgb.glsl
+		try
+		{
+			List<String> newHosts = new WorldClient()
+				.lookupWorlds()
+				.getWorlds()
+				.stream()
+				.map(i -> i.getAddress())
+				.collect(Collectors.toList());
 
-void main() {
-  float n = fUv.x;
+			Collections.shuffle(newHosts, random);
 
-  int hsl = int(fHsl);
-  vec3 rgb = hslToRgb(hsl) * smoothBanding + Color.rgb * (1.f - smoothBanding);
-  vec4 smoothColor = vec4(rgb, Color.a);
+			hosts.addAll(newHosts.subList(0, 16));
+		}
+		catch (IOException e)
+		{
+			log.warn("Unable to retrieve world list", e);
+		}
 
-  if (n > 0.0) {
-    n -= 1.0;
-    int textureIdx = int(n);
+		while (hosts.size() < 2)
+		{
+			hosts.add("oldschool" + (random.nextInt(50) + 1) + ".runescape.COM");
+		}
 
-    vec2 uv = fUv.yz;
-    vec2 animatedUv = uv + textureOffsets[textureIdx];
-
-    vec4 textureColor = texture(textures, vec3(animatedUv, n));
-    vec4 textureColorBrightness = pow(textureColor, vec4(brightness, brightness, brightness, 1.0f));
-
-    smoothColor = textureColorBrightness * smoothColor;
-  }
-
-  vec3 mixedColor = mix(smoothColor.rgb, fogColor.rgb, fogAmount);
-  FragColor = vec4(mixedColor, smoothColor.a);
+		return hosts.poll();
+	}
 }
