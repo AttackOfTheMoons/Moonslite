@@ -290,39 +290,38 @@ public class EasySwapPlugin extends Plugin
 			if (isEssencePouch(target))
 			{
 				Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
-				MenuEntry[] entries = swapper.getEntries();
-				List<MenuEntry> pouchfix = new ArrayList<>();
-				for (MenuEntry m : entries)
-				{
-					if (!m.getOption().contains("Deposit"))
-					{
-						pouchfix.add(m);
-					}
-				}
-				MenuEntry[] pouchfixArr = pouchfix.toArray(new MenuEntry[0]);
-
 				if ((widgetBankTitleBar == null || widgetBankTitleBar.getText().equals("")))
 				{
 					if (config.getSwapEssOutsideBank())
 					{
 						swapper.markForSwap("Empty", option, target);
 					}
-
 				}
 				else
 				{
-					if (pouchfixArr != null)
+					MenuEntry[] entries = swapper.getEntries();
+					List<MenuEntry> pouchFix = new ArrayList<>();
+					for (MenuEntry m : entries)
 					{
-						for (MenuEntry m : pouchfixArr)
+						if (!m.getOption().contains("Deposit"))
 						{
-							m.setForceLeftClick(true);
+							pouchFix.add(m);
 						}
 					}
-					swapper.setEntries(pouchfixArr);
-					toolTipManager.clear();
-					toolTipManager.addFront(new Tooltip(pouchfixArr[pouchfixArr.length - 1].getOption() + " <col=ff9040>" + StringUtils.capitalize(target)));
-					//swapper.markForSwap("Fill", option, target);
-
+					MenuEntry[] pouchFixArr = pouchFix.toArray(new MenuEntry[0]);
+					{
+						if (pouchFixArr != null)
+						{
+							for (MenuEntry m : pouchFixArr)
+							{
+								m.setForceLeftClick(true);
+							}
+						}
+						swapper.setEntries(pouchFixArr);
+						toolTipManager.clear();
+						toolTipManager.addFront(new Tooltip(pouchFixArr[pouchFixArr.length - 1].getOption() + " <col=ff9040>" + StringUtils.capitalize(target)));
+						swapper.markForSwap("Fill", option, target);
+					}
 				}
 			}
 		}
@@ -446,7 +445,7 @@ public class EasySwapPlugin extends Plugin
 
 	private boolean isEssencePouch(String target)
 	{
-		return (target.equalsIgnoreCase("Small Pouch") || target.equalsIgnoreCase("Medium Pouch") || target.equalsIgnoreCase("Large Pouch") || target.equalsIgnoreCase("Giant Pouch"));
+		return (target.equals("small pouch") || target.equals("medium pouch") || target.equals("large pouch") || target.equals("giant pouch"));
 	}
 
 	@Subscribe

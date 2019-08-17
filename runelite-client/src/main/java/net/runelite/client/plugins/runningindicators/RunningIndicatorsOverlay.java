@@ -47,30 +47,33 @@ public class RunningIndicatorsOverlay extends Overlay
 			}
 		}
 
+		if (config.getChatBoxMarker())
+		{
+			Widget chatBox = client.getWidget(WidgetInfo.CHATBOX);
+			if (chatBox != null)
+			{
+				Rectangle bounds = chatBox.getBounds();
+				graphics.setColor(plugin.getSentTrades() ? config.getChatBoxColorSent() : config.getChatBoxColor());
+				graphics.setStroke(new BasicStroke(4));
+				graphics.draw(bounds);
+			}
+		}
+
 		Widget bank = client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER);
 
-		if (bank != null)
+		if (bank != null && bank.getChildren() != null)
 		{
 			for (Widget items : bank.getChildren())
 			{
-				if (items.getItemId() == ItemID.RING_OF_DUELING8 && !plugin.getWearingRingOfDueling())
+				if (items != null && items.getItemId() == ItemID.RING_OF_DUELING8 && !plugin.getWearingRingOfDueling())
 				{
 					Rectangle bounds = items.getBounds();
+					graphics.setStroke(new BasicStroke(1));
 					graphics.setColor(config.getRingOfDuelingColor());
 					graphics.draw(bounds);
 				}
 			}
 		}
-
-		if (config.getChatBoxMarker())
-		{
-			Widget chatBox = client.getWidget(WidgetInfo.CHATBOX);
-			Rectangle bounds = chatBox.getBounds();
-			graphics.setColor(plugin.getSentTrades() ? config.getChatBoxColorSent() : config.getChatBoxColor());
-			graphics.setStroke(new BasicStroke(4));
-			graphics.draw(bounds);
-		}
-
 		return null;
 	}
 }
