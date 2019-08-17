@@ -290,38 +290,14 @@ public class EasySwapPlugin extends Plugin
 			if (isEssencePouch(target))
 			{
 				Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
-				if ((widgetBankTitleBar == null || widgetBankTitleBar.getText().equals("")))
+				if (widgetBankTitleBar == null || widgetBankTitleBar.isHidden())
 				{
-					if (config.getSwapEssOutsideBank())
-					{
-						swapper.markForSwap("Empty", option, target);
-					}
+					swapper.markForSwap("Empty", option, target);
+
 				}
 				else
 				{
-					MenuEntry[] entries = swapper.getEntries();
-					List<MenuEntry> pouchFix = new ArrayList<>();
-					for (MenuEntry m : entries)
-					{
-						if (!m.getOption().contains("Deposit"))
-						{
-							pouchFix.add(m);
-						}
-					}
-					MenuEntry[] pouchFixArr = pouchFix.toArray(new MenuEntry[0]);
-					{
-						if (pouchFixArr != null)
-						{
-							for (MenuEntry m : pouchFixArr)
-							{
-								m.setForceLeftClick(true);
-							}
-						}
-						swapper.setEntries(pouchFixArr);
-						toolTipManager.clear();
-						toolTipManager.addFront(new Tooltip(pouchFixArr[pouchFixArr.length - 1].getOption() + " <col=ff9040>" + StringUtils.capitalize(target)));
-						swapper.markForSwap("Fill", option, target);
-					}
+					swapper.markForSwap("Fill", option, target);
 				}
 			}
 		}
