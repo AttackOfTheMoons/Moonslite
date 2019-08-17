@@ -1,7 +1,5 @@
 package net.runelite.client.plugins.theatre;
 
-import net.runelite.api.NpcID;
-
 public class TheatreConstant
 {
 

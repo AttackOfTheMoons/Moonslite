@@ -3,9 +3,7 @@ package net.runelite.client.plugins.theatre.rooms.nylocas;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.NpcSpawned;
-import net.runelite.client.plugins.theatre.TheatreConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -19,13 +19,10 @@ import net.runelite.client.plugins.theatre.TheatreConfig;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
-import net.runelite.client.plugins.theatre.timers.Timeable;
-import net.runelite.client.ui.overlay.OverlayUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class XarpusHandler extends RoomHandler

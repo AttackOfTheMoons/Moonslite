@@ -22,11 +22,9 @@ import net.runelite.client.plugins.theatre.TheatreConfig;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
-import net.runelite.client.ui.overlay.OverlayUtil;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
