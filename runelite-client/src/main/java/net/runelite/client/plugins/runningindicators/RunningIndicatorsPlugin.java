@@ -96,16 +96,13 @@ public class RunningIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onChatMessage(ChatMessage event)
 	{
-		if (config.getDisableSpamTrades())
+		if (event.getMessage().equals("Sending trade offer..."))
 		{
-			if (event.getMessage().equals("Sending trade offer..."))
-			{
-				tradeSent = true;
-			}
-			else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment."))
-			{
-				tradeSent = false;
-			}
+			tradeSent = true;
+		}
+		else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment."))
+		{
+			tradeSent = false;
 		}
 	}
 
@@ -121,8 +118,7 @@ public class RunningIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		//using numbers instead of widgetid definition because its not working for some reason
-		if (config.getDisableSpamTrades() && (tradeSent || client.getWidget(335, 9) != null))
+		if (config.getDisableSpamTrades() && (tradeSent || client.getWidget(WidgetInfo.FIRST_TRADING_WITH_TITLE_CONTAINER) != null))
 		{
 			MenuEntry[] entries = client.getMenuEntries();
 			List<MenuEntry> nonTrades = new ArrayList<>();
