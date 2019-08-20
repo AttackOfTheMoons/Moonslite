@@ -14,7 +14,6 @@ public interface EasyOptionConfig extends Config
 		description = "Removes Examine from the list of options.",
 		position = 0
 	)
-
 	default boolean getRemoveExamine()
 	{
 		return true;
@@ -26,7 +25,6 @@ public interface EasyOptionConfig extends Config
 		description = "Removes interaction with the listed options.",
 		position = 1
 	)
-
 	default boolean getRemoveOptions()
 	{
 		return true;
@@ -39,8 +37,51 @@ public interface EasyOptionConfig extends Config
 		description = "Option listed here will have all interaction be removed.",
 		position = 2
 	)
-
 	default String getRemovedOptions()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "Use",
+		name = "Left Click Use",
+		description = "Items will have their left click option set to use",
+		position = 3
+	)
+	default boolean getUse()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "NameUse",
+		name = "Items",
+		description = "",
+		position = 4
+	)
+	default String getNameUse()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "Drop",
+		name = "Left Click Drop",
+		description = "Items will have their left click option set to drop",
+		position = 5
+	)
+	default boolean getDrop()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "NameDrop",
+		name = "Items",
+		description = "If an item appears on both lists, it will default to use",
+		position = 6
+	)
+	default String getNameDrop()
 	{
 		return "";
 	}

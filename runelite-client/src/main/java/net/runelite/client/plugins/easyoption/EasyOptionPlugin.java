@@ -1,6 +1,8 @@
 package net.runelite.client.plugins.easyoption;
 
 import com.google.inject.Provides;
+import java.util.ArrayList;
+import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -13,14 +15,15 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.util.Text;
-import org.apache.commons.lang3.ArrayUtils;
+
+import net.runelite.client.plugins.util.Swapper;
 
 import javax.inject.Inject;
 
 @PluginDescriptor(
 	name = "EasyOption",
-	description = "EasyOption.",
-	tags = {"easy", "moonlite"},
+	description = "Customize menu entries",
+	tags = {"easy", "moonlite", "drop", "use"},
 	enabledByDefault = false
 )
 
@@ -28,6 +31,7 @@ import javax.inject.Inject;
 public class EasyOptionPlugin extends Plugin
 {
 
+	private Swapper swapper = new Swapper();
 	private MenuEntry[] entries;
 
 	@Inject
@@ -72,35 +76,35 @@ public class EasyOptionPlugin extends Plugin
 		}
 
 		final String option = Text.removeTags(event.getOption()).toLowerCase();
+		final String target = Text.removeTags(event.getTarget()).toLowerCase();
 
-		entries = client.getMenuEntries();
+		swapper.setEntries(client.getMenuEntries());
 
-		if (config.getRemoveExamine() && entries.length >= 0)
+		if (config.getRemoveExamine() && swapper.getEntries().length > 0)
 		{
-			for (int i = entries.length - 1; i >= 0; i--)
+			for (int i = swapper.getEntries().length - 1; i >= 0; i--)
 			{
-				if (entries[i].getOption().equals("Examine"))
+				if (swapper.getEntries()[i].getOption().equals("Examine"))
 				{
-					entries = ArrayUtils.remove(entries, i);
+					swapper.removeIndex(i);
 					i--;
 				}
 			}
-			client.setMenuEntries(entries);
 		}
 
 		if (config.getRemoveOptions() && !config.getRemovedOptions().equals(""))
 		{
 			for (String removed : config.getRemovedOptions().split(","))
 			{
-				removed = removed.trim();
-				if (option.contains("(") && option.split(" \\(")[0].equalsIgnoreCase(removed))
+				removed = removed.trim().toLowerCase();
+				if (option.contains("(") && option.split(" \\(")[0].equals(removed))
 				{
 					delete(event.getIdentifier());
 				}
 				else if (option.contains("->"))
 				{
-					String trimmed = option.split("->")[1].trim();
-					if (trimmed.length() >= removed.length() && trimmed.substring(0, removed.length()).equalsIgnoreCase(removed))
+					String trimmed = option.split("->")[1].trim().toLowerCase();
+					if (trimmed.length() >= removed.length() && trimmed.substring(0, removed.length()).equals(removed))
 					{
 						delete(event.getIdentifier());
 						break;
@@ -114,19 +118,50 @@ public class EasyOptionPlugin extends Plugin
 			}
 		}
 
+		if (config.getUse() && !config.getNameUse().equals(""))
+		{
+			for (String item : config.getNameUse().split(","))
+			{
+				item = item.trim().toLowerCase();
+				if (!item.equals("") && target.equals(item))
+				{
+					swapper.markForSwap("Use", option, target);
+				}
+			}
+		}
+
+		if (config.getDrop() && !config.getNameDrop().equals(""))
+		{
+			ArrayList<String> dropList = new ArrayList<>(Arrays.asList(config.getNameDrop().split(",")));
+			if (config.getUse() && !config.getNameUse().equals(""))
+			{
+				ArrayList<String> useList = new ArrayList<>(Arrays.asList(config.getNameUse().split(",")));
+				dropList.removeAll(useList);
+			}
+			for (String item : dropList)
+			{
+				item = item.trim().toLowerCase();
+				if (!item.equals("") && target.equals(item))
+				{
+					swapper.markForSwap("Drop", option, target);
+				}
+			}
+		}
+
+		swapper.startSwap();
+		client.setMenuEntries(swapper.getEntries());
 	}
 
 	private void delete(int option)
 	{
-		for (int i = entries.length - 1; i >= 0; i--)
+		for (int i = swapper.getEntries().length - 1; i >= 0; i--)
 		{
-			if (entries[i].getIdentifier() == option)
+			if (swapper.getEntries()[i].getIdentifier() == option)
 			{
-				entries = ArrayUtils.remove(entries, i);
+				swapper.removeIndex(i);
 				i--;
 			}
 		}
-		client.setMenuEntries(entries);
 	}
 
 }
