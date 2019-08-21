@@ -303,7 +303,7 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
-		if (true)
+		if (config.edgevilleBankers())
 		{
 			if (target.equals("bank booth"))
 			{
