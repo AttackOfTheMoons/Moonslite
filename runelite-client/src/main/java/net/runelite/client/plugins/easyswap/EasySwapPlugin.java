@@ -295,9 +295,27 @@ public class EasySwapPlugin extends Plugin
 					swapper.markForSwap("Empty", option, target);
 
 				}
-				else
+				else if (!target.contains("withdraw"))
 				{
+					for (int i = 0; i < swapper.getEntries().length; i++)
+					{
+						if (swapper.getEntries()[i].getOption().contains("Deposit"))
+						{
+							swapper.removeIndex(i);
+							i--;
+						}
+						else
+						{
+							swapper.getEntries()[i].setForceLeftClick(true);
+						}
+					}
 					swapper.markForSwap("Fill", option, target);
+					String newOption = swapper.getEntries()[swapper.getEntries().length - 1].getOption();
+					if (newOption.equals("Fill") || newOption.equals("Empty"))
+					{
+						toolTipManager.clear();
+						toolTipManager.addFront(new Tooltip(swapper.getEntries()[swapper.getEntries().length - 1].getOption() + " <col=ff9040>" + StringUtils.capitalize(target)));
+					}
 				}
 			}
 		}
