@@ -213,10 +213,21 @@ public interface EasySwapConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "edgevilleBank",
+		name = "Prioritize Bankers",
+		description = "Prioritize the southern two bankers in edgeville over the bank booth",
+		position = 19
+	)
+	default boolean edgevilleBankers()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "swapGamesNecklace",
 		name = "Swap Games Necklace",
 		description = "Swap Teleport for Games Necklace",
-		position = 19
+		position = 20
 	)
 	default boolean getGamesNecklace()
 	{
@@ -227,7 +238,7 @@ public interface EasySwapConfig extends Config
 		keyName = "gamesNecklaceMode",
 		name = "Mode",
 		description = "Left Click Teleport Option",
-		position = 20
+		position = 21
 	)
 	default GamesNecklaceMode getGamesNecklaceMode()
 	{
@@ -238,7 +249,7 @@ public interface EasySwapConfig extends Config
 		keyName = "sgamesNecklaceMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Teleport Option",
-		position = 21
+		position = 22
 	)
 	default GamesNecklaceMode getSGamesNecklaceMode()
 	{
@@ -249,7 +260,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapDuelingRing",
 		name = "Swap Dueling Ring",
 		description = "Swap Teleport for Dueling Ring",
-		position = 22
+		position = 23
 	)
 	default boolean getDuelingRing()
 	{
@@ -260,7 +271,7 @@ public interface EasySwapConfig extends Config
 		keyName = "duelingRingMode",
 		name = "Mode",
 		description = "Left Click Teleport Option",
-		position = 23
+		position = 24
 	)
 	default DuelingRingMode getDuelingRingMode()
 	{
@@ -271,7 +282,7 @@ public interface EasySwapConfig extends Config
 		keyName = "sduelingRingMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Teleport Option",
-		position = 24
+		position = 25
 	)
 	default DuelingRingMode getSDuelingRingMode()
 	{
@@ -282,7 +293,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapGlory",
 		name = "Swap Glory",
 		description = "Swap Teleport for Amulet of Glory",
-		position = 25
+		position = 26
 	)
 	default boolean getGlory()
 	{
@@ -293,7 +304,7 @@ public interface EasySwapConfig extends Config
 		keyName = "gloryMode",
 		name = "Mode",
 		description = "Left Click Teleport Option",
-		position = 26
+		position = 27
 	)
 	default GloryMode getGloryMode()
 	{
@@ -304,7 +315,7 @@ public interface EasySwapConfig extends Config
 		keyName = "sgloryMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Teleport Option",
-		position = 27
+		position = 28
 	)
 	default GloryMode getSGloryMode()
 	{
@@ -315,7 +326,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapDigsite",
 		name = "Swap Digsite",
 		description = "Swap Teleport for Digsite Pendant",
-		position = 28
+		position = 29
 	)
 	default boolean getDigsite()
 	{
@@ -326,7 +337,7 @@ public interface EasySwapConfig extends Config
 		keyName = "digsiteMode",
 		name = "Mode",
 		description = "Left Click Teleport Option",
-		position = 29
+		position = 30
 	)
 	default DigsiteMode getDigsiteMode()
 	{
@@ -337,7 +348,7 @@ public interface EasySwapConfig extends Config
 		keyName = "sdigsiteMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Teleport Option",
-		position = 30
+		position = 31
 	)
 	default DigsiteMode getSDigsiteMode()
 	{
@@ -348,7 +359,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapMaxCape",
 		name = "Swap Max Cape",
 		description = "Swaps Options for Max Cape",
-		position = 31
+		position = 32
 	)
 	default boolean getMaxCape()
 	{
@@ -359,7 +370,7 @@ public interface EasySwapConfig extends Config
 		keyName = "maxCapeMode",
 		name = "Mode",
 		description = "Left Click Option for Max Cape",
-		position = 32
+		position = 33
 	)
 	default MaxCapeMode getMaxCapeMode()
 	{
@@ -370,7 +381,7 @@ public interface EasySwapConfig extends Config
 		keyName = "smaxCapeMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Option for Max Cape",
-		position = 33
+		position = 34
 	)
 	default MaxCapeMode getSMaxCapeMode()
 	{
@@ -381,7 +392,7 @@ public interface EasySwapConfig extends Config
 		keyName = "ringOfWealth",
 		name = "Swap Ring Of Wealth",
 		description = "Swaps Options for Ring of Wealth",
-		position = 34
+		position = 35
 	)
 	default boolean getRingOfWealth()
 	{
@@ -392,7 +403,7 @@ public interface EasySwapConfig extends Config
 		keyName = "ringOfWealthMode",
 		name = "Mode",
 		description = "Left Click Option for Ring of Wealth",
-		position = 35
+		position = 36
 	)
 	default WealthRingMode getRingOfWealthMode()
 	{
@@ -403,7 +414,7 @@ public interface EasySwapConfig extends Config
 		keyName = "sringOfWealthMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Option for Ring of Wealth",
-		position = 36
+		position = 37
 	)
 	default WealthRingMode getSRingOfWealthMode()
 	{
@@ -414,7 +425,7 @@ public interface EasySwapConfig extends Config
 		keyName = "pharaohSceptre",
 		name = "Swap Pharaoh's Sceptre",
 		description = "Swaps Options for Pharaoh's Sceptre",
-		position = 37
+		position = 38
 	)
 	default boolean getPharaohSceptre()
 	{
@@ -425,7 +436,7 @@ public interface EasySwapConfig extends Config
 		keyName = "pharaohSceptreMode",
 		name = "Mode",
 		description = "Left Click Option for Pharaoh's Sceptre",
-		position = 38
+		position = 39
 	)
 	default PharaohSceptreMode getPharaohSceptrehMode()
 	{
@@ -436,7 +447,7 @@ public interface EasySwapConfig extends Config
 		keyName = "spharaohSceptreMode",
 		name = "Shift Mode",
 		description = "Shift + Left Click Option for Pharaoh's Sceptre",
-		position = 39
+		position = 40
 	)
 	default PharaohSceptreMode getSPharaohSceptreMode()
 	{
