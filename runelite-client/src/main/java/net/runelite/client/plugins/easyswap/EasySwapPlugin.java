@@ -1,6 +1,7 @@
 package net.runelite.client.plugins.easyswap;
 
 import com.google.inject.Provides;
+import java.util.Arrays;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
@@ -299,6 +300,47 @@ public class EasySwapPlugin extends Plugin
 				{
 					swapper.markForSwap("Fill", option, target);
 				}
+			}
+		}
+
+		if (true)
+		{
+			if (target.equals("bank booth"))
+			{
+				List<MenuEntry> entries = new ArrayList<>(Arrays.asList(swapper.getEntries()));
+
+				//Bank Option for the most Southern Banker in Edgeville Bank
+				MenuEntry SouthBanker = new MenuEntry();
+				SouthBanker.setOption("Bank");
+				SouthBanker.setTarget("<col=ffff00>Banker");
+				SouthBanker.setIdentifier(9008);
+				SouthBanker.setParam1(0);
+				SouthBanker.setParam0(0);
+				SouthBanker.setType(11);
+
+				//Bank option for the banker north of that one ^
+				MenuEntry NorthBanker = new MenuEntry();
+				NorthBanker.setOption("Bank");
+				NorthBanker.setTarget("<col=ffff00>Banker");
+				NorthBanker.setIdentifier(9009);
+				NorthBanker.setParam1(0);
+				NorthBanker.setParam0(0);
+				NorthBanker.setType(11);
+				if (entries.contains(NorthBanker))
+				{
+					int last = entries.size()-1;
+					int bankIndex = entries.indexOf(NorthBanker);
+					MenuEntry placeholder = entries.get(last);
+					entries.set(last,NorthBanker);
+					entries.set(bankIndex,placeholder);
+				} else if (entries.contains(SouthBanker)) {
+					int last = entries.size()-1;
+					int bankIndex = entries.indexOf(SouthBanker);
+					MenuEntry placeholder = entries.get(last);
+					entries.set(last,SouthBanker);
+					entries.set(bankIndex,placeholder);
+				}
+				swapper.setEntries(entries.toArray(new MenuEntry[entries.size()]));
 			}
 		}
 
