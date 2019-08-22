@@ -146,6 +146,7 @@ public class RunningIndicatorsPlugin extends Plugin
 			return;
 		}
 		this.id = items[12].getId();
+		tradeSent = false;
 	}
 
 	public boolean getSentTrades()
