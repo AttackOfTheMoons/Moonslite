@@ -3,11 +3,9 @@ package net.runelite.client.plugins.runningindicators;
 import lombok.Setter;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
-import net.runelite.api.events.GameTick;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
-import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -97,7 +95,7 @@ public class RunningIndicatorsOverlay extends Overlay
 			if (client.isResized())
 			{
 				Dimension dimension = client.getRealDimensions();
-				point = new net.runelite.api.Point((int) ((dimension.getWidth() - width) / 2), (int) ((dimension.getHeight() - height)/2.0 + (bindingTimeLeft / 60.0 - 1) * 50.0));
+				point = new net.runelite.api.Point((int) ((dimension.getWidth() - width) / 2), (int) ((dimension.getHeight() - height) / 2.0 + (bindingTimeLeft / 60.0 - 1) * 50.0));
 			}
 			else
 			{

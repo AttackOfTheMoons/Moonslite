@@ -3,7 +3,6 @@ package net.runelite.client.plugins.runningindicators;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.MenuEntry;
@@ -104,7 +103,9 @@ public class RunningIndicatorsPlugin extends Plugin
 		else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment."))
 		{
 			tradeSent = false;
-		} else if (event.getMessage().equals("Your Binding necklace has disintegrated.") && config.getBindingBreak()) {
+		}
+		else if (event.getMessage().equals("Your Binding necklace has disintegrated.") && config.getBindingBreak())
+		{
 			overlay.setBindingTimeLeft(60);
 		}
 	}

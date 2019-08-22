@@ -346,17 +346,19 @@ public class EasySwapPlugin extends Plugin
 				NorthBanker.setType(11);
 				if (entries.contains(NorthBanker))
 				{
-					int last = entries.size()-1;
+					int last = entries.size() - 1;
 					int bankIndex = entries.indexOf(NorthBanker);
 					MenuEntry placeholder = entries.get(last);
-					entries.set(last,NorthBanker);
-					entries.set(bankIndex,placeholder);
-				} else if (entries.contains(SouthBanker)) {
-					int last = entries.size()-1;
+					entries.set(last, NorthBanker);
+					entries.set(bankIndex, placeholder);
+				}
+				else if (entries.contains(SouthBanker))
+				{
+					int last = entries.size() - 1;
 					int bankIndex = entries.indexOf(SouthBanker);
 					MenuEntry placeholder = entries.get(last);
-					entries.set(last,SouthBanker);
-					entries.set(bankIndex,placeholder);
+					entries.set(last, SouthBanker);
+					entries.set(bankIndex, placeholder);
 				}
 				swapper.setEntries(entries.toArray(new MenuEntry[entries.size()]));
 			}
