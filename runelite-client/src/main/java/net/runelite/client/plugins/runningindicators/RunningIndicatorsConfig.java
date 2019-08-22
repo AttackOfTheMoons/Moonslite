@@ -95,4 +95,26 @@ public interface RunningIndicatorsConfig extends Config
 	{
 		return false;
 	}
+
+	@ConfigItem(
+		keyName = "bindingBreak",
+		name = "Notify On Binding Necklace Broken",
+		description = "Overlay will display when binding necklace breaks",
+		position = 8
+	)
+	default boolean getBindingBreak()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+		keyName = "bindingBreakColor",
+		name = "Text Color",
+		description = "",
+		position = 9
+	)
+	default Color getBindingBreakColor()
+	{
+		return Color.ORANGE;
+	}
 }
