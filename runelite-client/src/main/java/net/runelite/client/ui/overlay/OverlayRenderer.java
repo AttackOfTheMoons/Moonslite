@@ -47,7 +47,7 @@ import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
-import net.runelite.api.MenuAction;
+import net.runelite.api.MenuOpcode;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ClientTick;
@@ -276,6 +276,14 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			if (overlayPosition == OverlayPosition.DYNAMIC || overlayPosition == OverlayPosition.TOOLTIP)
 			{
 				safeRender(client, overlay, layer, graphics, new Point());
+
+				// Restore graphics2d properties
+				graphics.setTransform(transform);
+				graphics.setStroke(stroke);
+				graphics.setComposite(composite);
+				graphics.setPaint(paint);
+				graphics.setRenderingHints(renderingHints);
+				graphics.setBackground(background);
 			}
 			else
 			{
@@ -312,6 +320,14 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 				safeRender(client, overlay, layer, graphics, location);
 
+				// Restore graphics2d properties prior to drawing bounds
+				graphics.setTransform(transform);
+				graphics.setStroke(stroke);
+				graphics.setComposite(composite);
+				graphics.setPaint(paint);
+				graphics.setRenderingHints(renderingHints);
+				graphics.setBackground(background);
+
 				final Rectangle bounds = overlay.getBounds();
 
 				if (!bounds.isEmpty())
@@ -330,14 +346,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 					}
 				}
 			}
-
-			// Restore graphics2d properties
-			graphics.setTransform(transform);
-			graphics.setStroke(stroke);
-			graphics.setComposite(composite);
-			graphics.setPaint(paint);
-			graphics.setRenderingHints(renderingHints);
-			graphics.setBackground(background);
 		}
 	}
 
@@ -642,7 +650,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			final MenuEntry entry = new MenuEntry();
 			entry.setOption(overlayMenuEntry.getOption());
 			entry.setTarget(ColorUtil.wrapWithColorTag(overlayMenuEntry.getTarget(), JagexColors.MENU_TARGET));
-			entry.setType(MenuAction.RUNELITE_OVERLAY.getId());
+			entry.setOpcode(MenuOpcode.RUNELITE_OVERLAY.getId());
 			entry.setIdentifier(overlayManager.getOverlays().indexOf(overlay)); // overlay id
 
 			entries[i] = entry;

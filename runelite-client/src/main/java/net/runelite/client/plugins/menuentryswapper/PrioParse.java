@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Kamiel
+ * Copyright (c) 2019, Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,48 +24,49 @@
  */
 package net.runelite.client.plugins.menuentryswapper;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
+import com.google.common.base.Splitter;
+import java.util.List;
 import javax.inject.Singleton;
-import net.runelite.client.input.KeyListener;
 
 @Singleton
-class ShiftClickInputListener implements KeyListener
+public class PrioParse
 {
-	@Inject
-	private MenuEntrySwapperPlugin plugin;
-
-	@Override
-	public void keyTyped(KeyEvent event)
+	public static boolean parse(String value)
 	{
+		try
+		{
+			final StringBuilder sb = new StringBuilder();
 
-	}
+			for (String str : value.split("\n"))
+			{
+				if (!str.startsWith("//"))
+				{
+					sb.append(str).append("\n");
+				}
+			}
 
-	@Override
-	public void keyPressed(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(true);
-			plugin.startShift();
-		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
-		{
-			plugin.startControl();
-		}
-	}
+			final Splitter NEWLINE_SPLITTER = Splitter
+				.on("\n")
+				.omitEmptyStrings()
+				.trimResults();
 
-	@Override
-	public void keyReleased(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.setShiftModifier(false);
-			plugin.stopShift();
+			final List<String> tmp = NEWLINE_SPLITTER.splitToList(sb);
+
+			for (String s : tmp)
+			{
+				final String[] strings = s.split(",");
+
+				if (strings.length <= 1)
+				{
+					return false;
+				}
+			}
+
+			return tmp.size() > 0;
 		}
-		if (event.getKeyCode() == KeyEvent.VK_CONTROL)
+		catch (Exception ex)
 		{
-			plugin.stopControl();
+			return false;
 		}
 	}
 }
