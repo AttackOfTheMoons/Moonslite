@@ -100,7 +100,7 @@ public class RunningIndicatorsPlugin extends Plugin
 		{
 			tradeSent = true;
 		}
-		else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment."))
+		else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment.") || event.getMessage().equals("Other player doesn't enough inventory space for this trade."))
 		{
 			tradeSent = false;
 		}
