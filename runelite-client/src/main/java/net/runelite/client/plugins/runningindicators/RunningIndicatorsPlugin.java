@@ -17,7 +17,6 @@ import net.runelite.client.eventbus.Subscribe;
 import javax.inject.Inject;
 
 import net.runelite.api.events.GameTick;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.Client;
 
 import net.runelite.client.plugins.Plugin;
@@ -80,7 +79,7 @@ public class RunningIndicatorsPlugin extends Plugin
 		bindingAlert = false;
 		if (config.getTradeBinding())
 		{
-			Widget tradeWidget = client.getWidget(WidgetInfo.FIRST_TRADING_WITH_SLOTS);
+			Widget tradeWidget = client.getWidget(335,9);
 			if (tradeWidget != null)
 			{
 				String text = tradeWidget.getText();
@@ -122,7 +121,7 @@ public class RunningIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (config.getDisableSpamTrades() && (tradeSent || client.getWidget(WidgetInfo.FIRST_TRADING_WITH_TITLE_CONTAINER) != null))
+		if (config.getDisableSpamTrades() && (tradeSent || client.getWidget(335,31) != null))
 		{
 			MenuEntry[] entries = client.getMenuEntries();
 			List<MenuEntry> nonTrades = new ArrayList<>();
