@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Plinko60
+ * Copyright (c) 2019, Alexsuperfly <https://github.com/Alexsuperfly>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,41 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.shiftwalker;
 
-import java.awt.event.KeyEvent;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.client.input.KeyListener;
+package net.runelite.client.plugins.screenshot;
 
-@Singleton
-class ShiftWalkerInputListener implements KeyListener
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+public enum UploadStyle
 {
+	NEITHER("Neither"),
+	IMGUR("Imgur"),
+	CLIPBOARD("Clipboard");
 
-	@Inject
-	private ShiftWalkerPlugin plugin;
-
-	@Override
-	public void keyTyped(KeyEvent event)
-	{
-
-	}
+	private final String name;
 
 	@Override
-	public void keyPressed(KeyEvent event)
+	public String toString()
 	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.startPrioritizing();
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent event)
-	{
-		if (event.getKeyCode() == KeyEvent.VK_SHIFT)
-		{
-			plugin.stopPrioritizing();
-		}
+		return name;
 	}
 }
