@@ -238,6 +238,14 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
+		if (config.getSwapTalisman())
+		{
+			if (target.equals("earth talisman") && option.equals("offer"))
+			{
+				swapper.markForSwap("Offer-All", option, target);
+			}
+		}
+
 		if (config.disableCraftAltar())
 		{
 			if (target.equalsIgnoreCase("Altar"))
@@ -293,29 +301,75 @@ public class EasySwapPlugin extends Plugin
 				Widget widgetBankTitleBar = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
 				if (widgetBankTitleBar == null || widgetBankTitleBar.isHidden())
 				{
+					if (config.cancelTrades() && (client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER) != null && client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER).getText().equals("Waiting for other player...")))
+					{
+						MenuEntry cancel = null;
+						for (MenuEntry x : swapper.getEntries())
+						{
+							if (x.getOption().equals("Cancel"))
+							{
+								cancel = x;
+							}
+						}
+						if (cancel != null)
+						{
+							swapper.setEntries(new MenuEntry[]{cancel});
+						}
+					}
 					swapper.markForSwap("Empty", option, target);
 
 				}
 				else if (!target.contains("withdraw"))
 				{
-					for (int i = 0; i < swapper.getEntries().length; i++)
+					if (config.getFillOnly())
 					{
-						if (swapper.getEntries()[i].getOption().contains("Deposit"))
+						MenuEntry fill = null;
+						MenuEntry cancel = null;
+						for (MenuEntry x : swapper.getEntries())
 						{
-							swapper.removeIndex(i);
-							i--;
+							if (x.getOption().equals("Cancel"))
+							{
+								cancel = x;
+								cancel.setForceLeftClick(true);
+							}
+							if (x.getOption().equals("Fill"))
+							{
+								fill = x;
+								fill.setForceLeftClick(true);
+							}
 						}
-						else
+						if (fill != null && cancel != null)
 						{
-							swapper.getEntries()[i].setForceLeftClick(true);
+							swapper.setEntries(new MenuEntry[]{cancel, fill});//entries go backwards in index
+							toolTipManager.clear();
+							toolTipManager.addFront(new Tooltip("Fill <col=ff9040>" + StringUtils.capitalize(target)));
+						}
+						else if (cancel != null)
+						{
+							swapper.setEntries(new MenuEntry[]{cancel});
 						}
 					}
-					swapper.markForSwap("Fill", option, target);
-					String newOption = swapper.getEntries()[swapper.getEntries().length - 1].getOption();
-					if (newOption.equals("Fill") || newOption.equals("Empty"))
+					else
 					{
-						toolTipManager.clear();
-						toolTipManager.addFront(new Tooltip(swapper.getEntries()[swapper.getEntries().length - 1].getOption() + " <col=ff9040>" + StringUtils.capitalize(target)));
+						for (int i = 0; i < swapper.getEntries().length; i++)
+						{
+							if (swapper.getEntries()[i].getOption().contains("Deposit"))
+							{
+								swapper.removeIndex(i);
+								i--;
+							}
+							else
+							{
+								swapper.getEntries()[i].setForceLeftClick(true);
+							}
+						}
+						swapper.markForSwap("Fill", option, target);
+						String newOption = swapper.getEntries()[swapper.getEntries().length - 1].getOption();
+						if (newOption.equals("Fill") || newOption.equals("Empty"))
+						{
+							toolTipManager.clear();
+							toolTipManager.addFront(new Tooltip(swapper.getEntries()[swapper.getEntries().length - 1].getOption() + " <col=ff9040>" + StringUtils.capitalize(target)));
+						}
 					}
 				}
 			}
