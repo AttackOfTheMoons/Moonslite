@@ -254,6 +254,27 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
+		if (config.disableMagicImbue())
+		{
+			Widget second = client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER);
+			if (second != null && !second.isHidden())
+			{
+				MenuEntry cancel = null;
+				MenuEntry imbue = null;
+				for (MenuEntry x : swapper.getEntries())
+				{
+					if (x.getOption().equals("Cancel")) {
+						cancel = x;
+					} else if (x.getOption().equals("Cast") && x.getTarget().equals("<col=00ff00>Magic Imbue</col>")) {
+						imbue = x;
+					}
+					if (imbue != null && cancel != null) {
+						swapper.setEntries(new MenuEntry[]{cancel});
+					}
+				}
+			}
+		}
+
 		if (shiftToggle && config.tradesOnly() && option.equalsIgnoreCase("follow"))
 		{
 			List<MenuEntry> tradeFix = new ArrayList<>();
