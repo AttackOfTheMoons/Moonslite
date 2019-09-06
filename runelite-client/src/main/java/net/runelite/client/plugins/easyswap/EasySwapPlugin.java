@@ -1,12 +1,24 @@
 package net.runelite.client.plugins.easyswap;
 
 import com.google.inject.Provides;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import javax.inject.Inject;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.*;
+import net.runelite.api.ClanMember;
+import net.runelite.api.Client;
+import net.runelite.api.GameObject;
+import net.runelite.api.GameState;
+import static net.runelite.api.MenuAction.WALK;
+import net.runelite.api.MenuEntry;
+import static net.runelite.api.ObjectID.PORTAL_4525;
+import net.runelite.api.Player;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.FocusChanged;
+import net.runelite.api.events.GameObjectSpawned;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -19,16 +31,6 @@ import net.runelite.client.plugins.util.Swapper;
 import net.runelite.client.ui.overlay.tooltip.Tooltip;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.Text;
-import net.runelite.api.events.GameObjectSpawned;
-import net.runelite.api.events.GameStateChanged;
-
-import javax.inject.Inject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static net.runelite.api.MenuAction.WALK;
-import static net.runelite.api.ObjectID.PORTAL_4525;
 import org.apache.commons.lang3.StringUtils;
 
 @PluginDescriptor(
@@ -254,21 +256,30 @@ public class EasySwapPlugin extends Plugin
 			}
 		}
 
-		if (config.disableMagicImbue())
+		if (config.disableMagicImbue() || config.disableUseEarthRune())
 		{
 			Widget second = client.getWidget(WidgetInfo.SECOND_TRADING_WITH_TITLE_CONTAINER);
 			if (second != null && !second.isHidden())
 			{
 				MenuEntry cancel = null;
 				MenuEntry imbue = null;
+				MenuEntry useEarthRune = null;
 				for (MenuEntry x : swapper.getEntries())
 				{
-					if (x.getOption().equals("Cancel")) {
+					if (x.getOption().equals("Cancel"))
+					{
 						cancel = x;
-					} else if (x.getOption().equals("Cast") && x.getTarget().equals("<col=00ff00>Magic Imbue</col>")) {
+					}
+					else if (x.getOption().equals("Cast") && x.getTarget().equals("<col=00ff00>Magic Imbue</col>"))
+					{
 						imbue = x;
 					}
-					if (imbue != null && cancel != null) {
+					else if (x.getOption().equals("Use") && x.getTarget().contains("Earth rune"))
+					{
+						useEarthRune = x;
+					}
+					if ((imbue != null || useEarthRune != null) && cancel != null)
+					{
 						swapper.setEntries(new MenuEntry[]{cancel});
 					}
 				}

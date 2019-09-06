@@ -3,6 +3,7 @@ package net.runelite.client.plugins.easyoption;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -14,11 +15,8 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.util.Text;
-
 import net.runelite.client.plugins.util.Swapper;
-
-import javax.inject.Inject;
+import net.runelite.client.util.Text;
 
 @PluginDescriptor(
 	name = "EasyOption",

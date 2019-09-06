@@ -3,27 +3,23 @@ package net.runelite.client.plugins.runningindicators;
 import com.google.inject.Provides;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
+import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
+import net.runelite.api.ItemID;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.WidgetHiddenChanged;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-
-import javax.inject.Inject;
-
-import net.runelite.api.events.GameTick;
-import net.runelite.api.Client;
-
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
-
-import net.runelite.api.ItemID;
 
 @PluginDescriptor(
 	name = "Running Indicators",
@@ -79,7 +75,7 @@ public class RunningIndicatorsPlugin extends Plugin
 		bindingAlert = false;
 		if (config.getTradeBinding())
 		{
-			Widget tradeWidget = client.getWidget(335,9);
+			Widget tradeWidget = client.getWidget(335, 9);
 			if (tradeWidget != null)
 			{
 				String text = tradeWidget.getText();
@@ -121,7 +117,7 @@ public class RunningIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (config.getDisableSpamTrades() && (tradeSent || client.getWidget(335,31) != null))
+		if (config.getDisableSpamTrades() && (tradeSent || client.getWidget(335, 31) != null))
 		{
 			MenuEntry[] entries = client.getMenuEntries();
 			List<MenuEntry> nonTrades = new ArrayList<>();
