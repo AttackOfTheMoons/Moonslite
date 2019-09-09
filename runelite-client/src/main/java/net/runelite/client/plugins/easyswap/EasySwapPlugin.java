@@ -191,7 +191,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapConCape())
 		{
-			if ((target.equalsIgnoreCase("Construct. cape") || target.equalsIgnoreCase("Construct. cape(t)")) && (option.equalsIgnoreCase("remove") || (config.getTeleportInventory() && option.equals("use"))))
+			if ((target.equalsIgnoreCase("Construct. cape") || target.equalsIgnoreCase("Construct. cape(t)")) && (option.equalsIgnoreCase("remove") || (config.getTeleportInventory() && option.equals("wear"))))
 			{
 				swapper.markForSwap("Tele to POH", option, target);
 			}
@@ -210,7 +210,7 @@ public class EasySwapPlugin extends Plugin
 					}
 				}
 			}
-			else if ((target.equalsIgnoreCase("Crafting cape") || target.equalsIgnoreCase("Crafting cape(t)")) && (option.equalsIgnoreCase("remove") || (config.getTeleportInventory() && option.equals("use"))))
+			else if ((target.equalsIgnoreCase("Crafting cape") || target.equalsIgnoreCase("Crafting cape(t)")) && (option.equalsIgnoreCase("remove") || (config.getTeleportInventory() && option.equals("wear"))))
 			{
 				swapper.markForSwap("Teleport", option, target);
 			}
@@ -218,7 +218,7 @@ public class EasySwapPlugin extends Plugin
 
 		if (config.getSwapMythCape())
 		{
-			if (target.equalsIgnoreCase("Mythical cape") && (option.equals("remove") || (config.getTeleportInventory() && option.equals("use"))))
+			if (target.equalsIgnoreCase("Mythical cape") && (option.equals("remove") || (config.getTeleportInventory() && option.equals("wear"))))
 			{
 				swapper.markForSwap("Teleport", option, target);
 			}
