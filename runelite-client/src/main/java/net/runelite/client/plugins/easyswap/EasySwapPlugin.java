@@ -116,52 +116,6 @@ public class EasySwapPlugin extends Plugin
 
 		swapper.setEntries(client.getMenuEntries());
 
-		if (config.getSwapPuro() && isPuroPuro())
-		{
-			if (event.getType() == WALK.getId())
-			{
-				swapper.deprioritizeWalk();
-			}
-			else if (option.equalsIgnoreCase("examine"))
-			{
-				swapper.markForSwap("push-through", option, target);
-			}
-			else if (option.equalsIgnoreCase("use"))
-			{
-				swapper.markForSwap("escape", option, target);
-			}
-		}
-
-		if (config.getSwapTanning() && option.equalsIgnoreCase("Tan 1"))
-		{
-			swapper.markForSwap("Tan All", option, target);
-		}
-
-		if (config.getSwapCrafting())
-		{
-			switch (option)
-			{
-				case "Make-1":
-					swapper.markForSwap("Make-All", option, target);
-					break;
-				case "Craft 1":
-					swapper.markForSwap("Craft All", option, target);
-					break;
-				default:
-					break;
-			}
-		}
-
-		if (config.getSwapSawmill() && target.equalsIgnoreCase("Sawmill operator"))
-		{
-			swapper.markForSwap("Buy-plank", option, target);
-		}
-
-		if (config.getSwapSawmillPlanks() && option.equalsIgnoreCase("Buy 1"))
-		{
-			swapper.markForSwap("Buy All", option, target);
-		}
-
 		if (option.equalsIgnoreCase("Clear-All") && target.equalsIgnoreCase("bank Filler"))
 		{
 			swapper.markForSwap("Clear", option, target);
@@ -229,6 +183,13 @@ public class EasySwapPlugin extends Plugin
 			if (target.equalsIgnoreCase("npc contact"))
 			{
 				swapper.markForSwap("dark mage", option, target);
+			}
+		}
+		if (config.getNecklace())
+		{
+			if (target.equalsIgnoreCase("Binding necklace"))
+			{
+				swapper.markForSwap("use", option, target);
 			}
 		}
 

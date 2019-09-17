@@ -15,67 +15,12 @@ import net.runelite.client.plugins.util.WealthRingMode;
 public interface EasySwapConfig extends Config
 {
 	@ConfigItem(
-		keyName = "swapTanning",
-		name = "Swap Tanning",
-		description = "Enables swapping of tan-1 and tan-all options.",
-		position = 1
-	)
-	default boolean getSwapTanning()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "swapCrafting",
-		name = "Swap Crafting",
-		description = "Enables swapping of Make-1 and Make-all options.",
-		position = 2
-	)
-	default boolean getSwapCrafting()
-	{
-		return true;
-	}
-
-	@ConfigItem(
 		keyName = "swapArdougneCape",
 		name = "Swap Ardougne Cape",
 		description = "Enables swapping of teleport and wear.",
-		position = 3
+		position = 1
 	)
 	default boolean getSwapArdougneCape()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "swapSawmill",
-		name = "Swap Sawmill Operator",
-		description = "Makes Buy-plank the default option on the sawmill operator.",
-		position = 4
-	)
-	default boolean getSwapSawmill()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "swapSawmillPlanks",
-		name = "Swap Buy Planks",
-		description = "Makes Buy All the default option in buy planks.",
-		position = 5
-	)
-	default boolean getSwapSawmillPlanks()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "swapPuroPuro",
-		name = "Swap Puro Puro Wheat",
-		description = "",
-		position = 6
-	)
-	default boolean getSwapPuro()
 	{
 		return true;
 	}
@@ -84,7 +29,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapCake",
 		name = "Swap Dwarf Rock Cake",
 		description = "Swaps the left click option on rock cakes from eat to guzzle",
-		position = 7
+		position = 2
 	)
 	default boolean getSwapCake()
 	{
@@ -95,7 +40,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapPyramidPlunder",
 		name = "Swap Pyramid Plunder Start",
 		description = "Start the Pyramid Plunder minigame with left click, shift click to talk normally",
-		position = 8
+		position = 3
 	)
 	default boolean getSwapPyramidPlunder()
 	{
@@ -106,7 +51,7 @@ public interface EasySwapConfig extends Config
 		keyName = "teleportInventory",
 		name = "Teleport Inventory",
 		description = "Enables left click teleport inside inventory for teleport capes enabled",
-		position = 9
+		position = 4
 	)
 	default boolean getTeleportInventory()
 	{
@@ -117,7 +62,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapConCape",
 		name = "Swap Construction Cape",
 		description = "Sets left click to teleport to POH",
-		position = 10
+		position = 5
 	)
 	default boolean getSwapConCape()
 	{
@@ -128,7 +73,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapCraftCape",
 		name = "Swap Crafting Cape",
 		description = "Left Click Teleport for Crafting Cape",
-		position = 11
+		position = 6
 	)
 	default boolean getSwapCraftCape()
 	{
@@ -139,7 +84,7 @@ public interface EasySwapConfig extends Config
 		keyName = "swapMythCape",
 		name = "Swap Mythical Cape",
 		description = "Left click Teleport for Mythical Cape",
-		position = 12
+		position = 7
 	)
 	default boolean getSwapMythCape()
 	{
@@ -150,9 +95,20 @@ public interface EasySwapConfig extends Config
 		keyName = "swapNPCContact",
 		name = "Swap NPC Contact",
 		description = "Swaps NPC Contact",
-		position = 13
+		position = 12
 	)
 	default boolean getSwapNPC()
+	{
+		return false;
+	}
+
+	@ConfigItem(
+			keyName = "swapNecklacet",
+			name = "Swap Binding necklace",
+			description = "Have binding necklace to Use instead of Wear ",
+			position = 13
+	)
+	default boolean getNecklace()
 	{
 		return false;
 	}
