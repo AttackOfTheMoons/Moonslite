@@ -64,7 +64,7 @@ public class RunningIndicatorsOverlay extends Overlay
 			{
 				Rectangle bounds = chatBox.getBounds();
 				graphics.setColor(plugin.getSentTrades() ? config.getChatBoxColorSent() : config.getChatBoxColor());
-				graphics.setStroke(new BasicStroke(1));
+				graphics.setStroke(new BasicStroke(4));
 				graphics.draw(bounds);
 			}
 		}
