@@ -20,7 +20,8 @@ import net.runelite.client.util.Text;
 	name = "[L] Shift Click Walk Under",
 	description = "Use Shift to toggle the Walk Here menu option. While pressed you will Walk rather than interact with objects, Made by LyzrdLite",
 	tags = {"npcs", "items", "objects", "moonlite"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	loadWhenOutdated = true
 )
 public class ShiftWalkerPlugin extends Plugin
 {

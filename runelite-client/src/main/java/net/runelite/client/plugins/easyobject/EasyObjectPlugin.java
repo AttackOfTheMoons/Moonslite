@@ -21,7 +21,8 @@ import javax.inject.Inject;
 	name = "[L] EasyObject",
 	description = "EasyObject, made by LyzrdLite",
 	tags = {"EasyObject", "moonlite"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	loadWhenOutdated = true
 )
 
 @Slf4j

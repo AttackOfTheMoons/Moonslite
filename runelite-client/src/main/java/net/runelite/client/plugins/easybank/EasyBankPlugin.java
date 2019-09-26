@@ -22,7 +22,8 @@ import javax.inject.Inject;
 	name = "[L]EasyBank",
 	description = "EasyBank, made by LyzrdLite",
 	tags = {"EasyBank", "easy", "moonlite"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	loadWhenOutdated = true
 )
 
 @Slf4j

@@ -22,7 +22,8 @@ import net.runelite.client.util.Text;
 	name = "EasyOption",
 	description = "Customize menu entries",
 	tags = {"easy", "moonlite", "drop", "use"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	loadWhenOutdated = true
 )
 
 @Slf4j

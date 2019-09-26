@@ -37,7 +37,8 @@ import org.apache.commons.lang3.StringUtils;
 	name = "EasySwap",
 	description = "Swaps entries / running plugins",
 	tags = {"EasySwap", "easy", "moonlite"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	loadWhenOutdated = true
 )
 
 @Slf4j

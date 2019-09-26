@@ -61,7 +61,8 @@ import java.util.Set;
 	name = "Gauntlet",
 	description = "All-in-one plugin for the Gauntlet.",
 	tags = {"Gauntlet", "moonlite"},
-	enabledByDefault = false
+	enabledByDefault = false,
+	loadWhenOutdated = true
 )
 
 public class GauntletPlugin extends Plugin
