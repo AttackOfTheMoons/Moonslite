@@ -117,4 +117,15 @@ public interface RunningIndicatorsConfig extends Config
 	{
 		return Color.ORANGE;
 	}
+
+	@ConfigItem(
+		keyName = "thankyounext",
+		name = "thank u, next",
+		position = 10,
+		description = "no copyright infringement intended lol xd"
+	)
+	default boolean getThankYouNext()
+	{
+		return false;
+	}
 }

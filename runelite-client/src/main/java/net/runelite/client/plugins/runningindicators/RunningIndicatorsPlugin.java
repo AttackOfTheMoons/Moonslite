@@ -1,8 +1,9 @@
 package net.runelite.client.plugins.runningindicators;
 
 import com.google.inject.Provides;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -12,9 +13,6 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -25,7 +23,7 @@ import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.WidgetHiddenChanged;
-import net.runelite.api.widgets.Widget
+import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -77,7 +75,7 @@ public class RunningIndicatorsPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		overlayManager.add(overlay);
-		thankyounext = getAudioClip();
+		thankyounext = GetAudioClip();
 	}
 
 	@Override
@@ -93,15 +91,6 @@ public class RunningIndicatorsPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick tick)
 	{
-		if (thankyounext != null)
-		{
-			if (thankyounext.isRunning())
-			{
-				thankyounext.stop();
-			}
-			thankyounext.setFramePosition(0);
-			thankyounext.start();
-		}
 		bindingAlert = false;
 		if (config.getTradeBinding())
 		{
@@ -127,6 +116,17 @@ public class RunningIndicatorsPlugin extends Plugin
 		}
 		else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment.") || event.getMessage().equals("Other player doesn't enough inventory space for this trade."))
 		{
+			if (config.getThankYouNext()) {
+				if (thankyounext != null)
+				{
+					if (thankyounext.isRunning())
+					{
+						thankyounext.stop();
+					}
+					thankyounext.setFramePosition(0);
+					thankyounext.start();
+				}
+			}
 			tradeSent = false;
 		}
 		else if (event.getMessage().equals("Your Binding necklace has disintegrated.") && config.getBindingBreak())
@@ -205,12 +205,17 @@ public class RunningIndicatorsPlugin extends Plugin
 		}
 	}
 
-	private Clip getAudioClip()
+	private Clip GetAudioClip()
 	{
 		final String PATH = "net/runelite/client/plugins/runningindicators/thankyounext.wav";
 		final int VOLUME = 35;
+		URL url = this.getClass().getClassLoader().getResource(PATH);
+		File audioFile = new File(url.getPath());
+		if (!audioFile.exists())
+		{
+			return null;
+		}
 
-		InputStream audioFile = this.getClass().getClassLoader().getResourceAsStream(PATH);
 		try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile))
 		{
 			Clip audioClip = AudioSystem.getClip();
@@ -218,6 +223,7 @@ public class RunningIndicatorsPlugin extends Plugin
 			FloatControl gainControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
 			float gainValue = (((float) VOLUME) * 40f / 100f) - 35f;
 			gainControl.setValue(gainValue);
+
 			return audioClip;
 		}
 		catch (IOException | LineUnavailableException | UnsupportedAudioFileException e)
