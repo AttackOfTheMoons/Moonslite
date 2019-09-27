@@ -65,6 +65,31 @@ public class EmojiPlugin extends Plugin
 
 	private int modIconsStart = -1;
 
+	/**
+	 * Remove tags, except for &lt;lt&gt; and &lt;gt&gt;
+	 *
+	 * @return
+	 */
+	private static String removeTags(String str)
+	{
+		StringBuffer stringBuffer = new StringBuffer();
+		Matcher matcher = TAG_REGEXP.matcher(str);
+		while (matcher.find())
+		{
+			matcher.appendReplacement(stringBuffer, "");
+			String match = matcher.group(0);
+			switch (match)
+			{
+				case "<lt>":
+				case "<gt>":
+					stringBuffer.append(match);
+					break;
+			}
+		}
+		matcher.appendTail(stringBuffer);
+		return stringBuffer.toString();
+	}
+
 	@Override
 	protected void startUp()
 	{
@@ -196,30 +221,5 @@ public class EmojiPlugin extends Plugin
 		}
 
 		return Strings.join(messageWords, " ");
-	}
-
-	/**
-	 * Remove tags, except for &lt;lt&gt; and &lt;gt&gt;
-	 *
-	 * @return
-	 */
-	private static String removeTags(String str)
-	{
-		StringBuffer stringBuffer = new StringBuffer();
-		Matcher matcher = TAG_REGEXP.matcher(str);
-		while (matcher.find())
-		{
-			matcher.appendReplacement(stringBuffer, "");
-			String match = matcher.group(0);
-			switch (match)
-			{
-				case "<lt>":
-				case "<gt>":
-					stringBuffer.append(match);
-					break;
-			}
-		}
-		matcher.appendTail(stringBuffer);
-		return stringBuffer.toString();
 	}
 }
