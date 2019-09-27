@@ -40,7 +40,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
 import net.runelite.client.plugins.zulrah.overlays.ZulrahCurrentPhaseOverlay;
 import net.runelite.client.plugins.zulrah.overlays.ZulrahNextPhaseOverlay;
 import net.runelite.client.plugins.zulrah.overlays.ZulrahOverlay;
@@ -57,7 +56,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 	name = "Zulrah Helper",
 	description = "Shows tiles on where to stand during the phases and what prayer to use.",
 	tags = {"zulrah", "boss", "helper", "moonlite"},
-	type = PluginType.PVM,
 	enabledByDefault = false,
 	loadWhenOutdated = true
 )
