@@ -1,9 +1,9 @@
 package net.runelite.client.plugins.runningindicators;
 
 import com.google.inject.Provides;
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -75,14 +75,17 @@ public class RunningIndicatorsPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		overlayManager.add(overlay);
-		thankyounext = GetAudioClip();
+		if (GetAudioClip() != null)
+		{
+			thankyounext = GetAudioClip();
+		}
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		overlayManager.remove(overlay);
-		if (thankyounext.isRunning())
+		if (thankyounext != null && thankyounext.isRunning())
 		{
 			thankyounext.stop();
 		}
@@ -116,7 +119,8 @@ public class RunningIndicatorsPlugin extends Plugin
 		}
 		else if (event.getMessage().equals("Accepted trade.") || event.getMessage().equals("Other player declined trade.") || event.getMessage().equals("Other player is busy at the moment.") || event.getMessage().equals("Other player doesn't enough inventory space for this trade."))
 		{
-			if (config.getThankYouNext()) {
+			if (config.getThankYouNext() && event.getMessage().equals("Accepted trade."))
+			{
 				if (thankyounext != null)
 				{
 					if (thankyounext.isRunning())
@@ -209,12 +213,8 @@ public class RunningIndicatorsPlugin extends Plugin
 	{
 		final String PATH = "net/runelite/client/plugins/runningindicators/thankyounext.wav";
 		final int VOLUME = 35;
-		URL url = this.getClass().getClassLoader().getResource(PATH);
-		File audioFile = new File(url.getPath());
-		if (!audioFile.exists())
-		{
-			return null;
-		}
+		InputStream audioFile = this.getClass().getClassLoader().getResourceAsStream(PATH);
+		audioFile = new BufferedInputStream(audioFile);
 
 		try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile))
 		{
