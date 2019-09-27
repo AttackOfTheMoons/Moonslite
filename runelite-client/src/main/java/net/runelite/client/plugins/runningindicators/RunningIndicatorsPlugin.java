@@ -34,7 +34,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 @PluginDescriptor(
 	name = "Running Indicators",
 	description = "Indicators for Essence Running",
-	tags = {"overlay", "highlight", "moonlite"},
+	tags = {"overlay", "highlight", "moonlite", "thank u, next"},
 	loadWhenOutdated = true,
 	enabledByDefault = false
 )
