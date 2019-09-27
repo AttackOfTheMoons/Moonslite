@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2018, DennisDeV <https://github.com/DevDennis>
+ * Copyright (c) 2017, Aria <aria@ar1as.space>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,35 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.antidrag;
 
-import net.runelite.api.Constants;
+package net.runelite.client.plugins.zulrah;
+
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("antiDrag")
-public interface AntiDragConfig extends Config
+@ConfigGroup("zulrah")
+
+public interface ZulrahConfig extends Config
 {
 	@ConfigItem(
-		keyName = "dragDelay",
-		name = "Drag Delay",
-		description = "Configures the inventory drag delay in client ticks (20ms)",
-		position = 1
+		keyName = "enabled",
+		name = "Enabled",
+		description = "Configures whether or not zulrah overlays are displayed"
 	)
-	default int dragDelay()
+	default boolean enabled()
 	{
-		return Constants.GAME_TICK_LENGTH / Constants.CLIENT_TICK_LENGTH; // one game tick
-	}
-
-	@ConfigItem(
-		keyName = "alwaysOn",
-		name = "Always On",
-		description = "Enable Anti Drag Always",
-		position = 2
-	)
-	default boolean alwaysOn()
-	{
-		return false;
+		return true;
 	}
 }

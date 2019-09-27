@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2018, DennisDeV <https://github.com/DevDennis>
+ * Copyright (c) 2017, Aria <aria@ar1as.space>
+ * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,35 +23,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.antidrag;
+package net.runelite.client.plugins.zulrah.phase;
 
-import net.runelite.api.Constants;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-
-@ConfigGroup("antiDrag")
-public interface AntiDragConfig extends Config
+public enum StandLocation
 {
-	@ConfigItem(
-		keyName = "dragDelay",
-		name = "Drag Delay",
-		description = "Configures the inventory drag delay in client ticks (20ms)",
-		position = 1
-	)
-	default int dragDelay()
-	{
-		return Constants.GAME_TICK_LENGTH / Constants.CLIENT_TICK_LENGTH; // one game tick
-	}
-
-	@ConfigItem(
-		keyName = "alwaysOn",
-		name = "Always On",
-		description = "Enable Anti Drag Always",
-		position = 2
-	)
-	default boolean alwaysOn()
-	{
-		return false;
-	}
+	WEST,
+	EAST,
+	SOUTH,
+	SOUTH_WEST,
+	SOUTH_EAST,
+	TOP_EAST,
+	TOP_WEST,
+	PILLAR_WEST_INSIDE,
+	PILLAR_WEST_OUTSIDE,
+	PILLAR_EAST_INSIDE,
+	PILLAR_EAST_OUTSIDE
 }

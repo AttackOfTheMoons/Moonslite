@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2018, DennisDeV <https://github.com/DevDennis>
+ * Copyright (c) 2017, Aria <aria@ar1as.space>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Devin French <https://github.com/devinfrench>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,35 +24,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.antidrag;
 
-import net.runelite.api.Constants;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
+package net.runelite.client.plugins.zulrah;
 
-@ConfigGroup("antiDrag")
-public interface AntiDragConfig extends Config
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import lombok.Setter;
+import net.runelite.client.ui.overlay.RenderableEntity;
+
+public class TextComponent implements RenderableEntity
 {
-	@ConfigItem(
-		keyName = "dragDelay",
-		name = "Drag Delay",
-		description = "Configures the inventory drag delay in client ticks (20ms)",
-		position = 1
-	)
-	default int dragDelay()
-	{
-		return Constants.GAME_TICK_LENGTH / Constants.CLIENT_TICK_LENGTH; // one game tick
-	}
+	@Setter
+	private String text;
 
-	@ConfigItem(
-		keyName = "alwaysOn",
-		name = "Always On",
-		description = "Enable Anti Drag Always",
-		position = 2
-	)
-	default boolean alwaysOn()
+	@Setter
+	private Point position = new Point();
+
+	@Setter
+	private Color color = Color.WHITE;
+
+	@Override
+	public Dimension render(Graphics2D graphics)
 	{
-		return false;
+		// Draw shadow
+		graphics.setColor(Color.BLACK);
+		graphics.drawString(text, position.x + 1, position.y + 1);
+
+		// Draw actual text
+		graphics.setColor(color);
+		graphics.drawString(text, position.x, position.y);
+
+		final FontMetrics fontMetrics = graphics.getFontMetrics();
+		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
 	}
 }
