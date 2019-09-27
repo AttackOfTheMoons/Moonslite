@@ -419,19 +419,20 @@ public class EasySwapPlugin extends Plugin
 				SouthBanker.setOption("Bank");
 				SouthBanker.setTarget("<col=ffff00>Banker");
 				SouthBanker.setIdentifier(9033);
+				SouthBanker.setType(11);
 				SouthBanker.setParam1(0);
 				SouthBanker.setParam0(0);
-				SouthBanker.setType(11);
 
 				//Bank option for the banker north of that one ^
+				//new MenuEntry("Bank", "<col=ffff>Bank booth", 10355, 4, 55, 51, false);
 				//new MenuEntry("Bank", "<col=ffff00>Banker", 9034, 11, 0, 0, false);
 				MenuEntry NorthBanker = new MenuEntry();
 				NorthBanker.setOption("Bank");
 				NorthBanker.setTarget("<col=ffff00>Banker");
 				NorthBanker.setIdentifier(9034);
+				NorthBanker.setType(11);
 				NorthBanker.setParam1(0);
 				NorthBanker.setParam0(0);
-				NorthBanker.setType(11);
 				if (entries.contains(NorthBanker))
 				{
 					int last = entries.size() - 1;
