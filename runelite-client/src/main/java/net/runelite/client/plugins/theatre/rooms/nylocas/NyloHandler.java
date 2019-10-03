@@ -1,5 +1,17 @@
 package net.runelite.client.plugins.theatre.rooms.nylocas;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,15 +29,6 @@ import net.runelite.client.plugins.theatre.TheatreConfig;
 import net.runelite.client.plugins.theatre.TheatreConstant;
 import net.runelite.client.plugins.theatre.TheatrePlugin;
 import net.runelite.client.plugins.theatre.TheatreRoom;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class NyloHandler extends RoomHandler
 {
@@ -252,7 +255,7 @@ public class NyloHandler extends RoomHandler
 		{
 			try
 			{
-				Polygon objectClickbox = npc.getConvexHull();
+				Shape objectClickbox = npc.getConvexHull();
 
 				Color color;
 				String name = npc.getName() != null ? npc.getName() : "";
@@ -377,7 +380,7 @@ public class NyloHandler extends RoomHandler
 		}
 	}
 
-	private void renderPoly(Graphics2D graphics, Color color, Polygon polygon)
+	private void renderPoly(Graphics2D graphics, Color color, Shape polygon)
 	{
 		if (polygon != null)
 		{
