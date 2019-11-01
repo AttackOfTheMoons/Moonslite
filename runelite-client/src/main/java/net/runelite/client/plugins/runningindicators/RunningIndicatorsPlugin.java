@@ -5,7 +5,9 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,11 +15,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemID;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemContainerChanged;
@@ -62,6 +66,8 @@ public class RunningIndicatorsPlugin extends Plugin
 
 	private Clip thankyounext;
 
+	private Map<Actor, Integer> crafterMap = new HashMap<>();
+
 	@Inject
 	RunningIndicatorsConfig config;
 
@@ -95,6 +101,20 @@ public class RunningIndicatorsPlugin extends Plugin
 	public void onGameTick(GameTick tick)
 	{
 		bindingAlert = false;
+		if (config.getCraftingTimer())
+		{
+			for (Map.Entry<Actor, Integer> entry : crafterMap.entrySet())
+			{
+				Actor key = entry.getKey();
+				Integer value = entry.getValue() - 1;
+				key.setOverheadText("Crafting: " + value);
+				crafterMap.put(key, value);
+				if (value <= 0)
+				{
+					crafterMap.remove(key);
+				}
+			}
+		}
 		if (config.getTradeBinding())
 		{
 			Widget tradeWidget = client.getWidget(WidgetInfo.FIRST_TRADING_WITH_SLOTS);
@@ -108,6 +128,29 @@ public class RunningIndicatorsPlugin extends Plugin
 			}
 		}
 		wearingRingOfDueling();
+	}
+
+	@Subscribe
+	public void onAnimationChanged(AnimationChanged event)
+	{
+		if (config.getCraftingTimer())
+		{
+			Actor actor = event.getActor();
+			if (actor == null)
+			{
+				return;
+			}
+			if (actor.getAnimation() == 791)
+			{
+				crafterMap.put(actor, 5);
+				actor.setOverheadText("Crafting: 5");
+			}
+			if (actor.getAnimation() == -1 && crafterMap.containsKey(actor))
+			{
+				actor.setOverheadText(null);
+				crafterMap.remove(actor);
+			}
+		}
 	}
 
 	@Subscribe
@@ -212,7 +255,7 @@ public class RunningIndicatorsPlugin extends Plugin
 	private Clip GetAudioClip()
 	{
 		final String PATH = "net/runelite/client/plugins/runningindicators/thankyounext.wav";
-		final int VOLUME = 35;
+		final int VOLUME = volume;
 		InputStream audioFile = this.getClass().getClassLoader().getResourceAsStream(PATH);
 		audioFile = new BufferedInputStream(audioFile);
 

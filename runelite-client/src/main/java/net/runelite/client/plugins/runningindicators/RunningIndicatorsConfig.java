@@ -128,4 +128,15 @@ public interface RunningIndicatorsConfig extends Config
 	{
 		return false;
 	}
+
+	@ConfigItem(
+		keyName = "craftingtimer",
+		name = "Crafting Timer",
+		position = 11,
+		description = "Counts ticks left until able to trade after runecrafting"
+	)
+	default boolean getCraftingTimer()
+	{
+		return false;
+	}
 }
