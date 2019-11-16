@@ -80,9 +80,16 @@ enum Emoji
 	EYES("O.O"),
 	SWEAT(";;"),
 	PILE_OF_POO("~@~"),
+	FIRE("(/\\)"),
+	ALIEN("(@.@)"),
+	EGGPLANT("8=D"),
+	WAVE("(^_^)/"),
+	HEART_EYES("(*.*)"),
 	BRAINLET("Brainlet");
 
 	private static final Map<String, Emoji> emojiMap;
+
+	private final String trigger;
 
 	static
 	{
@@ -96,20 +103,18 @@ enum Emoji
 		emojiMap = builder.build();
 	}
 
-	private final String trigger;
-
 	Emoji(String trigger)
 	{
 		this.trigger = trigger;
 	}
 
-	static Emoji getEmoji(String trigger)
-	{
-		return emojiMap.get(trigger);
-	}
-
 	BufferedImage loadImage()
 	{
 		return ImageUtil.getResourceStreamFromClass(getClass(), this.name().toLowerCase() + ".png");
+	}
+
+	static Emoji getEmoji(String trigger)
+	{
+		return emojiMap.get(trigger);
 	}
 }
