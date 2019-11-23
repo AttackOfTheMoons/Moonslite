@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ClanMember;
+import net.runelite.api.ClanMemberManager;
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.GameState;
@@ -24,6 +25,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.game.ClanManager;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -59,6 +61,8 @@ public class EasySwapPlugin extends Plugin
 	private boolean shiftToggle = false;
 	@Inject
 	private Client client;
+	@Inject
+	private ClanMemberManager clanMemberManager;
 	@Inject
 	private TooltipManager toolTipManager;
 
@@ -291,7 +295,7 @@ public class EasySwapPlugin extends Plugin
 		{
 			List<MenuEntry> tradeFix = new ArrayList<>();
 			MenuEntry[] menuEntries = swapper.getEntries();
-			final ClanMember[] clanMembersArr = client.getClanMembers();
+			final ClanMember[] clanMembersArr = clanMemberManager.getMembers();
 			if (clanMembersArr == null)
 			{
 				return;
@@ -312,7 +316,7 @@ public class EasySwapPlugin extends Plugin
 				{
 					for (ClanMember x : clanMembersArr)
 					{
-						if (m.getTarget().contains(x.getUsername()))
+						if (m.getTarget().contains(x.getName()))
 						{
 							tradeFix.add(m);
 						}
