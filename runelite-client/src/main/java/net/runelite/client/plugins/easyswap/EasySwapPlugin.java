@@ -25,7 +25,6 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.game.ClanManager;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -61,7 +60,7 @@ public class EasySwapPlugin extends Plugin
 	private boolean shiftToggle = false;
 	@Inject
 	private Client client;
-	@Inject
+
 	private ClanMemberManager clanMemberManager;
 	@Inject
 	private TooltipManager toolTipManager;
@@ -79,6 +78,7 @@ public class EasySwapPlugin extends Plugin
 	public void startUp()
 	{
 		this.keyManager.registerKeyListener(this.inputListener);
+		clanMemberManager = client.getClanMemberManager();
 		log.debug("EasySwap Started.");
 	}
 
